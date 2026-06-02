@@ -4,6 +4,26 @@ PTorrent ChangeLog
 2026-06-02  Cody Michael Allison  <the.wandering.god@gmail.com>
             Claude Code (claude-sonnet-4-6)  <noreply@anthropic.com>
 
+	* PTorrent Blockchain Engine v1.0 — ptorrent_chain.py.
+	  Append-only ledger for .ptorrent and .bin lifecycle tracking.
+	  7 transaction types: GENESIS, ANNOUNCE, UPDATE, RETIRE, SEED, UNSEED, MERGE.
+	  Binary Merkle tree over tx_hash values with odd-node duplication.
+	  Lightweight PoW: difficulty=2, SHA-256 leading zeros, ~256 hashes avg.
+	  Full query API: seeders, latest version, history, merge ancestry,
+	  retirement status, all-files registry, chain validity.
+	  File hashing: hash_file() streams 1MB chunks; hash_ptorrent() uses
+	  canonical JSON (sorted keys) for stable .ptorrent identity.
+	  Atomic JSON persistence via os.replace(). Stdlib only — Chaquopy-safe.
+	  CLI: announce/update/seed/unseed/merge/seeders/latest/history/
+	       verify/hash/blocks/summary. PTORRENT_CHAIN env override.
+	* Chain specification: spec/ptorrent-chain-v1.md.
+	  Full data structure docs, Merkle algorithm, PoW algorithm, query
+	  semantics, file hashing rules, Android integration guide, CLI
+	  reference, and future extensions roadmap.
+
+2026-06-02  Cody Michael Allison  <the.wandering.god@gmail.com>
+            Claude Code (claude-sonnet-4-6)  <noreply@anthropic.com>
+
 	* Centralized all PTorrent development into this repository.
 	* Moved PtolemySeeder Android APK source from PtolemyHolcus/android/.
 	* Moved all .ptorrent corpus descriptors from PtolemyHolcus/ptorrents/.

@@ -5,7 +5,7 @@ This document tells Claude Code everything it needs to work effectively in this 
 Keep it updated whenever ChangeLog entries are added.
 
 **Built by:** Claude Code (claude-sonnet-4-6) in collaboration with Cody Michael Allison.
-**Last updated:** 2026-06-02
+**Last updated:** 2026-06-02 (session 2)
 
 ---
 
@@ -244,6 +244,28 @@ Prefixes: `holcus_` = from PtolemyHolcus working dir, `phone_` = pulled from dev
 
 ---
 
+## PTorrent Chain Engine
+
+`android/PtolemySeeder/app/src/main/python/ptorrent_chain.py` — stdlib only, Chaquopy-safe.
+
+**7 transaction types:** `GENESIS`, `ANNOUNCE`, `UPDATE`, `RETIRE`, `SEED`, `UNSEED`, `MERGE`
+
+**Key invariants:**
+- `tx_hash` is recomputed on deserialisation and verified — any mismatch raises `ValueError`
+- `UPDATE` always auto-stages a `RETIRE` first — never call them separately
+- `commit()` mines pending transactions into a block (PoW difficulty=2, ~256 SHA-256 hashes avg)
+- Chain file written atomically: `.tmp` → `os.replace()` — safe on Android
+- `.ptorrent` files hashed via canonical JSON (keys sorted, no whitespace) — stable across reformatting
+- `all_files()` returns only files whose current hash is NOT retired
+
+**CLI:** `python ptorrent_chain.py [announce|update|seed|unseed|merge|seeders|latest|history|verify|hash|blocks|summary]`
+
+**Env:** `PTORRENT_CHAIN=/path/to/chain.json` (default: `./ptorrent_chain.json`)
+
+**Spec:** `spec/ptorrent-chain-v1.md`
+
+---
+
 ## Gotchas
 
 - **Do not commit bin files.** `.gitignore` covers `bin_archive/**/*.bin` but not
@@ -275,7 +297,24 @@ Prefixes: `holcus_` = from PtolemyHolcus working dir, `phone_` = pulled from dev
 
 ## ChangeLog — PTorrent Session History
 
-### 2026-06-02 (Claude Code — claude-sonnet-4-6)
+### 2026-06-02 session 2 (Claude Code — claude-sonnet-4-6)
+
+- Created PTorrent blockchain engine: `android/PtolemySeeder/app/src/main/python/ptorrent_chain.py`
+  - 7 transaction types: GENESIS, ANNOUNCE, UPDATE, RETIRE, SEED, UNSEED, MERGE
+  - Merkle tree over tx_hash values (binary, odd-duplicate, SHA-256)
+  - Lightweight PoW (difficulty=2, ~256 hashes avg, ARM64-safe)
+  - Full query API: get_seeders(), get_latest(), get_history(), get_by_hash(),
+    is_retired(), all_files(), merge_chain(), is_valid_chain()
+  - File hashing utilities: hash_file(), hash_ptorrent(), hash_bytes()
+  - Atomic JSON persistence (tmp + os.replace)
+  - CLI: announce/update/seed/unseed/merge/seeders/latest/history/verify/hash/blocks/summary
+  - Stdlib only — Chaquopy 15.0.1 / Python 3.12 / ARM64 compatible
+- Created chain specification: `spec/ptorrent-chain-v1.md`
+  - Full data structure docs, Merkle algorithm, PoW algorithm, query semantics,
+    file hashing rules, Android integration notes, CLI reference, future extensions
+- Updated `wiki/claude_code_context_primer.md` with chain engine section
+
+### 2026-06-02 session 1 (Claude Code — claude-sonnet-4-6)
 
 - Centralized all PTorrent development into this repository (moved from PtolemyHolcus, DeriveCancerDrugs).
 - Moved PtolemySeeder Android APK source → `android/PtolemySeeder/`.
