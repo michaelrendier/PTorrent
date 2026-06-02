@@ -1,5 +1,8 @@
 # PTorrent
 
+> *Anyone who has ever had to both aggregate and then evaluate complex datasets...*
+> *This is my present to knowledge acquisition for You All.*
+
 **A corpus distribution protocol for on-device knowledge seeding.**  
 Inspired by BitTorrent. Built for Android. Licensed under GNU GPL v3.
 
