@@ -292,3 +292,63 @@ visit <https://www.gnu.org/licenses/>.
   <https://www.lmfdb.org/> — source of the `riemann_zeros.ptorrent` dataset.
 - Baker et al. (2000). *The Berkeley FrameNet Project.* — source of the
   `framenet.ptorrent` semantic frame dataset.
+
+---
+
+## What's Being Built
+
+### 1. Dataset Phonebook — Priority #1
+
+A dynamically-current, nearly exhaustive, interdisciplinary index of publicly
+available datasets — not the datasets themselves, but where they live, what
+format they use, whether an API exists, and whether bulk dumps are available.
+One `.ptorrent` file per dataset. Machine-readable. Community-maintained.
+Crawled and verified automatically. The dataset index that doesn't exist yet.
+
+The core premise: offloading dataset traversal to an LTE device frees your
+desktop to keep working. A phone or tablet running PTorrent crawls and evaluates
+datasets in the background at LTE speeds. The desktop never stalls. The Phonebook
+is the directory that makes this possible at scale.
+
+See `wiki/dataset_phonebook_seed_list.md` — 400+ manually catalogued datasets
+and standards across every discipline, as the seed corpus for automated generation.
+
+- Meta-crawlers for Kaggle, HuggingFace Hub, Zenodo, Figshare, data.gov, data.europa.eu, World Bank, OpenAlex, Papers With Code, OpenML, UCI
+- Specialty crawlers for LMFDB, UniProt, ENCODE, NASA Earthdata, SDSS, SPARC, PubChem, ChEMBL, arXiv, SEC EDGAR, USPTO, Project Gutenberg, Academic Torrents
+- Standards & specifications corpus: IETF RFCs, W3C, ECMA, Python PEPs, NIST, POSIX, Unicode, OpenAPI, OASIS, OGC, HL7 FHIR, DICOM, SAE, ASHRAE, Actuarial Standards of Practice (ASOP), and every major freely-available technical specification
+- Phonebook `.ptorrent` schema: `dataset_url`, `api{}`, `dumps[]`, `license`, `citation`, `domain_tags`, `size_records`, `last_verified`
+- Verification crawler: re-checks every entry on a schedule — API alive? Dump URL 200? Schema changed?
+- Phonebook browser: APK read-only mode — filter by tag, format, API/dump availability; one-tap to seed
+- Phonebook distribution: the phonebook seeds via PTorrent itself
+- Community PR workflow: lint-checked `.ptorrent` submissions
+
+### 2. Full BitTorrent Seeding of Corpus Bins and Datasets
+
+Once a device builds a checkpoint, it becomes a seed. Trained `.bin` files
+propagate peer-to-peer — no `adb pull` required. DHT peer discovery, tracker
+support in `.ptorrent` files, multi-peer bin download with β-weighted merge,
+seeder reputation, and full BitTorrent protocol compliance (piece hashing,
+choking, rarest-first). libtorrent via Chaquopy on ARM64.
+
+### 3. Corpus & Crawler
+
+ADS/NASA literature traversal, TAP/ADQL for VizieR/Gaia/SIMBAD, Fortran
+source discovery, psi2 language geometry, standards and specifications corpus
+(all freely available technical specs — RFCs, PEPs, W3C, NIST, ECMA, HL7, DICOM,
+SAE, ASOP, and more).
+
+### 4. Dataset Traversal
+
+Source adapter dispatch (REST/ZIP/stream/file_list), output in CSV/FITS/HDF5/Parquet,
+model hooks for Anthropic API, OpenAI-compatible endpoints, and MCP tool injection
+directly into a Claude Code session.
+
+### 5. APK Features
+
+MCP server (Ktor, JSON-RPC 2.0), cloud sync (Drive/Dropbox/OneDrive/iCloud/Samsung),
+SD card support, encrypted API credential storage, MTP inbox watcher, gradient
+progress bars.
+
+### 6. Platforms
+
+Desktop CLI runner, PTorrent daemon with socket API, iOS port evaluation.

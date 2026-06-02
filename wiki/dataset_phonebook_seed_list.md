@@ -584,4 +584,174 @@ This document is the human-readable source of truth before automation.
 
 ---
 
+## Standards, Specifications & Technical Definitions
+
+Publicly available standards documents, language specifications, protocol definitions,
+and industry codes. These are the canonical sources of technical vocabulary —
+the texts that define what words mean inside disciplines. All entries below are
+freely accessible (no paywall) unless noted. Paywalled standards are included
+where a free draft, working document, or official summary exists.
+
+| Document / Body | Description | Access | Dump / Bulk | Notes |
+|-----------------|-------------|--------|-------------|-------|
+| **IETF RFCs** | 9,000+ Requests for Comments — the definitive specifications for TCP/IP, HTTP, DNS, TLS, SMTP, IMAP, OAuth, QUIC, and every core internet protocol. | Public | Y | datatracker.ietf.org/doc/html/rfcNNNN. Plain text + HTML. Full mirror: rfc-editor.org/in-notes/tar. |
+| RFC 791 | Internet Protocol (IP) — foundational. | Public | Y | |
+| RFC 793 | Transmission Control Protocol (TCP). | Public | Y | |
+| RFC 2616 / 7230–7235 / 9110–9114 | HTTP/1.1 → HTTP/3 progression. | Public | Y | |
+| RFC 8446 | TLS 1.3 — Transport Layer Security. | Public | Y | |
+| RFC 6749 | OAuth 2.0 Authorization Framework. | Public | Y | |
+| RFC 7519 | JSON Web Token (JWT). | Public | Y | |
+| RFC 7252 | CoAP — Constrained Application Protocol (IoT). | Public | Y | |
+| RFC 5321 | SMTP — Simple Mail Transfer Protocol. | Public | Y | |
+| RFC 1034/1035 | DNS — Domain Name System. | Public | Y | |
+| RFC 4291 | IPv6 Addressing Architecture. | Public | Y | |
+| RFC 7946 | GeoJSON format specification. | Public | Y | |
+| RFC 8259 | JSON (The JavaScript Object Notation). | Public | Y | |
+| RFC 4122 | UUID specification. | Public | Y | |
+| **W3C Recommendations** | World Wide Web Consortium standards — HTML, CSS, XML, SVG, WebAssembly, SPARQL, RDF, OWL, and 500+ more. | Public | Y | w3.org/TR. Index downloadable. |
+| HTML Living Standard (WHATWG) | The authoritative HTML specification (supersedes W3C HTML5). | Public | Y | html.spec.whatwg.org. Single-page and multi-page versions. ~6MB HTML. |
+| CSS Specifications (W3C) | CSS Color, Flexbox, Grid, Selectors, Animations — 60+ modules. | Public | Y | w3.org/Style/CSS/specs.en.html. |
+| WebAssembly Core Spec | Binary instruction format for stack-based VM. | Public | Y | webassembly.github.io/spec. |
+| XML 1.0/1.1 | Extensible Markup Language — foundational W3C spec. | Public | Y | w3.org/TR/xml. |
+| SPARQL 1.1 | Query language for RDF data. | Public | Y | w3.org/TR/sparql11-query. |
+| RDF / OWL / SKOS | Semantic web data model and ontology language. | Public | Y | w3.org/TR/rdf-schema, w3.org/TR/owl2-overview. |
+| SVG 2.0 | Scalable Vector Graphics specification. | Public | Y | w3.org/TR/SVG2. |
+| WebRTC | Real-Time Communication in browsers. | Public | Y | w3.org/TR/webrtc. |
+| **ECMA Standards** | Ecma International — ECMAScript (JavaScript), JSON, C#, Dart, Office Open XML. | Public | Y | ecma-international.org/publications-and-standards/standards. |
+| ECMA-262 (ECMAScript 2024) | JavaScript language specification — 900+ pages. | Public | Y | tc39.es/ecma262. Living standard. |
+| ECMA-404 | The JSON Data Interchange Syntax. | Public | Y | |
+| ECMA-334 | C# Language Specification. | Public | Y | |
+| ECMA-376 | Office Open XML File Formats (OOXML — .docx, .xlsx, .pptx). | Public | Y | |
+| ECMA-408 | Dart Programming Language Specification. | Public | Y | |
+| **Python PEPs** | Python Enhancement Proposals — every language decision, syntax, standard library module, and governance rule for Python. PEP 8 (style), PEP 20 (Zen), PEP 484 (type hints), PEP 572 (walrus), PEP 3000 (Py3). | Public | Y | peps.python.org. GitHub mirror: github.com/python/peps. 700+ documents. |
+| PEP 8 | Style Guide for Python Code. | Public | Y | |
+| PEP 20 | The Zen of Python. | Public | Y | |
+| PEP 257 | Docstring Conventions. | Public | Y | |
+| PEP 484 | Type Hints. | Public | Y | |
+| PEP 517/518 | Build System Interface (pyproject.toml). | Public | Y | |
+| PEP 668 | Externally Managed Python Environments. | Public | Y | |
+| Python Language Reference | Complete language grammar and semantics. | Public | Y | docs.python.org/3/reference. |
+| Python Data Model | Object model, dunder methods, descriptors. | Public | Y | docs.python.org/3/reference/datamodel.html. |
+| **NIST Publications** | National Institute of Standards and Technology — cybersecurity, cryptography, metrology, AI standards. | Public | Y | nvlpubs.nist.gov. Bulk via CSRC. |
+| FIPS 140-3 | Cryptographic Module Standards. | Public | Y | |
+| FIPS 197 | Advanced Encryption Standard (AES). | Public | Y | |
+| FIPS 186-5 | Digital Signature Standard (DSS). | Public | Y | |
+| SP 800-53 Rev 5 | Security and Privacy Controls for Federal Systems. | Public | Y | |
+| SP 800-63-3 | Digital Identity Guidelines. | Public | Y | |
+| SP 800-207 | Zero Trust Architecture. | Public | Y | |
+| AI 100-1 | Artificial Intelligence Risk Management Framework. | Public | Y | |
+| NIST DLMF | Digital Library of Mathematical Functions — 36 chapters, 10,000+ formulas. | Public | Y | dlmf.nist.gov. Full download available. **Authoritative mathematical reference.** |
+| **OpenGroup / POSIX** | Single UNIX Specification (SUS) / POSIX 2017 — system calls, shell, utilities, C library interface. | Partial | Partial | pubs.opengroup.org/onlinepubs/9699919799. Free HTML. PDF requires membership. |
+| POSIX.1-2017 | Base Specifications — 4 volumes: Base Definitions, System Interfaces, Shell & Utilities, Rationale. | Partial | N | pubs.opengroup.org. HTML free, download paywalled. |
+| **ISO/IEC Freely Available Standards** | ISO makes a subset publicly available. | Partial | Partial | standards.iso.org/ittf/PubliclyAvailableStandards. 400+ documents. |
+| ISO/IEC 9899:2018 (C17) | C Programming Language Standard. Final draft (N2176) public. | Draft public | Y | open-std.org/jtc1/sc22/wg14. |
+| ISO/IEC 14882 (C++) | C++ Standard. Working drafts public. | Draft public | Y | open-std.org/jtc1/sc22/wg21. |
+| ISO 8601 | Date and Time Format. | Paywalled | N | Summary widely republished. |
+| ISO/IEC 27001:2022 | Information Security Management. | Paywalled | N | |
+| ISO 9001:2015 | Quality Management Systems. | Paywalled | N | |
+| ISO/IEC 25010 | Software Quality Model (SQuaRE). | Paywalled | N | |
+| **Unicode Consortium** | Unicode Standard — character encoding, normalization, bidirectional text, regular expressions, locale data (CLDR). | Public | Y | unicode.org/versions/latest. ~1,900 pages PDF + data files. |
+| Unicode 15.1 | Full standard PDF + character database. | Public | Y | unicode.org/versions/Unicode15.1.0. |
+| CLDR | Common Locale Data Repository — locale names, formats, plurals, 200+ languages. | Public | Y | cldr.unicode.org/index/downloads. |
+| Unicode Regular Expressions | TS#18 — Unicode regex spec. | Public | Y | |
+| **IEEE Open Access** | IEEE Standards that are freely available. Many are paywalled; the open subset is meaningful. | Partial | Partial | standards.ieee.org/ieee/. |
+| IEEE 754-2019 | Floating-Point Arithmetic — foundational for all numerical computing. | Paywalled | N | Draft and errata partially public. Widely republished. |
+| IEEE 802.3 (Ethernet) | LAN/MAN CSMA/CD — partially public. | Partial | N | |
+| IEEE 802.11 (Wi-Fi) | Wireless LAN — partially public. | Partial | N | |
+| IEEE 1003.1 (POSIX) | Shared with OpenGroup above. | Partial | N | |
+| IEEE 2030.5 | Smart Grid — energy management protocol. | Partial | N | |
+| IEEE 11073 | Health Informatics device communication. | Partial | N | |
+| **ASHRAE** | American Society of Heating, Refrigerating and Air-Conditioning Engineers. Standards for building energy, HVAC, ventilation, refrigerants. | Partial | N | ashrae.org/technical-resources/standards-and-guidelines. Summaries public; full text subscription. |
+| ASHRAE 90.1 | Energy Standard for Buildings (widely adopted as building code). | Partial | N | Free read-only online access available. |
+| ASHRAE 62.1 | Ventilation for Acceptable Indoor Air Quality. | Partial | N | |
+| ASHRAE 55 | Thermal Environmental Conditions for Human Occupancy. | Partial | N | |
+| **ASTM International** | Materials testing, metals, construction, petroleum, environmental. 13,000+ standards. Mostly paywalled. | Paywalled | N | astm.org. Some historical standards partially accessible. |
+| ASTM E11 | Wire Cloth and Sieves for Testing Purposes. | Paywalled | N | Representative of dimensional/materials standards. |
+| ASTM A36 | Structural Steel specification. | Paywalled | N | |
+| **ASME** | American Society of Mechanical Engineers — Boiler and Pressure Vessel Code (BPVC), Y14 drafting, B16 piping. Primarily paywalled. | Paywalled | N | asme.org/codes-standards. |
+| ASME Y14.5-2018 | Geometric Dimensioning and Tolerancing (GD&T). | Paywalled | N | Industry-universal engineering drawing standard. |
+| ASME B31.3 | Process Piping Code. | Paywalled | N | |
+| **ASCE** | American Society of Civil Engineers — structural loads, seismic, wind. | Paywalled | N | ascelibrary.org. |
+| ASCE 7-22 | Minimum Design Loads for Buildings. | Paywalled | N | Referenced by building codes worldwide. |
+| **Actuarial Standards of Practice (ASOP)** | American Academy of Actuaries / Actuarial Standards Board — all public. Defines practice standards for insurance, pensions, risk. | Public | Y | actuarialstandardsboard.org/standards-of-practice. All 56 ASOPs downloadable free. |
+| ASOP No. 25 | Credibility Procedures. | Public | Y | |
+| ASOP No. 41 | Actuarial Communications. | Public | Y | |
+| ASOP No. 56 | Modeling (AI/ML risk framework). | Public | Y | Relevant to ML model governance. |
+| **SAE International** | Society of Automotive Engineers — vehicle, aerospace, commercial vehicle standards. | Partial | N | sae.org. Many paywalled; some open. |
+| SAE J1979 / ISO 15031 | OBD-II Diagnostic Communication standard. | Partial | N | Defines all OBD-II PIDs and protocol. |
+| SAE J1772 | EV Charging Connector (Level 1/2). | Partial | N | |
+| SAE J3016 | Levels of Driving Automation (0–5). | Public summary | N | Widely cited. Full text paywalled but summary canonical. |
+| SAE AS9100 | Aerospace Quality Management Systems. | Paywalled | N | |
+| **OpenAPI / REST Standards** | API description standards and HTTP conventions. | Public | Y | |
+| OpenAPI Specification 3.1 | REST API description format (formerly Swagger). | Public | Y | spec.openapis.org/oas/latest. |
+| JSON Schema Draft 2020-12 | JSON validation and annotation specification. | Public | Y | json-schema.org/specification. |
+| AsyncAPI 3.0 | Event-driven API specification. | Public | Y | asyncapi.com/docs/reference/specification/latest. |
+| GraphQL Specification | June 2018 edition. | Public | Y | spec.graphql.org. |
+| gRPC / Protocol Buffers | Google binary serialization + RPC. | Public | Y | protobuf.dev, grpc.io/docs. |
+| **OASIS Standards** | Organization for the Advancement of Structured Information Standards. | Public | Y | docs.oasis-open.org. |
+| MQTT 5.0 | IoT messaging protocol. | Public | Y | docs.oasis-open.org/mqtt/mqtt/v5.0. |
+| AMQP 1.0 | Advanced Message Queuing Protocol. | Public | Y | docs.oasis-open.org/amqp. |
+| SAML 2.0 | Security Assertion Markup Language — federated identity. | Public | Y | docs.oasis-open.org/security/saml. |
+| ODF 1.3 | OpenDocument Format (LibreOffice native format). | Public | Y | docs.oasis-open.org/office/OpenDocument. |
+| XLIFF 2.1 | XML Localisation Interchange File Format. | Public | Y | |
+| TOSCA 2.0 | Topology and Orchestration Spec for Cloud Applications. | Public | Y | |
+| **OGC — Open Geospatial Consortium** | Geospatial standards — WMS, WFS, WCS, GeoPackage, CityGML. | Public | Y | ogc.org/standards. |
+| OGC WMS 1.3 | Web Map Service. | Public | Y | |
+| OGC WFS 2.0 | Web Feature Service. | Public | Y | |
+| OGC GeoPackage 1.3 | SQLite-based geospatial format. | Public | Y | |
+| OGC CityGML 3.0 | 3D city model standard. | Public | Y | |
+| **HL7 / Healthcare** | Health Level Seven — clinical data exchange. | Public | Y | |
+| HL7 FHIR R4/R5 | Fast Healthcare Interoperability Resources — fully public, REST-based. | Public | Y | hl7.org/fhir. Full spec + JSON schemas downloadable. |
+| HL7 v2.x | Legacy messaging format — still dominant in hospitals. | Public | Y | hl7.org/implement/standards/product_brief.cfm. |
+| DICOM 2024b | Digital Imaging and Communications in Medicine — 20-part standard for medical image exchange. | Public | Y | dicomstandard.org/current. Full PDF freely downloadable. |
+| ICD-11 | International Classification of Diseases (WHO). | Public | Y | icd.who.int. API + downloadable. |
+| SNOMED CT | Clinical terminology — 350K concepts. | Public (via NLM) | Y | uts.nlm.nih.gov. UMLS license (free). |
+| **USB / Hardware Interface Standards** | | | | |
+| USB 4 Gen 3 Specification | 40Gbps USB — publicly available via USB-IF. | Public | Y | usb.org/documents. Registration required but free. |
+| USB Power Delivery 3.1 | PD spec — fast charging protocol. | Public | Y | usb.org/documents. |
+| Bluetooth Core 5.4 | Full Bluetooth protocol specification. | Public (registration) | Y | bluetooth.com/specifications/specs. |
+| **Language Specifications** | | | | |
+| Go Language Specification | Complete formal grammar and semantics. | Public | Y | go.dev/ref/spec. |
+| Rust Reference | Unofficial but de facto spec + Rustonomicon. | Public | Y | doc.rust-lang.org/reference. |
+| Java Language Specification (JLS 21) | Complete Java language + JVM spec. | Public | Y | docs.oracle.com/javase/specs. |
+| Swift Language Reference | Apple's Swift formal reference. | Public | Y | docs.swift.org/swift-book. |
+| Kotlin Language Specification | JetBrains formal spec. | Public | Y | kotlinlang.org/spec. |
+| Ruby Specification (ISO/IEC 30170) | | Paywalled | N | Draft at ruby-spec.org partially available. |
+| Lua 5.4 Reference Manual | Complete spec for Lua language. | Public | Y | lua.org/manual/5.4. |
+| R Language Definition | CRAN formal definition. | Public | Y | cran.r-project.org/doc/manuals/R-lang.html. |
+| Fortran 2023 Standard | Draft public via WG5. | Draft public | Y | wg5-fortran.org/documents.html. |
+| SQL:2023 (ISO/IEC 9075) | Core SQL standard. | Paywalled | N | Working drafts partially at sigmodrecord.org. |
+| **Container / Cloud Standards** | | | | |
+| OCI Image Spec | Open Container Initiative — container image format. | Public | Y | opencontainers.org/posts/announcements. GitHub. |
+| OCI Runtime Spec | Container runtime interface. | Public | Y | |
+| Kubernetes API Spec | Full OpenAPI schema for all Kubernetes objects. | Public | Y | kubernetes.io/docs/reference/kubernetes-api. |
+| Dockerfile / Compose Spec | Docker image and Compose file formats. | Public | Y | compose-spec.io. |
+| **Financial / Trading Standards** | | | | |
+| FIX Protocol 5.0 SP2 | Financial Information eXchange — electronic trading messages. | Public | Y | fixtrading.org/standards/fix-5-0-sp-2. |
+| ISO 20022 | Universal financial messaging standard (MX — replacing SWIFT MT). | Public | Y | iso20022.org/catalogue-messages. |
+| FpML 5.12 | Financial products Markup Language — OTC derivatives. | Public | Y | fpml.org/spec/fpml-5-12-4-rec-1. |
+| SWIFT MT Messages | Legacy financial messaging (MT 103, 202, etc.). | Partial | N | swift.com. Full spec members-only; summaries public. |
+| **Automotive / Embedded** | | | | |
+| AUTOSAR Classic Platform | Automotive software architecture — partial open access. | Partial | Partial | autosar.org/standards. Foundation layer specs public. |
+| CAN Specification 2.0 (Bosch) | Original CAN bus spec — freely downloadable PDF. | Public | Y | bosch-semiconductors.com/ip-modules/can-ip-modules/can-protocol. |
+| OBD-II PID List | All standard OBD-II PIDs — Wikipedia article canonical + SAE J1979 source. | Public (partial) | Y | Wikipedia OBD-II PIDs page; full spec via SAE. |
+| NMEA 0183 v4.11 | GPS/Marine sentence format — latitude, longitude, AIS, AIS target. | Partial | N | nmea.org. Partial descriptions widely republished. |
+| **Scientific / Mathematical** | | | | |
+| NIST DLMF | Digital Library of Mathematical Functions — Bessel, Legendre, Riemann zeta, hypergeometric, elliptic, 10,000+ formulas. | Public | Y | dlmf.nist.gov. Full download at dlmf.nist.gov/about/notices#I. |
+| Wolfram MathWorld | Mathematical encyclopedia — 13,000+ entries. | Public | N | mathworld.wolfram.com. No bulk download. |
+| Digital Object Identifier (DOI) Handbook | CrossRef/IDF spec for persistent identifiers. | Public | Y | doi.org/hb.html. |
+| Dublin Core Metadata | 15-element metadata vocabulary. | Public | Y | dublincore.org/specifications/dublin-core. |
+| BibTeX / BibLaTeX spec | Reference format for LaTeX bibliography. | Public | Y | ctan.org/pkg/bibtex. |
+| **Accessibility** | | | | |
+| WCAG 2.2 | Web Content Accessibility Guidelines — A/AA/AAA criteria. | Public | Y | w3.org/TR/WCAG22. Referenced in law worldwide. |
+| ARIA 1.2 | Accessible Rich Internet Applications specification. | Public | Y | w3.org/TR/wai-aria-1.2. |
+| **Privacy / Legal Standards** | | | | |
+| GDPR Full Text | General Data Protection Regulation (EU 2016/679). | Public | Y | eur-lex.europa.eu/eli/reg/2016/679/oj. |
+| CCPA / CPRA Text | California Consumer Privacy Act + amendments. | Public | Y | oag.ca.gov/privacy/ccpa. |
+| HIPAA Security Rule | Health data protection requirements (HHS). | Public | Y | hhs.gov/hipaa/for-professionals/security. |
+| SOC 2 Framework | AICPA Trust Services Criteria. | Partial | N | aicpa-cima.com. Summary public; full paywalled. |
+| PCI DSS 4.0 | Payment Card Industry Data Security Standard. | Public | Y | pcisecuritystandards.org/document_library. |
+
+---
+
 *List status: manually compiled 2026-06-02. Verification, dump sizes, and robots.txt status to be added during automated phonebook generation. Entries without confirmed dump URLs should be crawl-verified before phonebook .ptorrent generation.*
