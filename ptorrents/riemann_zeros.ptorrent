@@ -1,0 +1,46 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "dataset",
+  "name": "Riemann Zeros — Sedenion Scan",
+  "requires_bin": "monad_mathematics.bin",
+  "ua": "ptolemy",
+
+  "source": {
+    "mode": "rest",
+    "endpoint": "https://www.lmfdb.org/api/zeros/zeta/",
+    "params": { "limit": 500, "format": "json" },
+    "fallback": {
+      "mode": "stream",
+      "url": "https://www.dtc.umn.edu/~odlyzko/zeta_tables/zeros1",
+      "format": "plain_floats",
+      "max_rows": 100000
+    },
+    "pagination": true,
+    "total_known": 100000
+  },
+
+  "test": "mindeye_sedenion_scan",
+  "test_params": {
+    "field_map": [
+      "t_norm",
+      "gap_to_prev",
+      "gap_to_next",
+      "zero_index_norm",
+      "log_t",
+      "gap_ratio",
+      null,
+      null
+    ],
+    "measure": ["callosum", "bao", "sigma_dev", "active_dims", "seed_words"]
+  },
+
+  "description": "Scans the first 100,000 non-trivial Riemann zeros (all at σ=½, imaginary parts t_n) through the sedenion Mind's Eye. Measures which sedenion dimensions activate at each zero. Compares engine prime-hash E-values against actual zero positions. This is the direct validation experiment for SMMIP: do the field's geometric attractors (E-values) align with the actual Riemann zero distribution? Output maps each zero index n to its sedenion signature.",
+
+  "output": "riemann_zeros_sedenion_scan.json",
+  "output_format": "json",
+  "output_top_n": 100000,
+  "checkpoint_every": 1000,
+
+  "color": "cyan",
+  "model_hook": null
+}

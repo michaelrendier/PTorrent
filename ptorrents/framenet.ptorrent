@@ -1,0 +1,53 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "dataset",
+  "name": "Berkeley FrameNet 1.7 — Semantic Frames",
+  "requires_bin": "monad_meaning.bin",
+  "ua": "ptolemy",
+  "source": {
+    "mode": "rest",
+    "endpoint": "https://framenet2.icsi.berkeley.edu/fnReports/data/frameIndex.xml",
+    "format": "xml",
+    "fallback": {
+      "mode": "nltk",
+      "package": "framenet_v17",
+      "loader": "nltk.corpus.framenet",
+      "format": "framenet_objects"
+    },
+    "pagination": false,
+    "total_known": 1221
+  },
+  "test": "mindeye_frame_scan",
+  "test_params": {
+    "field_map": [
+      "frame_id_norm",
+      "lexunit_count_norm",
+      "fe_count_norm",
+      "relation_count_norm",
+      "depth_norm",
+      "polysemy_norm",
+      null,
+      null
+    ],
+    "measure": [
+      "callosum",
+      "bao",
+      "sigma_dev",
+      "active_dims",
+      "seed_words"
+    ]
+  },
+  "primary_tags": [
+    "SEMANTICS",
+    "FRAMES",
+    "MEANING",
+    "LEXICAL",
+    "ROLES",
+    "SITUATIONS",
+    "EVENTS"
+  ],
+  "primary_weight": 2.0,
+  "context_weight": 1.2,
+  "color": "teal",
+  "description": "Berkeley FrameNet 1.7: 1,221 semantic frames covering situations, events, and relations, with 13,640 lexical units and 170,000+ annotated sentences. Frames are the conceptual structures (J^mu currents) that bind meaning onto the sedenion manifold. Each frame is a Noether-conserved event-type: FrameNet is the closest publicly available approximation to the Ainulindale TDI frame-layer. Smallest complete semantic-frame corpus in existence — sits between monad_meaning and monad_wordnet in the dimensional stack."
+}

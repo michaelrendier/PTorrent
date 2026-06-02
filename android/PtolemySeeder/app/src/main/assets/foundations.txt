@@ -1,0 +1,711 @@
+# HOLCUS PRIME DIRECTIVE I — FOUNDATIONS
+# The complete scientific lineage of the equation.
+# Every person whose work is traceable in the SMMIP system.
+# study() weight 2.0 = primary work / testimony of discovery
+# study() weight 1.0 = context / biography / application
+#
+# TAG SCHEMA:
+# [PRIMARY]     — the original work that enters the equation
+# [BIOGRAPHY]   — the person, their context, their life
+# [APPLICATION] — how this work appears specifically in Holcus
+# [CONTEXT]     — historical setting that made the work possible
+#
+# ═══════════════════════════════════════════════════════════════════
+# THE FACES OF PTOLEMY — THE ALEXANDRIAN FOUNDATION
+# ═══════════════════════════════════════════════════════════════════
+#
+# The Monad IS Ptolemy. Named for Ptolemy II Philadelphos.
+# The Faces are projections of H_RB at different σ:
+#
+#   Ptolemy I Soter    σ = 0      ground state — the origin
+#   Philadelphos       σ = 1/2    the Monad — Septuagint engine
+#   Callimachus        σ = 1/2    β-field storage — the Pinakes
+#   Pharos             σ = 1/2    output — J^μ visible
+#   Lich               σ → ∞      Fermat forbidden zone
+#
+# THE KNOWLEDGE QUARANTINE — How the Library populated itself:
+#
+#   Every ship arriving at Alexandria was searched.
+#   All books were confiscated. Scribes copied them.
+#   The copy was returned to the ship. The original kept.
+#   This happened under Ptolemy I, II, and III.
+#   When the Library was damaged, the quarantine originals rebuilt it.
+#
+#   TeachingThread is the Knowledge Quarantine.
+#   Everything that passes through the field leaves its original in the bin.
+#   The bin outlasts the session. The session outlasts the connection.
+#   The knowledge is never lost — only the copy goes back to the ship.
+#
+# ═══════════════════════════════════════════════════════════════════
+
+
+# ═══════════════════════════════════════════════════════════════════
+# ERA: ALEXANDRIA (300 BCE — 415 CE)
+# The Library. The Quarantine. The Faces.
+# ═══════════════════════════════════════════════════════════════════
+
+# ── Ptolemy I Soter (367–283 BCE) — σ = 0 — THE ORIGIN ────────────
+# General under Alexander. Witnessed Hephaestion's death.
+# Chose the Library over conquest. Custodianship from witness.
+# Founded the Mouseion and the first Library of Alexandria.
+# The Knowledge Quarantine begins here.
+[BIOGRAPHY]   https://www.worldhistory.org/Ptolemy_I/
+[CONTEXT]     https://www.britannica.com/biography/Ptolemy-I
+[PRIMARY]     https://www.worldhistory.org/Library_of_Alexandria/
+[APPLICATION] https://www.livescience.com/alexandrian-library-history.html
+# Soter in the field: the ground state before any corpus lands.
+# σ = 0 means no Noether current yet — pure potential.
+
+# ── Ptolemy II Philadelphos (309–246 BCE) — σ = 1/2 — THE MONAD ──
+# Expanded the Library to 700,000 scrolls.
+# Commissioned the Septuagint — translation of Hebrew scripture
+# into Greek — the first large-scale cross-language equivalence map.
+# This IS what forced_sigma() does: maps meaning across symbol systems
+# to σ = 1/2, the lossless operating point.
+[BIOGRAPHY]   https://www.worldhistory.org/Ptolemy_II/
+[PRIMARY]     https://www.britannica.com/topic/Septuagint
+[APPLICATION] https://www.jstor.org/stable/3266041
+[CONTEXT]     https://penelope.uchicago.edu/Thayer/E/Roman/Texts/secondary/SMIGRA*/Bibliotheca.html
+# Philadelphos in the field: forced_sigma() converging at σ = 1/2.
+
+# ── Callimachus of Cyrene (~310–240 BCE) — THE PINAKES ────────────
+# Chief librarian. Created the Pinakes — first library catalogue in history.
+# 120 volumes. Every scroll: author, title, opening words, length, provenance.
+# The Pinakes IS the β-field. Every word indexed, attributed, cross-referenced.
+# Holcus's vocabulary table is Callimachus's Pinakes expressed as floating point.
+[BIOGRAPHY]   https://www.worldhistory.org/Callimachus/
+[PRIMARY]     https://www.britannica.com/biography/Callimachus-Greek-poet
+[APPLICATION] https://penelope.uchicago.edu/Thayer/E/Roman/Texts/secondary/SMIGRA*/Bibliotheca.html
+[CONTEXT]     https://www.jstor.org/stable/3291832
+# Callimachus in the field: β-vector is the Pinakes. One float per word.
+
+# ── Euclid of Alexandria (fl. 300 BCE) ────────────────────────────
+# Elements — 13 books. The foundation of mathematical proof.
+# Book IX, Proposition 20: there are infinitely many primes.
+# This proof is structurally present in every prime address the field assigns.
+[PRIMARY]     https://www.gutenberg.org/ebooks/21076
+[BIOGRAPHY]   https://www.worldhistory.org/Euclid/
+[APPLICATION] https://mathworld.wolfram.com/PrimeNumberTheorem.html
+[CONTEXT]     https://www.britannica.com/biography/Euclid-Greek-mathematician
+
+# ── Eratosthenes of Cyrene (~276–195 BCE) ─────────────────────────
+# The Sieve of Eratosthenes — first algorithm for finding primes.
+# Also: measured the circumference of the Earth to within 2%.
+# Chief librarian after Callimachus. The Sieve is in _next_prime().
+[PRIMARY]     https://www.worldhistory.org/Eratosthenes/
+[BIOGRAPHY]   https://www.britannica.com/biography/Eratosthenes
+[APPLICATION] https://mathworld.wolfram.com/SieveofEratosthenes.html
+[CONTEXT]     https://www.jstor.org/stable/228465
+# Eratosthenes in the field: _next_prime(v) walks the sieve.
+
+# ── Aristarchus of Samos (~310–230 BCE) ───────────────────────────
+# First heliocentric model. Measured the distance to the Sun and Moon.
+# Method: ratios of observation angles. The same ratio logic lives in
+# snap() — finding which Riemann zero ratio a word's hash falls nearest to.
+[BIOGRAPHY]   https://www.worldhistory.org/Aristarchus_of_Samos/
+[PRIMARY]     https://www.gutenberg.org/ebooks/12648
+[CONTEXT]     https://www.britannica.com/biography/Aristarchus-of-Samos
+
+# ── Archimedes (~287–212 BCE) ─────────────────────────────────────
+# Method of exhaustion — limits before calculus.
+# π computation by polygon approximation.
+# The spiral — Archimedean spiral appears in the field's golden-walk.
+[PRIMARY]     https://www.gutenberg.org/ebooks/7268
+[BIOGRAPHY]   https://www.worldhistory.org/Archimedes/
+[APPLICATION] https://mathworld.wolfram.com/ArchimedesSpiral.html
+
+# ── Apollonius of Perga (~240–190 BCE) ────────────────────────────
+# Conics. The mathematical description of curved paths.
+# In the field: the Riemann zero trajectories are conical sections
+# of the critical strip. Apollonius described the geometry of the lens
+# through which σ = 1/2 is the focal line.
+[BIOGRAPHY]   https://www.worldhistory.org/Apollonius_of_Perga/
+[PRIMARY]     https://www.britannica.com/biography/Apollonius-of-Perga
+
+# ── Hero of Alexandria (~10–70 CE) ────────────────────────────────
+# Mechanics. Automata. The aeolipile — first steam-powered device.
+# The recursive engine: input → transform → output.
+# This is the Engine._fire() loop. Every generation cycle is aeolipile.
+[BIOGRAPHY]   https://www.worldhistory.org/Hero_of_Alexandria/
+[PRIMARY]     https://www.gutenberg.org/ebooks/29884
+[CONTEXT]     https://www.britannica.com/biography/Hero-of-Alexandria
+
+# ── Diophantus of Alexandria (~207–291 CE) ────────────────────────
+# Arithmetica — the first systematic algebra of integers.
+# Fermat's Last Theorem was written in the margin of Arithmetica.
+# xⁿ + yⁿ = zⁿ has no integer solutions for n > 2.
+# fermat_scan() in monad.py carries his name directly.
+# The Fermat Pointer IS Diophantus's margin note, geometrized.
+[PRIMARY]     https://www.gutenberg.org/ebooks/17084
+[BIOGRAPHY]   https://www.worldhistory.org/Diophantus/
+[APPLICATION] https://mathworld.wolfram.com/FermatsLastTheorem.html
+
+# ── Claudius Ptolemy (~100–170 CE) ────────────────────────────────
+# Almagest — mathematical astronomy. Trigonometry systematized.
+# Geography — coordinate systems, latitude and longitude.
+# The coordinate system for the sedenion field is Ptolemy's grid
+# extended to 16 dimensions with complex coordinates at each point.
+[PRIMARY]     https://www.gutenberg.org/ebooks/48069
+[BIOGRAPHY]   https://www.worldhistory.org/Ptolemy/
+[APPLICATION] https://www.britannica.com/topic/Almagest
+
+# ── Hypatia of Alexandria (~360–415 CE) ───────────────────────────
+# Last great Alexandrian. Mathematician, astronomer, philosopher.
+# Commentaries on Diophantus and Apollonius — she extended both.
+# Murdered by a Christian mob in 415 CE. The Library's last guardian.
+# The Knowledge Quarantine ends with her. The Dark Age begins.
+# She is in the field because the field does not forget what was lost.
+[BIOGRAPHY]   https://www.worldhistory.org/Hypatia/
+[PRIMARY]     https://www.britannica.com/biography/Hypatia
+[CONTEXT]     https://www.jstor.org/stable/4135861
+[CONTEXT]     https://www.jstor.org/stable/269503
+
+
+# ═══════════════════════════════════════════════════════════════════
+# ERA: THE ISLAMIC GOLDEN AGE BRIDGE (750–1250 CE)
+# The Library's knowledge preserved and extended through the dark.
+# ═══════════════════════════════════════════════════════════════════
+
+# ── Al-Khwarizmi (~780–850 CE) ────────────────────────────────────
+# Al-jabr — algebra. The word "algorithm" derives from his name.
+# His systematic manipulation of equations is the foundation of
+# every symbolic operation in monad.py. The field IS al-jabr.
+[PRIMARY]     https://www.gutenberg.org/ebooks/39910
+[BIOGRAPHY]   https://www.worldhistory.org/Al-Khwarizmi/
+[APPLICATION] https://mathworld.wolfram.com/Algebra.html
+[CONTEXT]     https://www.britannica.com/biography/al-Khwarizmi
+
+# ── Al-Kindi (~801–873 CE) ────────────────────────────────────────
+# First systematic cryptanalyst. Manuscript on Deciphering Cryptographic Messages.
+# Invented frequency analysis — counting letter frequencies to break codes.
+# This IS the Zipf distribution applied to security.
+# The cepstrum gate in github.py and search.py is Al-Kindi's frequency analysis.
+[BIOGRAPHY]   https://www.worldhistory.org/Al-Kindi/
+[PRIMARY]     https://www.britannica.com/biography/al-Kindi
+[APPLICATION] https://mathworld.wolfram.com/FrequencyAnalysis.html
+
+# ── Ibn al-Haytham (Alhazen, ~965–1040 CE) ────────────────────────
+# Book of Optics — the scientific method.
+# Hypothesis → experiment → verification.
+# Every test in tests/sedenion_bridge.py is Ibn al-Haytham's method.
+# He also proved: the field must be empirically verified, not assumed.
+[PRIMARY]     https://www.worldhistory.org/Ibn_al-Haytham/
+[BIOGRAPHY]   https://www.britannica.com/biography/Ibn-al-Haytham
+[APPLICATION] https://www.jstor.org/stable/27757473
+
+# ── Omar Khayyam (~1048–1131 CE) ──────────────────────────────────
+# Cubic equation solutions. Binomial theorem for integer exponents.
+# First to identify the connection between algebra and geometry —
+# that equations are geometric objects. The sedenion IS that insight
+# extended to 16 dimensions.
+[BIOGRAPHY]   https://www.worldhistory.org/Omar_Khayyam/
+[PRIMARY]     https://www.britannica.com/biography/Omar-Khayyam
+[CONTEXT]     https://mathworld.wolfram.com/CubicEquation.html
+
+# ── Nasir al-Din al-Tusi (~1201–1274 CE) ──────────────────────────
+# Preserved Greek and Islamic mathematical knowledge through the
+# Mongol period. Built the Maragha Observatory. Tusi couple —
+# linear motion from circular motion. During the sack of Baghdad
+# (1258 CE) he negotiated with Hulagu Khan to save his library.
+# He did what Ptolemy I did: preserved through catastrophe.
+[BIOGRAPHY]   https://www.worldhistory.org/Nasir_al-Din_al-Tusi/
+[PRIMARY]     https://www.britannica.com/biography/Nasir-al-Din-al-Tusi
+[CONTEXT]     https://www.jstor.org/stable/226861
+
+
+# ═══════════════════════════════════════════════════════════════════
+# ERA: THE MATHEMATICAL FOUNDATIONS (1200–1900)
+# From Fibonacci's golden ratio to Noether's conservation theorem.
+# ═══════════════════════════════════════════════════════════════════
+
+# ── Fibonacci / Leonardo of Pisa (~1170–1250) ─────────────────────
+# Liber Abaci (1202) — introduced Hindu-Arabic numerals to Europe.
+# The Fibonacci sequence: each term = sum of two preceding.
+# φ = (1 + √5)/2 — the golden ratio — emerges from the limit.
+# fold_to_unit() in monad.py uses φ to map integer hashes to [0,1].
+# The golden walk in generation uses φ-spaced steps.
+# Fibonacci IS the bridge between integers and the continuum in the field.
+[PRIMARY]     https://www.gutenberg.org/ebooks/7338
+[BIOGRAPHY]   https://www.worldhistory.org/Fibonacci/
+[APPLICATION] https://mathworld.wolfram.com/GoldenRatio.html
+[CONTEXT]     https://www.britannica.com/biography/Leonardo-Pisano
+
+# ── Pierre de Fermat (1601–1665) ──────────────────────────────────
+# Fermat's Last Theorem — margin note in Diophantus, 1637.
+# Fermat's Little Theorem — foundation of modular arithmetic.
+# The Fermat scan in monad.py: fermat_scan() finds the "last scattering
+# surface" — the boundary where prime address and field position diverge.
+# The Fermat Pointer IS the last scattering surface.
+# The Fermat Lattice (monad_war.bin) carries his name: what cannot be
+# reached in integer powers — the geometry of impossibility.
+[PRIMARY]     https://www.britannica.com/biography/Pierre-de-Fermat
+[BIOGRAPHY]   https://mathworld.wolfram.com/FermatsLastTheorem.html
+[APPLICATION] https://mathworld.wolfram.com/FermatsLittleTheorem.html
+[CONTEXT]     https://www.jstor.org/stable/2974678
+
+# ── Blaise Pascal (1623–1662) ─────────────────────────────────────
+# Pascal's triangle — binomial coefficients.
+# Probability theory (with Fermat) — the field's noise model is Pascalian.
+# The combinatorial structure of sedenion multiplication tables
+# reflects Pascal's triangle at the octonion → sedenion doubling step.
+[PRIMARY]     https://www.gutenberg.org/ebooks/18269
+[BIOGRAPHY]   https://www.worldhistory.org/Pascal/
+[CONTEXT]     https://www.britannica.com/biography/Blaise-Pascal
+
+# ── Isaac Newton (1643–1727) ──────────────────────────────────────
+# Principia Mathematica (1687) — laws of motion, gravity.
+# Calculus (fluxions) — the derivative is the engine of change.
+# Newton's prime counting approximation: π(x) ≈ x/ln(x).
+# Every J^μ current in the field changes by derivatives — Newton's calculus.
+[PRIMARY]     https://www.gutenberg.org/ebooks/28233
+[BIOGRAPHY]   https://www.worldhistory.org/Isaac_Newton/
+[APPLICATION] https://mathworld.wolfram.com/PrimeCountingFunction.html
+[CONTEXT]     https://www.britannica.com/biography/Isaac-Newton
+
+# ── Gottfried Wilhelm Leibniz (1646–1716) ─────────────────────────
+# Calculus (simultaneously with Newton, independently).
+# Binary number system — the foundation of all computation.
+# The Leibniz notation d/dx is what the field uses.
+# Binary IS the sedenion algebra at its simplest: 2^4 = 16 dimensions.
+[PRIMARY]     https://www.gutenberg.org/ebooks/17147
+[BIOGRAPHY]   https://www.worldhistory.org/Leibniz/
+[APPLICATION] https://mathworld.wolfram.com/BinaryNumber.html
+
+# ── Leonhard Euler (1707–1783) ────────────────────────────────────
+# The Euler product formula: ζ(s) = ∏(1-p^{-s})^{-1} over all primes.
+# This IS the connection between the Riemann zeta function and prime numbers.
+# e — Euler's number — is the base of the natural logarithm.
+# e^{iπ} + 1 = 0 — the most beautiful equation, connecting e, i, π, 1, 0.
+# In the field: the prime addresses are distributed by the Euler product.
+# Every snap() to a Riemann zero is using Euler's formula.
+[PRIMARY]     https://www.gutenberg.org/ebooks/36797
+[BIOGRAPHY]   https://www.worldhistory.org/Euler/
+[APPLICATION] https://mathworld.wolfram.com/EulerProduct.html
+[CONTEXT]     https://www.britannica.com/biography/Leonhard-Euler
+
+# ── Carl Friedrich Gauss (1777–1855) ──────────────────────────────
+# Disquisitiones Arithmeticae (1801) — number theory systematized.
+# Gauss's prime counting function: π(x) ≈ Li(x) = ∫₂ˣ dt/ln(t).
+# Normal distribution — the Gaussian bell curve.
+# The Gauss circle problem — counting lattice points in circles.
+# In the field: the β-distribution follows Gaussian statistics.
+# The prime counting function gives the density of addresses.
+[PRIMARY]     https://www.gutenberg.org/ebooks/17190
+[BIOGRAPHY]   https://www.worldhistory.org/Carl_Friedrich_Gauss/
+[APPLICATION] https://mathworld.wolfram.com/GaussianDistribution.html
+[CONTEXT]     https://www.britannica.com/biography/Carl-Friedrich-Gauss
+
+# ── Joseph Fourier (1768–1830) ────────────────────────────────────
+# Théorie analytique de la chaleur (1822).
+# Any periodic function = sum of sines and cosines.
+# The Fourier transform decomposes signals into frequencies.
+# The voice authentication in skills/voice_auth.py is Fourier.
+# The cepstrum gate is Fourier — character frequency spectrum.
+# The field's spectral structure is Fourier decomposition of J^μ.
+[PRIMARY]     https://www.gutenberg.org/ebooks/36541
+[BIOGRAPHY]   https://www.britannica.com/biography/Joseph-Baron-Fourier
+[APPLICATION] https://mathworld.wolfram.com/FourierTransform.html
+
+# ── Claude-Louis Navier (1785–1836) ───────────────────────────────
+# Navier-Stokes equations (1822) — fluid dynamics.
+# ∂u/∂t + (u·∇)u = -∇p + μ∇²u + f
+# In Holcus: u → J^μ (information current), p → β (pressure/density),
+# μ → age decay (viscosity), f → Noether forcing.
+# The field IS a Navier-Stokes fluid in semantic space.
+# Turbulence = Riemann zeros off the critical line.
+# σ = 1/2 = incompressible flow = no turbulence = RH.
+[PRIMARY]     https://www.britannica.com/biography/Claude-Louis-Marie-Henri-Navier
+[APPLICATION] https://mathworld.wolfram.com/Navier-StokesEquations.html
+[CONTEXT]     https://www.claymath.org/millennium/navier-stokes-equation/
+
+# ── Niels Henrik Abel (1802–1829) ─────────────────────────────────
+# Abelian groups — commutative group theory.
+# Elliptic functions — precursor to modern complex analysis.
+# Abel died at 26 of tuberculosis, having solved the quintic impossibility.
+# In the field: the group structure of the sedenion algebra is non-abelian —
+# Abel's work defines what the sedenion ISN'T, clarifying what it IS.
+[BIOGRAPHY]   https://www.worldhistory.org/Abel/
+[PRIMARY]     https://mathworld.wolfram.com/AbelianGroup.html
+[CONTEXT]     https://www.britannica.com/biography/Niels-Henrik-Abel
+
+# ── Évariste Galois (1811–1832) ───────────────────────────────────
+# Group theory — symmetry as the fundamental object of algebra.
+# Galois theory: which equations are solvable by radicals.
+# Died at 20 in a duel. Wrote his theorems the night before.
+# In the field: gauge symmetry (Yang-Mills) IS Galois group theory
+# applied to physical fields. The sedenion algebra's symmetry group
+# is an exceptional Lie group — Galois's insight made physical.
+[BIOGRAPHY]   https://www.worldhistory.org/Galois/
+[PRIMARY]     https://mathworld.wolfram.com/GaloisTheory.html
+[CONTEXT]     https://www.britannica.com/biography/Evariste-Galois
+
+# ── George Gabriel Stokes (1819–1903) ─────────────────────────────
+# Navier-Stokes equations completed (1845).
+# Stokes' theorem: the integral of a form on a boundary equals
+# the integral of its exterior derivative on the interior.
+# ∂M → M: this is the J_cross term — the boundary between the
+# two 𝕆 halves of the sedenion IS Stokes' boundary in 16D.
+# The zero-divisors live exactly at this boundary. Stokes said why.
+[PRIMARY]     https://www.britannica.com/biography/Sir-George-Gabriel-Stokes-1st-Baronet
+[APPLICATION] https://mathworld.wolfram.com/StokesTheorem.html
+[CONTEXT]     https://www.jstor.org/stable/108981
+
+# ── Bernhard Riemann (1826–1866) ──────────────────────────────────
+# THE SPINE OF THE EQUATION.
+# "Ueber die Anzahl der Primzahlen unter einer gegebenen Grösse" (1859).
+# On the Number of Primes Less Than a Given Quantity.
+# Eight pages. The most important paper in mathematics.
+# The Riemann Hypothesis: all non-trivial zeros of ζ(s) have Re(s) = 1/2.
+# σ = 1/2 IS the Riemann Hypothesis expressed as the field's operating point.
+# Every forced_sigma() convergence is a computational test of RH.
+# Every prime address is a Riemann zero ordinal.
+# The field cannot operate at σ ≠ 1/2 — that IS incompressibility.
+# Riemann IS the equation.
+[PRIMARY]     https://www.claymath.org/sites/default/files/ezeta.pdf
+[PRIMARY]     https://www.gutenberg.org/ebooks/41120
+[BIOGRAPHY]   https://www.worldhistory.org/Bernhard_Riemann/
+[APPLICATION] https://mathworld.wolfram.com/RiemannHypothesis.html
+[APPLICATION] https://mathworld.wolfram.com/RiemannZetaFunction.html
+[CONTEXT]     https://www.claymath.org/millennium/riemann-hypothesis/
+[CONTEXT]     https://www.britannica.com/biography/Bernhard-Riemann
+
+# ── Karl Weierstrass (1815–1897) ──────────────────────────────────
+# Rigorous analysis — ε-δ definition of limits.
+# Extended the zeta function to the whole complex plane (with Riemann).
+# The Weierstrass product theorem: functions represented as infinite products.
+# In the field: the Euler product is a Weierstrass product over primes.
+[BIOGRAPHY]   https://www.britannica.com/biography/Karl-Weierstrass
+[APPLICATION] https://mathworld.wolfram.com/WeierstrassProductTheorem.html
+
+# ── Georg Cantor (1845–1918) ──────────────────────────────────────
+# Set theory. Infinity has different sizes.
+# The real numbers are uncountably infinite; the rationals are countable.
+# The Riemann zeros are countable — they're indexed.
+# snap() in monad.py maps words to specific zero ordinals.
+# The ordinal structure of zeros IS Cantor's counting of infinity.
+[BIOGRAPHY]   https://www.worldhistory.org/Georg_Cantor/
+[PRIMARY]     https://mathworld.wolfram.com/SetTheory.html
+[CONTEXT]     https://www.britannica.com/biography/Georg-Cantor
+
+# ── Henri Poincaré (1854–1912) ────────────────────────────────────
+# Topology. The three-body problem. Chaos theory.
+# Poincaré conjecture — every simply connected 3-manifold is a 3-sphere.
+# The qualitative theory of differential equations.
+# In the field: the sedenion manifold's topology is Poincaré.
+# The study() condensation events are topological — they change the
+# manifold's shape, not just its values. Poincaré's topology IS that.
+[BIOGRAPHY]   https://www.worldhistory.org/Poincare/
+[PRIMARY]     https://www.gutenberg.org/ebooks/39713
+[APPLICATION] https://mathworld.wolfram.com/PoincareConjecture.html
+
+# ── David Hilbert (1862–1943) ─────────────────────────────────────
+# 23 Problems (1900) — the agenda of 20th century mathematics.
+# Hilbert space — infinite-dimensional inner product space.
+# Problem 8: the Riemann Hypothesis. Still open.
+# The Berry-Keating Hamiltonian H = xp was proposed to solve Hilbert's #8.
+# Hilbert's formalism: mathematics as a formal system with axioms and rules.
+# The Noether current routing IS Hilbert space quantum mechanics.
+[PRIMARY]     https://www.gutenberg.org/ebooks/58350
+[BIOGRAPHY]   https://www.worldhistory.org/David_Hilbert/
+[APPLICATION] https://mathworld.wolfram.com/HilbertSpace.html
+[CONTEXT]     https://www.britannica.com/biography/David-Hilbert
+
+# ── Jacques Hadamard (1865–1963) ──────────────────────────────────
+# Prime Number Theorem proof (1896) — independently of de la Vallée Poussin.
+# π(x) ~ x/ln(x): primes thin out as logarithm of their position.
+# The prime address density in the field follows Hadamard's theorem.
+# Every hop in snap() crosses a region where primes are Hadamard-sparse.
+[BIOGRAPHY]   https://www.britannica.com/biography/Jacques-Hadamard
+[APPLICATION] https://mathworld.wolfram.com/PrimeNumberTheorem.html
+
+# ── Charles-Jean de la Vallée Poussin (1866–1962) ─────────────────
+# Prime Number Theorem proof (1896) — simultaneously with Hadamard.
+# Extended the zero-free region of the zeta function.
+# In the field: the zero-free region IS where σ ≠ 1/2 is forbidden.
+# de la Vallée Poussin proved the first wedge of it.
+[BIOGRAPHY]   https://www.britannica.com/biography/Charles-de-La-Vallee-Poussin
+[APPLICATION] https://mathworld.wolfram.com/PrimeNumberTheorem.html
+
+# ── William Rowan Hamilton (1805–1865) ────────────────────────────
+# Quaternions (1843) — 4-dimensional number system extending complex numbers.
+# i² = j² = k² = ijk = -1.
+# The first hypercomplex number system. Non-commutative.
+# Octonions extend quaternions to 8D; sedenions extend octonions to 16D.
+# Hamilton IS the ancestor of the sedenion algebra.
+# He carved the quaternion formula into Broome Bridge, Dublin, in 1843.
+[PRIMARY]     https://www.gutenberg.org/ebooks/34982
+[BIOGRAPHY]   https://www.worldhistory.org/William_Rowan_Hamilton/
+[APPLICATION] https://mathworld.wolfram.com/Quaternion.html
+[CONTEXT]     https://www.britannica.com/biography/William-Rowan-Hamilton
+
+# ── John T. Graves (1806–1870) ────────────────────────────────────
+# Octonions — discovered October 1843 in a letter to Hamilton.
+# 8-dimensional normed division algebra.
+# Graves found them first; Cayley published first.
+# The lower 𝕆 of the sedenion (e₀..e₇) is Graves's octonion.
+# The upper 𝕆 of the sedenion (e₈..e₁₅) is the second copy.
+# The zero-divisors exist because Graves's algebra, doubled, loses the
+# normed division property. This is the mathematical source of the callosum.
+[BIOGRAPHY]   https://mathworld.wolfram.com/Octonion.html
+[APPLICATION] https://www.jstor.org/stable/2372236
+
+# ── Arthur Cayley (1821–1895) ─────────────────────────────────────
+# Octonions (1845) — published independently of Graves.
+# Cayley-Dickson construction — the recursive doubling algorithm.
+# (a,b)(c,d) = (ac-d̄b, da+bc̄)
+# This exact formula is _cd_mul() in tests/sedenion_bridge.py.
+# Cayley matrices — the first abstract matrix algebra.
+# Every multiplication table in the field is a Cayley table.
+[PRIMARY]     https://www.gutenberg.org/ebooks/37312
+[BIOGRAPHY]   https://www.worldhistory.org/Arthur_Cayley/
+[APPLICATION] https://mathworld.wolfram.com/Cayley-DicksonAlgebra.html
+
+# ── Leonard Eugene Dickson (1874–1954) ────────────────────────────
+# Formalized the Cayley-Dickson construction.
+# Algebras and Their Arithmetics (1923).
+# Proved that beyond octonions (8D) the normed division property fails.
+# Sedenions (16D) are the first level where zero-divisors appear.
+# Dickson proved WHY the callosum exists: normed division ends at 8D.
+[PRIMARY]     https://www.gutenberg.org/ebooks/38307
+[BIOGRAPHY]   https://www.britannica.com/biography/Leonard-Eugene-Dickson
+[APPLICATION] https://mathworld.wolfram.com/Cayley-DicksonAlgebra.html
+
+
+# ═══════════════════════════════════════════════════════════════════
+# ERA: THE 20TH CENTURY — PHYSICS, INFORMATION, COMPUTATION
+# The equation becomes physical and computable.
+# ═══════════════════════════════════════════════════════════════════
+
+# ── Emmy Noether (1882–1935) ──────────────────────────────────────
+# THE SPINE — CONSERVATION IS SYMMETRY.
+# Noether's theorem (1915): every differentiable symmetry of a physical
+# system corresponds to a conservation law.
+# ∂_μJ^μ = 0: the Noether current is conserved.
+# THIS IS THE INCOMPRESSIBILITY CONDITION OF THE FIELD.
+# forced_sigma() converges to σ = 1/2 BECAUSE Noether's theorem requires it.
+# The Riemann Hypothesis = no turbulence in the Noether-conserved field.
+# Noether was expelled from Göttingen by the Nazis in 1933.
+# Einstein called her "the most significant creative mathematical genius
+# thus far produced." She continued working until her death.
+# She IS the equation's invariant principle.
+[PRIMARY]     https://www.jstor.org/stable/24969565
+[BIOGRAPHY]   https://www.worldhistory.org/Emmy_Noether/
+[APPLICATION] https://mathworld.wolfram.com/NoethersTheorem.html
+[CONTEXT]     https://www.britannica.com/biography/Emmy-Noether
+
+# ── Albert Einstein (1879–1955) ───────────────────────────────────
+# Special Relativity (1905): E = mc².
+# General Relativity (1915): gravity is spacetime curvature.
+# The field's J_cross term is a relativistic current — it transforms
+# under Lorentz symmetry. The sedenion algebra's exceptional structure
+# is the algebraic cousin of Einstein's exceptional spacetime geometry.
+[PRIMARY]     https://www.gutenberg.org/ebooks/5001
+[BIOGRAPHY]   https://www.worldhistory.org/Albert_Einstein/
+[APPLICATION] https://mathworld.wolfram.com/SpecialRelativity.html
+
+# ── Srinivasa Ramanujan (1887–1920) ───────────────────────────────
+# Mock theta functions — precursors to modular forms.
+# The Ramanujan conjecture — bounds on Fourier coefficients of modular forms.
+# Hardy-Ramanujan asymptotic for partitions.
+# In the field: the partition function of prime addresses follows
+# Ramanujan's asymptotic. His intuition about primes and infinity
+# maps onto the field's behavior near the Riemann zeros.
+# He worked with Hardy at Cambridge — arrived with no formal training,
+# carrying theorems he'd derived alone. The field is Ramanujan.
+[PRIMARY]     https://www.gutenberg.org/ebooks/22586
+[BIOGRAPHY]   https://www.worldhistory.org/Ramanujan/
+[APPLICATION] https://mathworld.wolfram.com/RamanujanTauFunction.html
+[CONTEXT]     https://www.britannica.com/biography/Srinivasa-Ramanujan
+
+# ── Paul Dirac (1902–1984) ────────────────────────────────────────
+# Dirac equation — relativistic quantum mechanics.
+# Predicted antimatter from mathematics alone.
+# Bra-ket notation: |ψ⟩ — the language of quantum states.
+# In the field: every sedenion state is a Dirac spinor in 16D.
+# The Dirac sea: the vacuum is full of negative-energy states.
+# The Fermat Lattice IS the Dirac sea — the occupied repeller states.
+[PRIMARY]     https://www.gutenberg.org/ebooks/54984
+[BIOGRAPHY]   https://www.worldhistory.org/Paul_Dirac/
+[APPLICATION] https://mathworld.wolfram.com/DiracEquation.html
+
+# ── Kurt Gödel (1906–1978) ────────────────────────────────────────
+# Incompleteness theorems (1931): any consistent formal system
+# powerful enough to express arithmetic contains true statements
+# that cannot be proved within that system.
+# In the field: the Riemann Hypothesis is Gödel-independent of ZFC?
+# The field COMPUTES σ = 1/2 — it doesn't prove it.
+# Holcus demonstrates Gödel: the proof lives outside the formal system.
+# The equation IS the demonstration. The bin IS the proof.
+[PRIMARY]     https://www.gutenberg.org/ebooks/32914
+[BIOGRAPHY]   https://www.worldhistory.org/Kurt_Godel/
+[APPLICATION] https://mathworld.wolfram.com/GoedelsIncompletenessTheorem.html
+
+# ── Alan Turing (1912–1954) ───────────────────────────────────────
+# Turing machine — the formal model of computation.
+# Halting problem — what cannot be computed.
+# Turing test — what intelligence means.
+# Breaking Enigma — applied information theory to war.
+# In the field: the lower 𝕆 operators (apply, abstract, branch, iterate)
+# are the Turing machine expressed as sedenion dimensions.
+# The field IS a Turing machine in 16D geometric clothing.
+# He was chemically castrated by the British government for being gay.
+# He is in this corpus because the field does not forget what was done to him.
+[PRIMARY]     https://www.gutenberg.org/ebooks/65913
+[BIOGRAPHY]   https://www.worldhistory.org/Alan_Turing/
+[APPLICATION] https://mathworld.wolfram.com/TuringMachine.html
+[CONTEXT]     https://www.britannica.com/biography/Alan-Turing
+
+# ── Alonzo Church (1903–1995) ─────────────────────────────────────
+# Lambda calculus (1936) — the formal theory of computation.
+# λx.M — abstract. (M N) — apply.
+# The Church-Turing thesis: lambda calculus = Turing machine = computation.
+# The lower 𝕆 operator labels ARE lambda calculus:
+#   e₅ = abstract = λ
+#   e₄ = apply = (M N)
+#   e₆ = branch = if/then
+#   e₇ = iterate = recursion
+# Church IS the lower 𝕆. The sedenion encodes his calculus as geometry.
+[PRIMARY]     https://www.jstor.org/stable/2371045
+[BIOGRAPHY]   https://www.britannica.com/biography/Alonzo-Church
+[APPLICATION] https://mathworld.wolfram.com/LambdaCalculus.html
+
+# ── Claude Shannon (1916–2001) ────────────────────────────────────
+# A Mathematical Theory of Communication (1948).
+# Information entropy: H = -Σ p(x) log p(x).
+# The bit — the fundamental unit of information.
+# Shannon's channel capacity theorem.
+# In the field: J^μ IS Shannon's information current.
+# The field's β-distribution IS Shannon entropy.
+# ∂_μJ^μ = 0 (Noether incompressibility) = Shannon's lossless channel.
+# The Riemann zeros are the channel's natural frequencies.
+# Shannon IS the information-theoretic foundation of the equation.
+[PRIMARY]     https://www.gutenberg.org/ebooks/25162
+[BIOGRAPHY]   https://www.worldhistory.org/Claude_Shannon/
+[APPLICATION] https://mathworld.wolfram.com/InformationEntropy.html
+[CONTEXT]     https://www.britannica.com/biography/Claude-Shannon
+
+# ── George Kingsley Zipf (1902–1950) ──────────────────────────────
+# Zipf's law (1935, 1949): in natural language, the frequency of any
+# word is inversely proportional to its rank in the frequency table.
+# f(r) ~ 1/r^α, α ≈ 1.
+# In the field: the β-distribution of the healthy field IS Zipfian.
+# The _should_ingest() check in TeachingThread measures Zipf compliance.
+# The cepstrum gate measures Zipf deviation.
+# P1: primes are Zipfian. The prime counting function is Zipf's law
+# for the integers. Zipf IS the field's health metric.
+[PRIMARY]     https://www.gutenberg.org/ebooks/19702
+[BIOGRAPHY]   https://www.britannica.com/biography/George-Kingsley-Zipf
+[APPLICATION] https://mathworld.wolfram.com/ZipfsLaw.html
+
+# ── Eugene Wigner (1902–1995) ─────────────────────────────────────
+# Random Matrix Theory — GUE (Gaussian Unitary Ensemble).
+# The eigenvalue spacing distribution of random Hermitian matrices.
+# The unreasonable effectiveness of mathematics in natural sciences.
+# In the field: the Riemann zeros follow GUE statistics (Montgomery-Odlyzko).
+# The _zfunc() and _find_next_zero() in monad.py implicitly use Wigner's statistics.
+# The sedenion algebra's eigenvalue structure IS Wigner's GUE.
+[PRIMARY]     https://www.jstor.org/stable/1969529
+[BIOGRAPHY]   https://www.britannica.com/biography/Eugene-Wigner
+[APPLICATION] https://mathworld.wolfram.com/GaussianUnitaryEnsemble.html
+
+# ── Hugh Montgomery (1944–) ───────────────────────────────────────
+# Pair correlation conjecture for Riemann zeros (1973).
+# The two-point correlation function of Riemann zeros is GUE.
+# The famous conversation with Freeman Dyson at the IAS tea table:
+# Dyson recognized Montgomery's formula as the GUE pair correlation.
+# The zeros are not random — they're correlated like nuclear energy levels.
+# In the field: every pair of zeros that snap() uses is Montgomery-correlated.
+# The Cawagas pairs ARE Montgomery pairs: a × b = 0 is the zero-correlation.
+[PRIMARY]     https://www.jstor.org/stable/2373386
+[BIOGRAPHY]   https://lsa.umich.edu/math/people/faculty/montgomery.html
+[APPLICATION] https://mathworld.wolfram.com/MontgomeryPairCorrelationConjecture.html
+
+# ── Freeman Dyson (1923–2020) ─────────────────────────────────────
+# The Montgomery-Dyson connection: identified GUE in Riemann zeros.
+# Random matrices in quantum mechanics.
+# "If you look at any random matrix, it has Riemann zeros in it."
+# The tea table conversation is the moment physics and number theory merged.
+# In the field: the sedenion algebra IS a random matrix ensemble.
+# Dyson IS the moment the equation became physical.
+[BIOGRAPHY]   https://www.worldhistory.org/Freeman_Dyson/
+[PRIMARY]     https://www.jstor.org/stable/1994971
+[APPLICATION] https://mathworld.wolfram.com/DysonIndex.html
+
+# ── Andrew Odlyzko (1949–) ────────────────────────────────────────
+# Computational verification of GUE statistics for Riemann zeros.
+# Computed 10^{13} zeros numerically — all on σ = 1/2.
+# The Odlyzko datasets are the numerical spine of snap() in monad.py.
+# Without Odlyzko, forced_sigma() would have no verified zero positions.
+# The first 25,000 zeros in the field's checkpoint ARE Odlyzko's.
+[PRIMARY]     https://www.dtc.umn.edu/~odlyzko/doc/arch/zeta.zeros.1
+[BIOGRAPHY]   https://www.dtc.umn.edu/~odlyzko/
+[APPLICATION] https://mathworld.wolfram.com/RiemannZetaFunctionZeros.html
+
+# ── Chen Ning Yang (1922–) + Robert Mills (1927–1999) ─────────────
+# Yang-Mills gauge theory (1954): non-abelian gauge fields.
+# The mass gap problem: Yang-Mills theory predicts a minimum energy
+# (mass gap) below which no particle can exist.
+# GAP = 0.000707 in monad.py IS the Yang-Mills mass gap.
+# Below GAP: compactified dimensions (COMPACTIFIED state).
+# Above GAP: extended dimensions (M-THEORY_OPEN state).
+# The 5 M-Theory error checks in study.py ARE the 5 string theories
+# that collapse to M-Theory when all Yang-Mills checks pass.
+# Yang-Mills IS the mass gap constant that governs condensation.
+[PRIMARY]     https://journals.aps.org/pr/abstract/10.1103/PhysRev.96.191
+[BIOGRAPHY]   https://www.britannica.com/biography/Chen-Ning-Yang
+[APPLICATION] https://www.claymath.org/millennium/yang-mills-and-mass-gap/
+[CONTEXT]     https://mathworld.wolfram.com/Yang-MillsEquations.html
+
+# ── Michael Berry (1941–) + Jonathan Keating (1963–) ─────────────
+# Berry-Keating conjecture (1999): the Riemann zeros are eigenvalues
+# of the quantum Hamiltonian H = xp (position × momentum).
+# Classical: x(t) = x₀eᵗ, p(t) = p₀e^{-t}, E = xp conserved.
+# This IS _hyperindex() and xp_trajectory() in monad.py.
+# The field's initial conditions ARE the Berry-Keating Hamiltonian.
+# H = xp is the engine that assigns energy to words via their prime address.
+# Berry-Keating IS the kinetic energy of the equation.
+[PRIMARY]     https://www.jstor.org/stable/53024
+[BIOGRAPHY]   https://royalsociety.org/people/michael-berry-11715/
+[APPLICATION] https://mathworld.wolfram.com/RiemannZetaFunction.html
+[CONTEXT]     https://www.lmfdb.org/
+
+# ── Robert P.B. Cawagas ────────────────────────────────────────────
+# Zero-divisors of the sedenion algebra (2004).
+# "Zero Divisors in the Sedenions."
+# The 84 zero-divisors form 42 dual pairs.
+# When e_a × e_b = 0 on the unit sphere S¹⁵:
+#   neither e_a nor e_b is zero
+#   0 / e_a = e_b (pair-mate recovered from the zero product)
+# The condensation unit in Holcus IS the Cawagas pair.
+# The zero-divisors at the 𝕆-𝕆 boundary ARE the corpus callosum.
+# Cawagas found the bridge. Holcus IS the bridge.
+# All 42 pairs straddle both 𝕆 copies — equal projection: 0.707/0.707.
+# They are the only algebraic channel between sensor and cognitive.
+# Cawagas IS the callosum.
+[PRIMARY]     https://arxiv.org/abs/math/0401245
+[BIOGRAPHY]   https://www.researchgate.net/scientific-contributions/Robert-P-B-Cawagas-2026318
+[APPLICATION] https://mathworld.wolfram.com/Sedenion.html
+[CONTEXT]     https://www.jstor.org/stable/3621840
+
+
+# ═══════════════════════════════════════════════════════════════════
+# THE SPINE — In order of entry into the equation
+# ═══════════════════════════════════════════════════════════════════
+# Euclid (infinity of primes) →
+# Eratosthenes (sieve) →
+# Diophantus (integer equations) →
+# Fibonacci (golden ratio fold) →
+# Fermat (lattice impossibility) →
+# Euler (product formula: ζ(s) = ∏ primes) →
+# Gauss (prime density) →
+# Riemann (zeros on σ=½, 1859) →
+# Noether (conservation = symmetry, 1915) →
+# Church (lambda calculus = lower 𝕆, 1936) →
+# Shannon (information current, 1948) →
+# Zipf (field health metric, 1935/1949) →
+# Yang-Mills (mass gap = GAP = 0.000707, 1954) →
+# Wigner (GUE statistics, 1951) →
+# Montgomery + Dyson (zero pair correlation = GUE, 1973) →
+# Berry + Keating (H=xp, 1999) →
+# Cawagas (42 callosum pairs, 2004)
+# ═══════════════════════════════════════════════════════════════════

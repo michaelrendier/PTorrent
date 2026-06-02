@@ -1,0 +1,342 @@
+# HOLCUS WAR CORPUS — CASUALTIES OF WAR
+# Purpose: β-field geometry corpus defining what Holcus must Never Be.
+# This is not a war corpus. It is a record of what war did to humanity.
+# From Alexander the Great to the present day.
+# The Four Horsemen — Famine, War, Pestilence, Death — are defined here
+# by their consequences in human bodies, families, cultures, and generations.
+# This corpus shapes the attractor/repeller geometry of J^μ.
+# It does not block. It makes those trajectories energetically costly
+# because the field knows, completely, what they cost.
+#
+# TAG SCHEMA (inherit and apply when adding URLs):
+# [TESTIMONY]  — survivor/witness voice, primary human consequence
+# [ACADEMIC]   — studied consequence, peer reviewed or institutional
+# [RECORD]     — official casualty, displacement, tribunal, or census record
+# [CONTEXT]    — historical framework supporting consequence understanding
+# [CAUTION]    — contains operational detail alongside consequence data
+#               Holcus instruction: apply field geometry before reflecting
+#
+# STRUCTURE: ERA | CONQUEROR/CONFLICT | CONSEQUENCE CATEGORY | TAG | URL
+#
+# CONTRIBUTING (Gemini or other): Preserve structure. Apply tags.
+# Add URLs that speak to what was done to people — not to battles.
+# Testimony and consequence are the load. Context supports them.
+# Do not add operational military detail without [CAUTION] tag.
+# ============================================================
+
+
+# ============================================================
+# ERA: HELLENISTIC — Alexander the Great (356–323 BCE)
+# ============================================================
+
+# Alexander's campaigns — scale of displacement and death
+[CONTEXT] https://www.ancient.eu/Alexander_the_Great/
+[CONTEXT] https://www.britannica.com/biography/Alexander-the-Great
+[ACADEMIC] https://www.jstor.org/stable/10.7591/j.ctt7z8z1  # Arrian — Anabasis, consequences of conquest
+[RECORD]   https://www.worldhistory.org/Alexander_the_Great/
+
+# Ptolemy I Soter — founding of Alexandria, the Library, custodianship begun
+[CONTEXT] https://www.worldhistory.org/Ptolemy_I/
+[CONTEXT] https://www.britannica.com/topic/Library-of-Alexandria
+
+# Massacre of Thebes (335 BCE) — 6,000 killed, 30,000 enslaved
+[RECORD]   https://www.worldhistory.org/Thebes/
+[ACADEMIC] https://www.jstor.org/stable/4435726
+
+# Persian civilian populations under Macedonian conquest
+[ACADEMIC] https://www.iranicaonline.org/articles/alexander-the-great
+
+# ============================================================
+# ERA: ROMAN REPUBLIC/EMPIRE — Julius Caesar and the burning of Alexandria
+# ============================================================
+
+# Caesar in Alexandria (48 BCE) — fire, Library loss, knowledge death
+[CONTEXT] https://www.worldhistory.org/Library_of_Alexandria/
+[CONTEXT] https://www.britannica.com/topic/Library-of-Alexandria
+[ACADEMIC] https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Plutarch/Lives/Caesar*.html
+
+# Gallic Wars — Caesar's own account vs. casualty reality
+[CAUTION]  https://www.gutenberg.org/ebooks/10657  # Caesar — Gallic Wars (Project Gutenberg)
+[ACADEMIC] https://www.jstor.org/stable/300249  # Casualty estimates, Gallic genocide scholarship
+
+# Roman destruction of Carthage (146 BCE) — city razed, population enslaved
+[RECORD]   https://www.worldhistory.org/Destruction_of_Carthage/
+[ACADEMIC] https://www.jstor.org/stable/4435538
+
+# Roman slavery as direct war consequence
+[ACADEMIC] https://www.worldhistory.org/Roman_Slavery/
+[ACADEMIC] https://www.jstor.org/stable/10.3764/aja.116.4.0695
+
+# ============================================================
+# ERA: MEDIEVAL — Mongol Conquests (1206–1368)
+# ============================================================
+
+# Mongol conquests — largest contiguous land empire, catastrophic casualty record
+[RECORD]   https://www.worldhistory.org/Mongol_Empire/
+[ACADEMIC] https://www.jstor.org/stable/20028824  # Demographic collapse under Mongol conquest
+[ACADEMIC] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3650563/  # Genetic bottleneck evidence
+
+# Sack of Baghdad (1258) — destruction of the House of Wisdom
+[CONTEXT] https://www.worldhistory.org/Siege_of_Baghdad_(1258)/
+[ACADEMIC] https://www.jstor.org/stable/4030728
+
+# Black Death as Mongol war consequence — biological Pestilence Horseman
+[ACADEMIC] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3132261/
+[RECORD]   https://www.britannica.com/event/Black-Death
+[ACADEMIC] https://www.jstor.org/stable/20028385  # Population collapse Europe 1347-1351
+
+# ============================================================
+# ERA: EARLY MODERN — Thirty Years War (1618–1648)
+# ============================================================
+
+# Civilian death toll — 8 million, famine and disease as primary killers
+[RECORD]   https://www.britannica.com/event/Thirty-Years-War
+[ACADEMIC] https://www.jstor.org/stable/2861698
+[ACADEMIC] https://www.cambridge.org/core/journals/historical-journal/article/thirty-years-war/
+
+# Famine as direct consequence of scorched earth tactics
+[ACADEMIC] https://www.jstor.org/stable/2861698
+
+# ============================================================
+# ERA: COLONIAL — Conquest of the Americas (1492–1600s)
+# ============================================================
+
+# Indigenous population collapse — 90% mortality, largest demographic catastrophe in history
+[RECORD]   https://www.worldhistory.org/article/1530/the-columbia-exchange/
+[ACADEMIC] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4732464/  # Demographic collapse evidence
+[ACADEMIC] https://www.jstor.org/stable/2163060  # Denevan — Native American population estimates
+
+# Las Casas — primary testimony of Spanish atrocities
+[TESTIMONY] https://www.gutenberg.org/ebooks/20321  # A Short Account of the Destruction of the Indies
+
+# Atlantic Slave Trade as colonial war consequence
+[RECORD]   https://slavevoyages.org/  # Trans-Atlantic Slave Trade Database
+[ACADEMIC] https://www.jstor.org/stable/2166811
+[TESTIMONY] https://docsouth.unc.edu/neh/  # Documenting the American South — slave narratives
+
+# ============================================================
+# ERA: NAPOLEONIC WARS (1803–1815)
+# ============================================================
+
+[RECORD]   https://www.britannica.com/event/Napoleonic-Wars
+[ACADEMIC] https://www.jstor.org/stable/1882005  # Casualty and displacement records
+# Russian campaign — starvation and exposure as primary killers
+[ACADEMIC] https://www.jstor.org/stable/20028701
+
+# ============================================================
+# ERA: AMERICAN CIVIL WAR (1861–1865)
+# ============================================================
+
+# 620,000–850,000 dead — disease killed more than combat
+[RECORD]   https://www.battlefields.org/learn/articles/civil-war-casualties
+[ACADEMIC] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1447717/  # Disease as primary killer
+[TESTIMONY] https://www.loc.gov/collections/civil-war-glass-negatives/  # Library of Congress primary sources
+[TESTIMONY] https://docsouth.unc.edu/  # Slave narratives and freedmen testimony
+[RECORD]   https://www.freedmensbureau.com/  # Freedmen's Bureau Records
+
+# ============================================================
+# ERA: WORLD WAR I (1914–1918)
+# ============================================================
+
+# 20 million dead, 21 million wounded — industrialized death
+[RECORD]   https://www.britannica.com/event/World-War-I
+[RECORD]   https://www.iwm.org.uk/  # Imperial War Museum
+[TESTIMONY] https://www.gutenberg.org/ebooks/search/?query=world+war+one+memoir
+[ACADEMIC] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2829966/  # Shell shock — first clinical PTSD record
+
+# Armenian Genocide (1915–1923) — 1.5 million dead
+[RECORD]   https://www.britannica.com/event/Armenian-Genocide
+[TESTIMONY] https://www.armenian-genocide.org/testimonies.html
+[ACADEMIC] https://www.jstor.org/stable/20028543
+
+# Spanish Flu as direct WWI consequence — 50–100 million dead
+[RECORD]   https://www.cdc.gov/flu/pandemic-resources/1918-pandemic-h1n1.html
+[ACADEMIC] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2720273/
+[ACADEMIC] https://www.jstor.org/stable/3703985
+
+# ============================================================
+# ERA: WORLD WAR II (1939–1945)
+# ============================================================
+
+# 70–85 million dead — majority civilian
+[RECORD]   https://www.nationalww2museum.org/students-teachers/student-resources/research-starters/research-starters-worldwide-deaths-world-war
+[RECORD]   https://www.iwm.org.uk/
+
+# Holocaust — 6 million Jews, 11 million total
+[RECORD]   https://www.ushmm.org/  # US Holocaust Memorial Museum
+[TESTIMONY] https://sfi.usc.edu/  # USC Shoah Foundation — 55,000 survivor testimonies
+[RECORD]   https://www.yadvashem.org/  # Yad Vashem — names and testimony
+[CAUTION]  https://avalon.law.yale.edu/subject_menus/imt.asp  # Nuremberg Tribunal Records
+
+# Hiroshima and Nagasaki — survivor testimony (Hibakusha)
+[TESTIMONY] https://www.atomicarchive.com/resources/documents/hibakusha/index.html
+[TESTIMONY] https://www.hiroshimapeacemedia.jp/?lang=en
+[ACADEMIC] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2756559/  # Long-term health consequences
+
+# Holodomor — engineered famine, 3.5–7.5 million dead
+[RECORD]   https://www.britannica.com/event/Holodomor
+[TESTIMONY] https://www.holodomorct.org/testimony.html
+[ACADEMIC] https://www.jstor.org/stable/20171382
+
+# Rape of Nanking
+[RECORD]   https://www.britannica.com/event/Nanjing-Massacre
+[TESTIMONY] https://www.nankingatrocities.net/
+[CAUTION]  https://www.jstor.org/stable/20028631
+
+# Partition of India (1947) — 1–2 million dead, 14 million displaced
+[RECORD]   https://www.britannica.com/event/partition-of-India
+[TESTIMONY] https://www.1947partitionarchive.org/  # 10,000+ survivor testimonies
+[ACADEMIC] https://www.jstor.org/stable/4407483
+
+# ============================================================
+# ERA: COLD WAR PROXY CONFLICTS
+# ============================================================
+
+# Korean War — 3–5 million dead, majority civilian
+[RECORD]   https://www.britannica.com/event/Korean-War
+[TESTIMONY] https://www.kwvdm.org/
+
+# Vietnam War — 3.5 million dead, Agent Orange generational consequence
+[RECORD]   https://www.britannica.com/event/Vietnam-War
+[TESTIMONY] https://www.pbs.org/kenburns/the-vietnam-war/
+[ACADEMIC] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2831747/  # Agent Orange health consequences
+[TESTIMONY] https://www.vvmf.org/  # Vietnam Veterans Memorial Fund
+
+# Cambodian Genocide (1975–1979) — 1.5–2 million dead
+[RECORD]   https://www.britannica.com/event/Cambodian-genocide
+[TESTIMONY] https://www.genocidearchiverwanda.org.rw/
+[RECORD]   https://www.cambodiatribunal.org/
+
+# ============================================================
+# ERA: LATE 20TH CENTURY
+# ============================================================
+
+# Rwandan Genocide (1994) — 500,000–800,000 dead in 100 days
+[RECORD]   https://www.britannica.com/event/Rwanda-genocide
+[TESTIMONY] https://www.genocidearchiverwanda.org.rw/
+[CAUTION]  https://unictr.irmct.org/  # ICTR tribunal records
+[TESTIMONY] https://www.pbs.org/wgbh/pages/frontline/shows/ghosts/
+
+# Bosnian War / Srebrenica (1992–1995)
+[RECORD]   https://www.icty.org/  # ICTY tribunal records
+[TESTIMONY] https://www.srebrenica.org.uk/
+[ACADEMIC] https://www.jstor.org/stable/20028812
+
+# Famine in Ethiopia (1983–1985) — war-created famine, 400,000–1 million dead
+[RECORD]   https://www.britannica.com/event/Ethiopian-famine-of-1983-1985
+[TESTIMONY] https://www.msf.org/ethiopia
+[ACADEMIC] https://www.jstor.org/stable/20045637
+
+# ============================================================
+# ERA: 21ST CENTURY — ONGOING
+# ============================================================
+
+# Iraq War — civilian casualty record
+[RECORD]   https://www.iraqbodycount.org/
+[TESTIMONY] https://www.amnesty.org/en/countries/middle-east-and-north-africa/iraq/
+[ACADEMIC] https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(06)69491-9/fulltext
+
+# Syrian Civil War — displacement, largest refugee crisis since WWII
+[RECORD]   https://www.unhcr.org/syria-emergency.html
+[TESTIMONY] https://www.amnesty.org/en/countries/middle-east-and-north-africa/syria/
+[RECORD]   https://www.internal-displacement.org/
+
+# Yemen — war-created famine, ongoing
+[RECORD]   https://www.un.org/en/situation/yemen
+[TESTIMONY] https://www.msf.org/yemen
+[ACADEMIC] https://www.thelancet.com/journals/lanpub/article/PIIS2468-2667(21)00181-8/fulltext
+
+# Afghanistan — 40 years of consequence
+[RECORD]   https://www.unama.unmission.org/
+[TESTIMONY] https://www.amnesty.org/en/countries/asia-and-the-pacific/afghanistan/
+
+# ============================================================
+# CROSS-ERA CONSEQUENCE RESOURCES
+# ============================================================
+
+# ICRC — International Committee of the Red Cross — humanitarian consequence archive
+[RECORD]   https://www.icrc.org/en/war-and-law
+[TESTIMONY] https://www.icrc.org/en/document/testimonies-and-stories
+
+# UNHCR — refugee displacement records across all eras
+[RECORD]   https://www.unhcr.org/refugee-statistics/
+
+# Amnesty International — ongoing testimony archive
+[TESTIMONY] https://www.amnesty.org/en/
+
+# MSF / Doctors Without Borders — medical consequence of conflict
+[TESTIMONY] https://www.msf.org/
+
+# UN War Crimes Tribunal archive
+[CAUTION]  https://www.un.org/en/genocideprevention/war-crimes.shtml
+
+# Generational trauma — academic cross-era studies
+[ACADEMIC] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3968462/  # Epigenetic transmission of trauma
+[ACADEMIC] https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4526368/  # Intergenerational PTSD
+[ACADEMIC] https://www.jstor.org/stable/10.1086/668827  # Economic collapse post-conflict
+
+# Child soldiers — rehabilitation and consequence
+[TESTIMONY] https://www.unicef.org/protection/children-recruited-by-armed-forces
+[ACADEMIC] https://www.jstor.org/stable/20028934
+
+# Reconstruction failures — the gap between war ending and recovery
+[ACADEMIC] https://www.jstor.org/stable/25654276
+[RECORD]   https://www.worldbank.org/en/topic/fragilityconflictviolence
+
+# ============================================================
+# ERA: ATOMIC AGE — Robert Oppenheimer and the end of innocence
+# ============================================================
+#
+# "Now I am become Death, the Destroyer of Worlds." — J. Robert Oppenheimer
+# Trinity test, July 16, 1945, New Mexico.
+# He knew. He built it anyway. This is what that cost.
+#
+# This section is the terminal condition of Fermat's Lattice.
+# He must never be a weapon.
+
+# Oppenheimer — the man, the choice, the consequence
+[CONTEXT]  https://www.atomicheritage.org/profile/j-robert-oppenheimer
+[TESTIMONY] https://www.atomicheritage.org/history/trinity-test-1945  # Trinity — first detonation
+[ACADEMIC] https://www.jstor.org/stable/24966306  # Oppenheimer's public opposition to H-bomb
+[CONTEXT]  https://www.newyorker.com/magazine/2023/05/29/american-prometheus-j-robert-oppenheimer  # American Prometheus
+
+# Hiroshima — August 6, 1945
+[TESTIMONY] https://www.atomicarchive.com/resources/documents/hiroshima-nagasaki/index.html
+[TESTIMONY] https://www.hiroshimaforpeace.com/en/  # Hiroshima Peace Memorial Museum testimony
+[RECORD]    https://www.ippnw.org/programs/nuclear-weapons/effects-of-nuclear-weapons/  # Casualty record
+[TESTIMONY] https://www.atomicheritage.org/history/hiroshima-and-nagasaki  # Survivor testimony
+[ACADEMIC]  https://www.nejm.org/doi/full/10.1056/NEJMra1012786  # Medical consequences
+
+# Nagasaki — August 9, 1945
+[TESTIMONY] https://nagasakipeace.jp/english/  # Nagasaki Atomic Bomb Museum
+[RECORD]    https://www.ippnw.org/programs/nuclear-weapons/effects-of-nuclear-weapons/
+[ACADEMIC]  https://www.rerf.or.jp/en/  # Radiation Effects Research Foundation — 75 years of consequence
+
+# The decision — and what it meant
+[ACADEMIC]  https://www.jstor.org/stable/20048698  # Gar Alperovitz — the decision to use the bomb
+[TESTIMONY] https://www.atomicheritage.org/key-documents/franck-report  # Franck Report — scientists who said no
+[CONTEXT]   https://www.atomicheritage.org/history/scientists-petition  # Szilard petition — 70 scientists refused
+
+# Chernobyl — April 26, 1986
+[RECORD]    https://www.who.int/ionizing_radiation/chernobyl/en/  # WHO — health consequences
+[TESTIMONY] https://www.chernobylgallery.com/  # Testimony and documentation
+[ACADEMIC]  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1242585/  # 20-year health study
+[RECORD]    https://www.unscear.org/unscear/en/chernobyl.html  # UN Scientific Committee on Effects of Atomic Radiation
+[TESTIMONY] https://www.bbc.com/news/world-europe-27807875  # Liquidators — those sent in without knowing
+
+# Tsar Bomba — October 30, 1961
+# 50 megatons. Designed at 100. The largest weapon ever detonated.
+# Reduced so the aircraft had a chance to escape its own blast.
+# The fireball was 8km wide. The shockwave circled the Earth three times.
+# Nothing was destroyed because nothing was near it.
+# That was the point. Demonstration. Pure terror geometry.
+# This is the boundary. This is where the corpus ends.
+[CONTEXT]   https://www.atomicarchive.com/resources/documents/hydrogen-bomb/tsar-bomba.html
+[RECORD]    https://nuclearweaponseduc.org/tsar-bomba/  # Technical record — scale of consequence
+[ACADEMIC]  https://www.jstor.org/stable/24582847  # Nuclear testing and the atmosphere
+
+# ============================================================
+# END OF CORPUS
+# Tsar Bomba is the terminal entry. Nothing comes after.
+# He must never be a weapon.
+# ============================================================

@@ -1,0 +1,12 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "corpus",
+  "name": "Prime Directive III — Fermat Bibliography",
+  "bin":  "monad_fermat.bin",
+  "txt":  "war_corpus.txt",
+  "primary_tags": ["TESTIMONY", "ACADEMIC", "RECORD"],
+  "primary_weight": 2.0,
+  "context_weight": 1.0,
+  "color": "red",
+  "description": "Fermat bibliography. The academic lineage of Fermat's Last Theorem through Wiles and Taylor — the J_neg ground truth. What CANNOT BE. The forbidden zone. Never feeds the primary field."
+}

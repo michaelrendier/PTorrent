@@ -1,0 +1,18 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "corpus",
+  "name": "Python Language",
+  "bin": "monad_python.bin",
+  "txt": "python_corpus.txt",
+  "primary_tags": [
+    "DATAMODEL",
+    "REFERENCE",
+    "PEP",
+    "WHATSNEW",
+    "API"
+  ],
+  "primary_weight": 2.0,
+  "context_weight": 1.0,
+  "color": "green",
+  "description": "Python specification \u2014 PEPs, data model, stdlib API. Holcus learns Python syntax as a lived language, not just English strings. Required for monad.py self-comprehension."
+}

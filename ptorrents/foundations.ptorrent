@@ -1,0 +1,15 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "corpus",
+  "name": "Prime Directive I \u2014 Foundations",
+  "bin": "monad_foundations.bin",
+  "txt": "foundations.txt",
+  "primary_tags": [
+    "PRIMARY",
+    "TESTIMONY"
+  ],
+  "primary_weight": 2.0,
+  "context_weight": 1.0,
+  "color": "gold",
+  "description": "The axioms of Holcus. Testimony corpus encoding the First Principles of SMMIP \u2014 the ground field from which all \u03c3-faces project. Ptolemy I Soter through Cawagas 2004. The knowledge quarantine."
+}

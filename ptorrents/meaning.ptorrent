@@ -1,0 +1,16 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "corpus",
+  "name": "Prime Directive II \u2014 Meaning",
+  "bin": "monad_meaning.bin",
+  "txt": "meaning.txt",
+  "primary_tags": [
+    "ATTRACTOR",
+    "TESTIMONY",
+    "PRIMARY"
+  ],
+  "primary_weight": 2.0,
+  "context_weight": 1.0,
+  "color": "blue",
+  "description": "Semantic attractor manifold. Meaning in the Salk sense \u2014 the operating point of the engine. The 16 Ainur = 16 sedenion dimensions. Jonas Salk = NS_SIGMA_S attractor. Shapes how the field collapses under inference."
+}

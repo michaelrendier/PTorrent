@@ -1,0 +1,21 @@
+PTorrent — Original Author and Maintainer
+==========================================
+
+Cody Michael Allison <the.wandering.god@gmail.com>
+  - Concept, architecture, protocol design, and all original source code
+  - PtolemySeeder Android APK (Kotlin/Python)
+  - PTorrent format specification v1.0
+  - Medical literature aggregator (DeriveCancerDrugs corpus)
+  - Ainulindale / SMMIP theoretical framework
+
+---
+
+PTorrent is part of the Ptolemy / Ainulindale research project.
+The protocol is inspired by BitTorrent (Bram Cohen, 2001/2003) — adapted
+for corpus distribution without a tracker, gradient server, or central index.
+
+If you contribute to this project, add your name and email below this line,
+along with a brief description of your contribution.
+
+Contributors:
+(none yet — be the first)

@@ -1,0 +1,40 @@
+PTorrent ChangeLog
+==================
+
+2026-06-02  Cody Michael Allison  <the.wandering.god@gmail.com>
+
+	* Centralized all PTorrent development into this repository.
+	* Moved PtolemySeeder Android APK source from PtolemyHolcus/android/.
+	* Moved all .ptorrent corpus descriptors from PtolemyHolcus/ptorrents/.
+	* Moved medical literature aggregator from DeriveCancerDrugs/ptorrent/.
+	* Organized monad checkpoint bin files into bin_archive/clean/ and dirty/.
+	* Adopted GNU project structure and GPL-3.0 license.
+	* Added PTorrent format specification (spec/ptorrent-format-v1.md).
+
+2026-05-30  Cody Michael Allison  <the.wandering.god@gmail.com>
+
+	* PtolemySeeder APK v2.0 (versionCode 4).
+	* PTorrent file format defined (.ptorrent JSON descriptor).
+	* Corpus detail page with live URL-level status updates.
+	* Transmission-style toolbar: Resume / Pause / Clear Done / Add PTorrent.
+	* FileObserver inbox/ watcher for adb-push delivery path.
+	* seed_runner.py exports run_one(entry, ...) for inbox additions.
+	* Pause implemented via AtomicBoolean bridge block (URL-granular).
+	* Physics corpus added: ~130 URLs (waves, QM, GR, dark matter, Yang-Mills).
+	* Mathematics corpus added: ~130 URLs (Riemann, primes, spectral, Clay).
+	* Chaquopy 15.0.1, Python 3.12 embedded in APK.
+
+2026-05-26  Cody Michael Allison  <the.wandering.god@gmail.com>
+
+	* PtolemySeeder APK v1.0 — initial release.
+	* Five corpora: Foundations, Meaning, Fermat, Python, C/POSIX.
+	* Parallel seeder architecture with Kotlin/Python bridge.
+	* SeedLiveData with URL pre-population before seeding begins.
+	* adb pull workflow for bin file retrieval.
+
+2026-05-16  Cody Michael Allison  <the.wandering.god@gmail.com>
+
+	* PTorrent protocol concept established.
+	* .ptorrent format drafted — JSON corpus descriptor analogous to .torrent.
+	* Intent filters registered: application/x-ptorrent, *.ptorrent.
+	* Corpus manifest: corpus_list.json.

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.PtolemySeeder" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/ptol_gold</item>
+        <item name="colorPrimaryVariant">@color/ptol_bg</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorSecondary">@color/ptol_cyan</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor">@color/ptol_bg</item>
+        <item name="android:navigationBarColor">@color/ptol_bg</item>
+        <item name="android:windowBackground">@color/ptol_bg</item>
+    </style>
+</resources>

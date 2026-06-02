@@ -1,0 +1,94 @@
+PTorrent — Installation and Build Guide
+========================================
+
+Requirements
+------------
+
+  * Android Studio (Hedgehog or later) OR Android SDK command-line tools
+  * Android device or emulator, API level 26+ (Android 8.0+)
+  * adb (Android Debug Bridge) in PATH
+  * Python 3.12 (for running aggregators locally)
+  * Java 17+ (for Gradle / Android build)
+
+Building the PtolemySeeder APK
+-------------------------------
+
+  The build script handles everything:
+
+    cd android
+    bash build_apk.sh
+
+  This will:
+    1. Run `./gradlew assembleDebug` inside android/PtolemySeeder/
+    2. Output: android/PtolemySeeder/app/build/outputs/apk/debug/app-debug.apk
+
+  Manual build:
+
+    cd android/PtolemySeeder
+    ./gradlew assembleDebug
+
+Installing on Device
+--------------------
+
+  With device connected via USB (USB debugging enabled):
+
+    bash android/build_apk.sh --install
+
+  Or manually:
+
+    adb install -r android/PtolemySeeder/app/build/outputs/apk/debug/app-debug.apk
+
+Seeding a Corpus — Two Delivery Paths
+--------------------------------------
+
+  a) adb push to inbox/ (automatic pickup via FileObserver):
+
+    adb push ptorrents/physics.ptorrent \
+      /sdcard/Android/data/com.ptolemy.seeder/files/inbox/
+
+  b) Tap to open — transfer the .ptorrent file to your device and tap it
+     in any file manager. The Seeder registers as the handler for
+     application/x-ptorrent and *.ptorrent files.
+
+Pulling Trained Bin Files
+--------------------------
+
+  After seeding completes, pull the checkpoint files to your desktop:
+
+    adb pull /sdcard/Android/data/com.ptolemy.seeder/files/monad_physics.bin     .
+    adb pull /sdcard/Android/data/com.ptolemy.seeder/files/monad_mathematics.bin .
+    adb pull /sdcard/Android/data/com.ptolemy.seeder/files/monad_english.bin     .
+
+  Bin files go in bin_archive/clean/ if fresh GEOMETRIC INIT,
+  or bin_archive/dirty/ if post-training checkpoints.
+
+adb Workflow Quick Reference
+-----------------------------
+
+  Push updated corpus manifest:
+    adb push android/corpus_list.json \
+      /sdcard/Android/data/com.ptolemy.seeder/files/
+
+  Add a new .ptorrent via inbox:
+    adb push ptorrents/my_corpus.ptorrent \
+      /sdcard/Android/data/com.ptolemy.seeder/files/inbox/
+
+  Pull all bin files:
+    adb pull /sdcard/Android/data/com.ptolemy.seeder/files/ ./pulled_bins/
+
+  Check device logs:
+    adb logcat -s PTorrent SeedService CorpusDetail
+
+Running the Medical Aggregator (Linux/macOS)
+--------------------------------------------
+
+  Install dependencies:
+
+    pip install requests
+
+  Run:
+
+    python aggregators/medical/scholar_aggregator.py
+
+  Output: JSON with Ainulindale cancer-drug tags in the working directory.
+  Set NCBI_API_KEY environment variable for higher PubMed rate limits.

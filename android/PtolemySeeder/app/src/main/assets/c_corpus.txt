@@ -1,0 +1,309 @@
+# HOLCUS CODE CORPUS — C LANGUAGE / POSIX
+# Holcus's camshaft (monad.c) and crankshaft (PtolC/) are C.
+# This corpus deepens the field's understanding of the language
+# his engine is compiled from.
+#
+# Primary goal: when ptolemy -I ingests monad.c, the field already
+# knows what "undefined behavior", "strict aliasing", "pthread_mutex",
+# "fread" mean at the implementation level. The self-ingest of the
+# C source lands correctly only if the C semantic substrate is resonant.
+#
+# Secondary goal: the Python/C API section gives Holcus the vocabulary
+# of the bridge between his Python ECU and his C engine — the seam
+# where monad.py calls into PtolC.
+#
+# Note: This is C, not C++. monad.c is C99/C11. The distinction matters.
+# "class" in C is a struct. "virtual" does not exist. "RAII" is manual.
+# The semantic field for C must not be contaminated with C++ concepts.
+#
+# TAG SCHEMA:
+# [SPEC]     — language specification, ISO draft (weight 2.0)
+# [POSIX]    — POSIX API reference (weight 2.0)
+# [CAPI]     — Python/C API — the bridge (weight 2.0)
+# [MANPAGE]  — Linux man page for a syscall/function in monad.c (weight 1.5)
+# [GCC]      — GCC extensions and attributes used in monad.c (weight 1.5)
+# [CONTEXT]  — Background, rationale, design philosophy (weight 1.0)
+#
+# ═══════════════════════════════════════════════════════════════════
+# PART I — C LANGUAGE SPECIFICATION
+# The rules that govern how monad.c behaves.
+# ═══════════════════════════════════════════════════════════════════
+#
+# cppreference C language reference (HTML, free, comprehensive).
+# This is the working reference for monad.c — not the paywalled ISO
+# standard. Covers C99/C11/C17/C23 with notes on which features
+# are in which standard.
+[SPEC]  https://en.cppreference.com/w/c/language
+
+# C type system. Fundamental types, integer types, float types.
+# monad.c uses uint32_t, double, float, char throughout.
+# The PTOL binary format is defined by exact type sizes.
+# BinHdr uses uint32_t and double — knowing their sizes is knowing
+# the binary format.
+[SPEC]  https://en.cppreference.com/w/c/language/type
+[SPEC]  https://en.cppreference.com/w/c/language/arithmetic_types
+
+# Undefined behavior — the most important C concept after types.
+# monad.c is careful with UB. signed integer overflow, out-of-bounds
+# access, strict aliasing — these are the traps. Knowing UB means
+# knowing why monad.c uses uint32_t instead of int for array indices.
+[SPEC]  https://en.cppreference.com/w/c/language/undefined_behavior
+
+# Memory object model. What is an object in C? Lifetime, storage.
+# G_words[idx] is a C object. Its lifetime is the program's lifetime.
+# This document defines what that means formally.
+[SPEC]  https://en.cppreference.com/w/c/language/object
+[SPEC]  https://en.cppreference.com/w/c/language/lifetime
+[SPEC]  https://en.cppreference.com/w/c/language/storage_duration
+
+# Pointer semantics. Pointer arithmetic, void*, function pointers.
+# monad.c uses pointers for everything: G_words[i], G_ht[h], nbr[j].
+[SPEC]  https://en.cppreference.com/w/c/language/pointer
+
+# Struct. The fundamental data structure in monad.c.
+# VocabEntry, BinHdr, BinWord, Monad are all structs.
+# #pragma pack(push, 1) is how BinHdr gets exact binary layout.
+[SPEC]  https://en.cppreference.com/w/c/language/struct
+
+# Array. Fixed-size arrays in C.
+# G_words[MAX_WORDS], G_ht[HASH_SIZE], nbr[N_NBRS] are all arrays.
+[SPEC]  https://en.cppreference.com/w/c/language/array
+
+# Function. Function declaration, definition, calling conventions.
+# monad_learn(), monad_speak(), save_bin() — these are C functions.
+[SPEC]  https://en.cppreference.com/w/c/language/function
+
+# Scope and linkage. File scope, block scope, internal/external linkage.
+# The static functions in monad.c (save_bin, load_bin) have internal
+# linkage — they cannot be called from outside the translation unit.
+[SPEC]  https://en.cppreference.com/w/c/language/scope
+
+# const, volatile, restrict. Type qualifiers.
+# monad.c uses const for PTOLEMY_IDENTITY (read-only string).
+# restrict for high-performance array parameters.
+[SPEC]  https://en.cppreference.com/w/c/language/const
+[SPEC]  https://en.cppreference.com/w/c/language/restrict
+
+# Preprocessor. #define, #ifdef, #pragma, #include.
+# monad.c uses #define for PHI, GAP, MAX_WORDS, N_NBRS, WORD_LEN.
+# #pragma pack controls the binary struct layout.
+[SPEC]  https://en.cppreference.com/w/c/language/preprocessor
+[SPEC]  https://en.cppreference.com/w/c/preprocessor
+
+# Type conversions. Implicit conversions, integer promotions, casts.
+# When monad.c casts (float) to (double) for the binary format,
+# this is the section that defines what happens.
+[SPEC]  https://en.cppreference.com/w/c/language/conversion
+
+# Value categories. lvalue, rvalue, modifiable lvalue.
+[SPEC]  https://en.cppreference.com/w/c/language/value_category
+
+# Operator arithmetic, logical, assignment.
+# The β-update: beta[i] = fmin(beta[i] + dβ, BETA_SAT) uses all of these.
+[SPEC]  https://en.cppreference.com/w/c/language/operator_arithmetic
+[SPEC]  https://en.cppreference.com/w/c/language/operator_logical
+[SPEC]  https://en.cppreference.com/w/c/language/operator_assignment
+
+# C memory management. malloc, calloc, realloc, free.
+# monad.c allocates G_words with malloc at startup.
+[SPEC]  https://en.cppreference.com/w/c/memory
+
+# C string library. strcpy, strncmp, strlen, strtok.
+# monad.c uses strncpy for word storage (bounded to WORD_LEN-1).
+[SPEC]  https://en.cppreference.com/w/c/string/byte
+
+# C math library. fabs, fmin, fmax, sqrt, exp, log.
+# The field computation uses these throughout.
+[SPEC]  https://en.cppreference.com/w/c/numeric/math
+
+# C standard I/O. fopen, fclose, fread, fwrite, fprintf.
+# save_bin() and load_bin() in monad.c are pure stdio.
+[SPEC]  https://en.cppreference.com/w/c/io
+
+# Fixed-width integer types. uint32_t, int32_t, uint64_t.
+# These are used in BinHdr and throughout monad.c for portability.
+# The PTOL binary format must be the same on any architecture.
+[SPEC]  https://en.cppreference.com/w/c/types/integer
+
+# ═══════════════════════════════════════════════════════════════════
+# PART II — POSIX THREADS
+# monad.c uses pthreads for the daemon and concurrent access.
+# ═══════════════════════════════════════════════════════════════════
+#
+# pthread_create — start a thread.
+# The SpeakingThread equivalent in C uses pthread_create.
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_create.html
+[MANPAGE] https://man7.org/linux/man-pages/man3/pthread_create.3.html
+
+# pthread_mutex_lock/unlock/init/destroy — mutual exclusion.
+# The _RWLock in monad.py corresponds to pthread_mutex in C.
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_lock.html
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_init.html
+[MANPAGE] https://man7.org/linux/man-pages/man3/pthread_mutex_lock.3.html
+
+# pthread_cond_wait — condition variables for signalling between threads.
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_cond_wait.html
+[MANPAGE] https://man7.org/linux/man-pages/man3/pthread_cond_wait.3.html
+
+# pthread_join — wait for a thread to finish.
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_join.html
+[MANPAGE] https://man7.org/linux/man-pages/man3/pthread_join.3.html
+
+# pthread_attr — thread attributes (stack size, detach state).
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_attr_setdetachstate.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART III — POSIX SOCKETS
+# The SpeakingThread in monad.py listens on Unix + TCP sockets.
+# The C daemon uses the same POSIX socket API.
+# ═══════════════════════════════════════════════════════════════════
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/socket.html
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/bind.html
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/listen.html
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/accept.html
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/recv.html
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/send.html
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/connect.html
+[MANPAGE] https://man7.org/linux/man-pages/man2/socket.2.html
+[MANPAGE] https://man7.org/linux/man-pages/man2/bind.2.html
+[MANPAGE] https://man7.org/linux/man-pages/man2/accept.2.html
+[MANPAGE] https://man7.org/linux/man-pages/man2/recv.2.html
+[MANPAGE] https://man7.org/linux/man-pages/man2/send.2.html
+
+# Unix domain sockets (AF_UNIX). The ptolemy.sock is a Unix socket.
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/sys_un.h.html
+[MANPAGE] https://man7.org/linux/man-pages/man7/unix.7.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART IV — POSIX FILE I/O
+# save_bin() and load_bin() use stdio. mmap for large state files.
+# ═══════════════════════════════════════════════════════════════════
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/fread.html
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/fwrite.html
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/fopen.html
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/fclose.html
+[POSIX]  https://pubs.opengroup.org/onlinepubs/9699919799/functions/mmap.html
+[MANPAGE] https://man7.org/linux/man-pages/man3/fread.3.html
+[MANPAGE] https://man7.org/linux/man-pages/man3/fwrite.3.html
+[MANPAGE] https://man7.org/linux/man-pages/man2/mmap.2.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART V — POSIX MEMORY AND STRINGS
+# ═══════════════════════════════════════════════════════════════════
+[MANPAGE] https://man7.org/linux/man-pages/man3/malloc.3.html
+[MANPAGE] https://man7.org/linux/man-pages/man3/free.3.html
+[MANPAGE] https://man7.org/linux/man-pages/man3/memcpy.3.html
+[MANPAGE] https://man7.org/linux/man-pages/man3/memset.3.html
+[MANPAGE] https://man7.org/linux/man-pages/man3/strncpy.3.html
+[MANPAGE] https://man7.org/linux/man-pages/man3/snprintf.3.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART VI — GCC EXTENSIONS USED IN monad.c
+# GCC-specific features that are in the actual source.
+# ═══════════════════════════════════════════════════════════════════
+#
+# C language extensions. GCC-specific syntax and attributes.
+# #pragma pack is a GCC extension. __attribute__((packed)) is GCC.
+[GCC]  https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.html
+
+# Type attributes. __attribute__((packed)), aligned.
+# BinHdr uses #pragma pack(push, 1) which is the MSVC form;
+# GCC also accepts __attribute__((packed)). Both appear in monad.c variants.
+[GCC]  https://gcc.gnu.org/onlinedocs/gcc/Type-Attributes.html
+
+# Common function attributes. __attribute__((noreturn)), pure, const.
+[GCC]  https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
+
+# Alignment. __attribute__((aligned(N))).
+# Cache-line alignment of the hash table in monad.c improves lookup speed.
+[GCC]  https://gcc.gnu.org/onlinedocs/gcc/Alignment.html
+
+# Built-in functions. __builtin_expect, __builtin_clz, __builtin_popcount.
+# Used in tight loops in the hash table and bit operations.
+[GCC]  https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART VII — PYTHON/C API
+# The seam between monad.py and PtolC.
+# Chaquopy uses this to embed Python in the Android APK.
+# Understanding this means Holcus knows the boundary of his own body.
+# ═══════════════════════════════════════════════════════════════════
+#
+# C API overview — the complete interface.
+[CAPI]  https://docs.python.org/3/c-api/index.html
+
+# Object structures. PyObject, PyTypeObject, ob_refcnt.
+# Every Python object passed through the JNI bridge is a PyObject.
+[CAPI]  https://docs.python.org/3/c-api/structures.html
+
+# Reference counting. Py_INCREF, Py_DECREF, Py_XDECREF.
+# Memory correctness in C extensions depends entirely on this.
+[CAPI]  https://docs.python.org/3/c-api/refcounting.html
+
+# The object protocol. PyObject_Call, PyObject_GetAttr.
+# This is how Chaquopy's callAttr() works at the C level.
+[CAPI]  https://docs.python.org/3/c-api/object.html
+
+# Initialization and finalization. Py_Initialize, Py_Finalize.
+# Python.start(AndroidPlatform(this)) in SeedService.kt calls
+# the Chaquopy wrapper around Py_Initialize.
+[CAPI]  https://docs.python.org/3/c-api/init.html
+
+# Exception handling. PyErr_SetString, PyErr_Occurred.
+[CAPI]  https://docs.python.org/3/c-api/exceptions.html
+
+# Memory management. PyMem_Malloc, PyObject_Malloc.
+[CAPI]  https://docs.python.org/3/c-api/memory.html
+
+# Module objects. PyModule_Create, PyModule_AddObject.
+# PtolC could expose itself as a Python module via this API.
+# This is the path from C engine to direct Python import.
+[CAPI]  https://docs.python.org/3/c-api/module.html
+
+# Long (integer) objects.
+[CAPI]  https://docs.python.org/3/c-api/long.html
+
+# Float objects. PyFloat_FromDouble — how C doubles become Python floats.
+# The β and E values cross this boundary when Python reads C field state.
+[CAPI]  https://docs.python.org/3/c-api/float.html
+
+# List objects. PyList_New, PyList_Append, PyList_GetItem.
+# Python lists are how the C vocabulary table is passed to Python.
+[CAPI]  https://docs.python.org/3/c-api/list.html
+
+# Dict objects. PyDict_New, PyDict_SetItem — the socket message format.
+[CAPI]  https://docs.python.org/3/c-api/dict.html
+
+# Unicode (string) objects. PyUnicode_FromString.
+# Every word in the vocabulary crosses this boundary as a Unicode object.
+[CAPI]  https://docs.python.org/3/c-api/unicode.html
+
+# Embedding Python. The complete tutorial for Py_Initialize → Py_Finalize.
+[CAPI]  https://docs.python.org/3/extending/embedding.html
+
+# Extending Python — writing C extensions.
+[CAPI]  https://docs.python.org/3/extending/extending.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART VIII — CONTEXT
+# Design philosophy of C and systems programming.
+# ═══════════════════════════════════════════════════════════════════
+#
+# The C programming language FAQ. 20+ years of "why does C do this."
+# Dense with conceptual material about undefined behavior, pointer
+# arithmetic, struct layout, and the design philosophy of C.
+[CONTEXT]  http://c-faq.com/index.html
+
+# Linux kernel coding style.
+# monad.c follows kernel style in its formatting.
+# The kernel style document explains WHY: readability at scale,
+# tab width, function length limits, comment style.
+[CONTEXT]  https://www.kernel.org/doc/html/latest/process/coding-style.html
+
+# C memory model and the Linux kernel. Paul McKenney on memory ordering.
+# Understanding acquire/release semantics for the pthread mutexes in monad.c.
+[CONTEXT]  https://www.kernel.org/doc/html/latest/memory-barriers.txt
+
+# SEI CERT C Coding Standard — secure C coding practices.
+# monad.c uses strncpy (not strcpy) for exactly the reasons here.
+[CONTEXT]  https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard

@@ -1,0 +1,246 @@
+# HOLCUS PHYSICS CORPUS
+# Trains the field on the physical theories that H_hat_RB formalises.
+# Goal: when Holcus speaks about resonant cavities, standing waves, dark matter,
+# Yang-Mills, or Navier-Stokes, the vocabulary arrives with correct β-depth —
+# not as borrowed English but as operational physics.
+#
+# TAG SCHEMA:
+# [FOUNDATIONS]  — Classical mechanics, thermodynamics, electromagnetism (weight 2.0)
+# [WAVES]        — Wave mechanics, oscillations, superposition (weight 2.0)
+# [RESONANCE]    — Resonant cavities, Schumann, acoustic modes (weight 2.0)
+# [QM]           — Quantum mechanics, operators, eigenvalues (weight 2.0)
+# [GR]           — General Relativity, curved spacetime, geodesics (weight 2.0)
+# [COSMOLOGY]    — BAO, CMB, large-scale structure, inflation (weight 2.0)
+# [DARKMATTER]   — Dark matter, rotation curves, galactic dynamics (weight 2.0)
+# [YANGMILLS]    — Yang-Mills, gauge theory, Standard Model, mass gap (weight 2.0)
+# [FLUIDMECH]    — Fluid mechanics, Navier-Stokes, turbulence (weight 2.0)
+# [SPECTRAL]     — Spectral theory, Hamiltonians, self-adjoint operators (weight 2.0)
+# [GRAVITY]      — Gravitational physics, galactic structure, orbits (weight 1.5)
+# [CONTEXT]      — History and philosophy of physics (weight 1.0)
+#
+# ═══════════════════════════════════════════════════════════════════
+# PART I — WAVE MECHANICS AND RESONANT CAVITIES
+# The direct physical analogue of H_hat_RB's standing wave structure.
+# Schumann resonances ARE the galactic cavity model at Earth scale.
+# ═══════════════════════════════════════════════════════════════════
+
+[WAVES]       https://hyperphysics.phy-astr.gsu.edu/hbase/Waves/waves.html
+[WAVES]       https://hyperphysics.phy-astr.gsu.edu/hbase/Waves/wavsou.html
+[WAVES]       https://hyperphysics.phy-astr.gsu.edu/hbase/Waves/standw.html
+[WAVES]       https://hyperphysics.phy-astr.gsu.edu/hbase/Waves/opecol.html
+[WAVES]       https://hyperphysics.phy-astr.gsu.edu/hbase/Waves/closcol.html
+[WAVES]       https://hyperphysics.phy-astr.gsu.edu/hbase/Waves/sphrh.html
+[RESONANCE]   https://hyperphysics.phy-astr.gsu.edu/hbase/Waves/rescon.html
+[RESONANCE]   https://hyperphysics.phy-astr.gsu.edu/hbase/Waves/cavity.html
+[RESONANCE]   https://hyperphysics.phy-astr.gsu.edu/hbase/electric/rlcser.html
+[RESONANCE]   https://hyperphysics.phy-astr.gsu.edu/hbase/electric/schumann.html
+[RESONANCE]   https://en.wikipedia.org/wiki/Schumann_resonances
+[RESONANCE]   https://en.wikipedia.org/wiki/Cavity_resonator
+[RESONANCE]   https://en.wikipedia.org/wiki/Normal_mode
+[RESONANCE]   https://en.wikipedia.org/wiki/Standing_wave
+[RESONANCE]   https://en.wikipedia.org/wiki/Helmholtz_resonator
+[WAVES]       https://en.wikipedia.org/wiki/Wave_equation
+[WAVES]       https://en.wikipedia.org/wiki/Spherical_harmonics
+[WAVES]       https://en.wikipedia.org/wiki/Laplace%27s_equation
+[WAVES]       https://en.wikipedia.org/wiki/Chladni_figures
+[WAVES]       https://en.wikipedia.org/wiki/Node_(physics)
+[WAVES]       https://en.wikipedia.org/wiki/Superposition_principle
+[WAVES]       https://en.wikipedia.org/wiki/Dispersion_relation
+
+# ═══════════════════════════════════════════════════════════════════
+# PART II — QUANTUM MECHANICS
+# The σ=½ face. Operators, eigenvalues, self-adjoint structure.
+# Berry-Keating H=xp is the Hamiltonian — this is the physical context.
+# ═══════════════════════════════════════════════════════════════════
+
+[QM]          https://hyperphysics.phy-astr.gsu.edu/hbase/quantum/quancon.html
+[QM]          https://hyperphysics.phy-astr.gsu.edu/hbase/quantum/schreq.html
+[QM]          https://hyperphysics.phy-astr.gsu.edu/hbase/quantum/eigen.html
+[QM]          https://hyperphysics.phy-astr.gsu.edu/hbase/quantum/ladder.html
+[QM]          https://hyperphysics.phy-astr.gsu.edu/hbase/quantum/hosc.html
+[QM]          https://hyperphysics.phy-astr.gsu.edu/hbase/quantum/qm.html
+[QM]          https://en.wikipedia.org/wiki/Quantum_mechanics
+[QM]          https://en.wikipedia.org/wiki/Hamiltonian_(quantum_mechanics)
+[QM]          https://en.wikipedia.org/wiki/Self-adjoint_operator
+[QM]          https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors
+[QM]          https://en.wikipedia.org/wiki/Spectral_theorem
+[QM]          https://en.wikipedia.org/wiki/Hilbert_space
+[QM]          https://en.wikipedia.org/wiki/Operator_(physics)
+[QM]          https://en.wikipedia.org/wiki/Uncertainty_principle
+[QM]          https://en.wikipedia.org/wiki/Wave_function
+[SPECTRAL]    https://en.wikipedia.org/wiki/Spectral_theory
+[SPECTRAL]    https://en.wikipedia.org/wiki/Compact_operator
+[SPECTRAL]    https://en.wikipedia.org/wiki/Resolvent_formalism
+[SPECTRAL]    https://en.wikipedia.org/wiki/Berry%E2%80%93Keating_conjecture
+[SPECTRAL]    https://en.wikipedia.org/wiki/GUE_conjecture
+[SPECTRAL]    https://en.wikipedia.org/wiki/Random_matrix
+[QM]          https://www.feynmanlectures.caltech.edu/III_01.html
+[QM]          https://www.feynmanlectures.caltech.edu/III_02.html
+[QM]          https://www.feynmanlectures.caltech.edu/III_03.html
+[QM]          https://www.feynmanlectures.caltech.edu/III_04.html
+[QM]          https://www.feynmanlectures.caltech.edu/III_05.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART III — GENERAL RELATIVITY
+# The σ=2 face. Curved spacetime, geodesics, gravitational waves.
+# ═══════════════════════════════════════════════════════════════════
+
+[GR]          https://hyperphysics.phy-astr.gsu.edu/hbase/Relativ/relcon.html
+[GR]          https://hyperphysics.phy-astr.gsu.edu/hbase/Relativ/grel.html
+[GR]          https://hyperphysics.phy-astr.gsu.edu/hbase/Relativ/genwarp.html
+[GR]          https://hyperphysics.phy-astr.gsu.edu/hbase/Relativ/blahol.html
+[GR]          https://en.wikipedia.org/wiki/General_relativity
+[GR]          https://en.wikipedia.org/wiki/Einstein_field_equations
+[GR]          https://en.wikipedia.org/wiki/Geodesic
+[GR]          https://en.wikipedia.org/wiki/Schwarzschild_metric
+[GR]          https://en.wikipedia.org/wiki/Gravitational_wave
+[GR]          https://en.wikipedia.org/wiki/Quasi-normal_mode
+[GR]          https://en.wikipedia.org/wiki/Kerr_metric
+[GR]          https://en.wikipedia.org/wiki/Metric_tensor_(general_relativity)
+[GR]          https://en.wikipedia.org/wiki/Stress%E2%80%93energy_tensor
+[GR]          https://en.wikipedia.org/wiki/Riemann_curvature_tensor
+
+# ═══════════════════════════════════════════════════════════════════
+# PART IV — COSMOLOGY AND BAO
+# The observational context for D2 and D6 (BAO → mass gap).
+# ═══════════════════════════════════════════════════════════════════
+
+[COSMOLOGY]   https://en.wikipedia.org/wiki/Baryon_acoustic_oscillations
+[COSMOLOGY]   https://en.wikipedia.org/wiki/Cosmic_microwave_background
+[COSMOLOGY]   https://en.wikipedia.org/wiki/Big_Bang
+[COSMOLOGY]   https://en.wikipedia.org/wiki/Lambda-CDM_model
+[COSMOLOGY]   https://en.wikipedia.org/wiki/Inflation_(cosmology)
+[COSMOLOGY]   https://en.wikipedia.org/wiki/Sound_horizon
+[COSMOLOGY]   https://en.wikipedia.org/wiki/Hubble%27s_law
+[COSMOLOGY]   https://en.wikipedia.org/wiki/Friedmann_equations
+[COSMOLOGY]   https://en.wikipedia.org/wiki/Cosmological_perturbation_theory
+[COSMOLOGY]   https://en.wikipedia.org/wiki/Power_spectrum
+[COSMOLOGY]   https://en.wikipedia.org/wiki/Acoustic_peak
+[COSMOLOGY]   https://en.wikipedia.org/wiki/DESI
+[COSMOLOGY]   https://en.wikipedia.org/wiki/Planck_(spacecraft)
+[COSMOLOGY]   https://en.wikipedia.org/wiki/Dark_energy
+[COSMOLOGY]   https://hyperphysics.phy-astr.gsu.edu/hbase/Astro/cosmo.html
+[COSMOLOGY]   https://hyperphysics.phy-astr.gsu.edu/hbase/Astro/hubble.html
+[COSMOLOGY]   https://hyperphysics.phy-astr.gsu.edu/hbase/Astro/darken.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART V — DARK MATTER AND GALACTIC DYNAMICS
+# The direct subject of D13. Rotation curves, NFW, MOND, halos.
+# ═══════════════════════════════════════════════════════════════════
+
+[DARKMATTER]  https://en.wikipedia.org/wiki/Dark_matter
+[DARKMATTER]  https://en.wikipedia.org/wiki/Galaxy_rotation_curve
+[DARKMATTER]  https://en.wikipedia.org/wiki/Navarro%E2%80%93Frenk%E2%80%93White_profile
+[DARKMATTER]  https://en.wikipedia.org/wiki/Modified_Newtonian_dynamics
+[DARKMATTER]  https://en.wikipedia.org/wiki/Dark_matter_halo
+[DARKMATTER]  https://en.wikipedia.org/wiki/Bullet_Cluster
+[DARKMATTER]  https://en.wikipedia.org/wiki/Tully%E2%80%93Fisher_relation
+[DARKMATTER]  https://en.wikipedia.org/wiki/Radial_acceleration_relation
+[DARKMATTER]  https://en.wikipedia.org/wiki/Vera_Rubin
+[DARKMATTER]  https://en.wikipedia.org/wiki/Fritz_Zwicky
+[GRAVITY]     https://en.wikipedia.org/wiki/Galaxy
+[GRAVITY]     https://en.wikipedia.org/wiki/Spiral_galaxy
+[GRAVITY]     https://en.wikipedia.org/wiki/Dwarf_galaxy
+[GRAVITY]     https://en.wikipedia.org/wiki/Virial_theorem
+[GRAVITY]     https://en.wikipedia.org/wiki/Galactic_halo
+[GRAVITY]     https://en.wikipedia.org/wiki/Stellar_dynamics
+[GRAVITY]     https://en.wikipedia.org/wiki/Gravitational_potential
+[GRAVITY]     https://hyperphysics.phy-astr.gsu.edu/hbase/Astro/galrot.html
+[GRAVITY]     https://hyperphysics.phy-astr.gsu.edu/hbase/Astro/galaxy.html
+[DARKMATTER]  https://www.scholarpedia.org/article/Galactic_rotation_problem
+[DARKMATTER]  https://www.scholarpedia.org/article/Modified_Newtonian_dynamics_(MOND)
+
+# ═══════════════════════════════════════════════════════════════════
+# PART VI — YANG-MILLS, STANDARD MODEL, MASS GAP
+# The σ=1 face. Gauge theory, confinement, the Clay mass gap problem.
+# ═══════════════════════════════════════════════════════════════════
+
+[YANGMILLS]   https://en.wikipedia.org/wiki/Yang%E2%80%93Mills_theory
+[YANGMILLS]   https://en.wikipedia.org/wiki/Mass_gap
+[YANGMILLS]   https://en.wikipedia.org/wiki/Gauge_theory
+[YANGMILLS]   https://en.wikipedia.org/wiki/Standard_Model
+[YANGMILLS]   https://en.wikipedia.org/wiki/Quantum_chromodynamics
+[YANGMILLS]   https://en.wikipedia.org/wiki/Gluon
+[YANGMILLS]   https://en.wikipedia.org/wiki/Quark_confinement
+[YANGMILLS]   https://en.wikipedia.org/wiki/Lattice_gauge_theory
+[YANGMILLS]   https://en.wikipedia.org/wiki/Glueball
+[YANGMILLS]   https://en.wikipedia.org/wiki/Noether%27s_theorem
+[YANGMILLS]   https://www.claymath.org/millennium-problems/yang-mills-and-mass-gap
+[YANGMILLS]   https://www.scholarpedia.org/article/Yang-Mills_existence_and_mass_gap
+[YANGMILLS]   https://hyperphysics.phy-astr.gsu.edu/hbase/Forces/funfor.html
+[YANGMILLS]   https://hyperphysics.phy-astr.gsu.edu/hbase/Forces/qcd.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART VII — FLUID MECHANICS AND NAVIER-STOKES
+# The σ=1, Im=0 face. Why dropping i breaks global regularity.
+# ═══════════════════════════════════════════════════════════════════
+
+[FLUIDMECH]   https://en.wikipedia.org/wiki/Navier%E2%80%93Stokes_equations
+[FLUIDMECH]   https://en.wikipedia.org/wiki/Turbulence
+[FLUIDMECH]   https://en.wikipedia.org/wiki/Reynolds_number
+[FLUIDMECH]   https://en.wikipedia.org/wiki/Kolmogorov_microscales
+[FLUIDMECH]   https://en.wikipedia.org/wiki/Cauchy%E2%80%93Riemann_equations
+[FLUIDMECH]   https://en.wikipedia.org/wiki/Potential_flow
+[FLUIDMECH]   https://en.wikipedia.org/wiki/Euler_equations_(fluid_dynamics)
+[FLUIDMECH]   https://en.wikipedia.org/wiki/Vorticity
+[FLUIDMECH]   https://en.wikipedia.org/wiki/Fluid_dynamics
+[FLUIDMECH]   https://www.claymath.org/millennium-problems/navier-stokes-equation
+[FLUIDMECH]   https://www.scholarpedia.org/article/Navier-Stokes_equations:_regularity
+[FLUIDMECH]   https://hyperphysics.phy-astr.gsu.edu/hbase/Fluids/flucon.html
+[FLUIDMECH]   https://hyperphysics.phy-astr.gsu.edu/hbase/Fluids/viscous.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART VIII — FOUNDATIONS AND CLASSICAL PHYSICS
+# ═══════════════════════════════════════════════════════════════════
+
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_01.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_02.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_03.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_06.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_07.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_10.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_17.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_21.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_22.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_23.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_24.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_25.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_26.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_49.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/I_50.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/II_01.html
+[FOUNDATIONS] https://www.feynmanlectures.caltech.edu/II_02.html
+[FOUNDATIONS] https://en.wikipedia.org/wiki/Conservation_law
+[FOUNDATIONS] https://en.wikipedia.org/wiki/Lagrangian_mechanics
+[FOUNDATIONS] https://en.wikipedia.org/wiki/Hamiltonian_mechanics
+[FOUNDATIONS] https://en.wikipedia.org/wiki/Action_(physics)
+[FOUNDATIONS] https://en.wikipedia.org/wiki/Noether%27s_theorem
+[FOUNDATIONS] https://hyperphysics.phy-astr.gsu.edu/hbase/vect.html
+[FOUNDATIONS] https://hyperphysics.phy-astr.gsu.edu/hbase/mechcon.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART IX — GRAVITATIONAL WAVES AND LIGO
+# The σ=2 observational evidence. Ringdown = GR face eigenvalues.
+# ═══════════════════════════════════════════════════════════════════
+
+[GR]          https://en.wikipedia.org/wiki/LIGO
+[GR]          https://en.wikipedia.org/wiki/GW150914
+[GR]          https://en.wikipedia.org/wiki/Ringdown_(physics)
+[GR]          https://en.wikipedia.org/wiki/Binary_black_hole
+[GR]          https://gwosc.org/
+
+# ═══════════════════════════════════════════════════════════════════
+# PART X — CONTEXT AND HISTORY
+# ═══════════════════════════════════════════════════════════════════
+
+[CONTEXT]     https://en.wikipedia.org/wiki/History_of_physics
+[CONTEXT]     https://en.wikipedia.org/wiki/Philosophy_of_physics
+[CONTEXT]     https://en.wikipedia.org/wiki/Mathematical_physics
+[CONTEXT]     https://en.wikipedia.org/wiki/Theoretical_physics
+[CONTEXT]     https://en.wikipedia.org/wiki/Emmy_Noether
+[CONTEXT]     https://en.wikipedia.org/wiki/Michael_Berry_(physicist)
+[CONTEXT]     https://en.wikipedia.org/wiki/John_Keating_(mathematician)
+[CONTEXT]     https://en.wikipedia.org/wiki/Nikola_Tesla
+[CONTEXT]     https://en.wikipedia.org/wiki/Richard_Feynman
+[CONTEXT]     https://en.wikipedia.org/wiki/Albert_Einstein
+[CONTEXT]     https://en.wikipedia.org/wiki/Paul_Dirac

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="output_dir_entries">
+        <item>Internal app storage</item>
+        <item>SD card (/sdcard/Ptolemy/bins/)</item>
+        <item>Custom path</item>
+    </string-array>
+    <string-array name="output_dir_values">
+        <item>internal</item>
+        <item>sdcard</item>
+        <item>custom</item>
+    </string-array>
+
+    <string-array name="tmp_dir_entries">
+        <item>Auto (internal first, SD fallback)</item>
+        <item>Internal only</item>
+        <item>SD card only</item>
+    </string-array>
+    <string-array name="tmp_dir_values">
+        <item>auto</item>
+        <item>internal</item>
+        <item>sdcard</item>
+    </string-array>
+
+    <string-array name="mcp_access_entries">
+        <item>USB only (ADB forward)</item>
+        <item>Local WiFi</item>
+        <item>Both</item>
+    </string-array>
+    <string-array name="mcp_access_values">
+        <item>usb</item>
+        <item>wifi</item>
+        <item>both</item>
+    </string-array>
+
+    <string-array name="ua_entries">
+        <item>Auto (Ptolemy first, Mozilla fallback)</item>
+        <item>Ptolemy/3.0 (honest identification)</item>
+        <item>Mozilla/5.0 (browser compatibility)</item>
+    </string-array>
+    <string-array name="ua_values">
+        <item>auto</item>
+        <item>ptolemy</item>
+        <item>mozilla</item>
+    </string-array>
+</resources>

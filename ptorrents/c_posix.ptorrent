@@ -1,0 +1,16 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "corpus",
+  "name": "C / POSIX",
+  "bin": "monad_c.bin",
+  "txt": "c_corpus.txt",
+  "primary_tags": [
+    "SPEC",
+    "POSIX",
+    "CAPI"
+  ],
+  "primary_weight": 2.0,
+  "context_weight": 1.0,
+  "color": "purple",
+  "description": "C language and POSIX specification. Low-level vocabulary: memory, sockets, processes, file descriptors. Required for monad.c self-comprehension. The compression ignition engine understands its own substrate."
+}

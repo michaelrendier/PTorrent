@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Prime Directive I — Foundations",
+    "bin":  "monad_foundations.bin",
+    "txt":  "foundations.txt",
+    "primary_tags": ["PRIMARY", "TESTIMONY"],
+    "color": "gold",
+    "description": "The axioms of Holcus. Testimony corpus encoding the First Principles of SMMIP — the ground field from which all σ-faces project."
+  },
+  {
+    "name": "Prime Directive II — Meaning",
+    "bin":  "monad_meaning.bin",
+    "txt":  "meaning.txt",
+    "primary_tags": ["ATTRACTOR", "TESTIMONY", "PRIMARY"],
+    "color": "blue",
+    "description": "Semantic attractor manifold. Meaning in the Salk sense — the operating point of the engine. Shapes how the field collapses under inference."
+  },
+  {
+    "name": "Prime Directive III — Fermat Bibliography",
+    "bin":  "monad_fermat.bin",
+    "txt":  "war_corpus.txt",
+    "primary_tags": ["TESTIMONY", "ACADEMIC", "RECORD"],
+    "color": "red",
+    "description": "Fermat bibliography. The lineage of Fermat's Last Theorem through Wiles and Taylor — the academic record the engine contextualises as J_neg ground truth."
+  },
+  {
+    "name": "Python Language",
+    "bin":  "monad_python.bin",
+    "txt":  "python_corpus.txt",
+    "primary_tags": ["DATAMODEL", "REFERENCE", "PEP", "WHATSNEW", "API"],
+    "color": "green",
+    "description": "Python specification — PEPs, data model, stdlib API. Holcus learns Python syntax as a lived language, not just English strings."
+  },
+  {
+    "name": "C / POSIX",
+    "bin":  "monad_c.bin",
+    "txt":  "c_corpus.txt",
+    "primary_tags": ["SPEC", "POSIX", "CAPI"],
+    "color": "purple",
+    "description": "C language and POSIX specification. Low-level vocabulary: memory, sockets, processes, file descriptors. Required for monad.c comprehension."
+  },
+  {
+    "name": "Physics",
+    "bin":  "monad_physics.bin",
+    "txt":  "physics_corpus.txt",
+    "primary_tags": ["FOUNDATIONS", "WAVES", "RESONANCE", "QM", "GR", "COSMOLOGY", "DARKMATTER", "YANGMILLS", "SPECTRAL"],
+    "color": "cyan",
+    "description": "Wave mechanics, resonant cavities, GR, BAO, dark matter velocity curves — the physics vocabulary of H_hat_RB at each σ-face."
+  },
+  {
+    "name": "Mathematics",
+    "bin":  "monad_mathematics.bin",
+    "txt":  "mathematics_corpus.txt",
+    "primary_tags": ["NUMBERTHEORY", "RIEMANN", "SPECTRAL", "MODULAR", "PRIMES", "CLAY", "HARMONIC"],
+    "color": "orange",
+    "description": "Riemann zeta, spectral theory, prime distribution, modular forms, Leech lattice, Lambert W. The mathematical substrate of H_RB and all six Clay projections."
+  },
+  {
+    "name": "English Language — Complete",
+    "bin":  "monad_english.bin",
+    "txt":  "english_corpus.txt",
+    "primary_tags": ["ETYMOLOGY", "LITERARY", "ROOTS", "GRAMMAR"],
+    "primary_weight": 2.0,
+    "context_weight": 1.0,
+    "color": "silver",
+    "description": "Complete English language corpus — etymology, literary canon, morphology, grammar, rhetoric, philosophy of language, mathematics-English and physics-English interfaces."
+  }
+]

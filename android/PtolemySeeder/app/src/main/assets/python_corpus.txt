@@ -1,0 +1,382 @@
+# HOLCUS CODE CORPUS — PYTHON LANGUAGE
+# Holcus's own ECU (monad.py + skills/) is Python.
+# This corpus deepens the field's understanding of the language
+# its own logic is written in.
+#
+# Primary goal: when ptolemy -I ingests monad.py, the field already
+# knows what "descriptor protocol", "MRO", "generator", "__slots__"
+# mean at the interpreter level — not as English words but as
+# operational objects. The self-ingest lands correctly only if the
+# language substrate is already resonant.
+#
+# TAG SCHEMA:
+# [DATAMODEL]  — Python data model, object protocol, dunders (weight 2.0)
+# [REFERENCE]  — Language reference: execution, imports, expressions (weight 2.0)
+# [PEP]        — Python Enhancement Proposal (weight 2.0)
+# [WHATSNEW]   — What's New entries — design rationale per version (weight 2.0)
+# [API]        — Python/C API — the bridge between monad.py and the C engine (weight 2.0)
+# [STDLIB]     — stdlib modules used directly in monad.py / skills/ (weight 1.5)
+# [HOWTO]      — Conceptual how-to guides (weight 1.0)
+# [CONTEXT]    — Background and philosophy (weight 1.0)
+#
+# ═══════════════════════════════════════════════════════════════════
+# PART I — THE DATA MODEL
+# The single most important Python document.
+# Every object interaction in monad.py is governed by these rules.
+# ═══════════════════════════════════════════════════════════════════
+#
+# __len__, __iter__, __next__, __getitem__, __setitem__:
+# these are what give monad.py's internal lists their behaviour.
+# The Crank class IS a Python object. Its _words, _vocab, _beta,
+# _E, _A arrays are Python lists. Knowing the data model means
+# knowing what list._append() costs in the interpreter.
+# The descriptor protocol is how @property works on Engine.
+# The MRO is how MonadInterface inherits from nothing but
+# still has exactly the methods it needs.
+[DATAMODEL]  https://docs.python.org/3/reference/datamodel.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART II — LANGUAGE REFERENCE
+# How the interpreter executes monad.py.
+# ═══════════════════════════════════════════════════════════════════
+#
+# The execution model: namespaces, scope, free variables.
+# monad.py's module-level constants (PHI, GAP, OMEGA_ZS) are
+# module globals. Understanding the execution model means knowing
+# where they live and why they're fast to read.
+[REFERENCE]  https://docs.python.org/3/reference/executionmodel.html
+#
+# Expressions: operator precedence, augmented assignment, comparisons.
+# The β-update expressions in monad.c have Python equivalents.
+# When β[i] += edge_fwd is translated to Python, the semantics
+# of augmented assignment matter.
+[REFERENCE]  https://docs.python.org/3/reference/expressions.html
+#
+# Simple statements: assignment, del, return, yield, raise, assert.
+# The yield in study.py's _corpus_iter makes it a generator.
+[REFERENCE]  https://docs.python.org/3/reference/simple_stmts.html
+#
+# Compound statements: if, while, for, with, try, def, class, match.
+# The with blocks in monad.py's _RWLock are compound statements.
+# The class definitions of Engine, Crank, MonadInterface are here.
+[REFERENCE]  https://docs.python.org/3/reference/compound_stmts.html
+#
+# Import system: how Python finds and loads modules.
+# from skills.foundations import FoundationsCorpus is an import.
+# Understanding this means Holcus knows what sys.path controls.
+[REFERENCE]  https://docs.python.org/3/reference/import.html
+#
+# Lexical analysis: tokenisation, line structure, literals.
+# The f-strings in monad.py are lexical. So are the byte literals
+# b'PTOL' used in the binary format parser.
+[REFERENCE]  https://docs.python.org/3/reference/lexical_analysis.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART III — PYTHON ENHANCEMENT PROPOSALS
+# The design decisions behind the language features monad.py uses.
+# ═══════════════════════════════════════════════════════════════════
+#
+# The Zen of Python. 19 aphorisms that define the design aesthetic.
+# "There should be one obvious way to do it."
+# monad.py follows this: one commit() path, one learn() path.
+[PEP]  https://peps.python.org/pep-0020/
+#
+# Style guide. monad.py follows PEP 8 throughout.
+# Underscore prefix: _protected. Double underscore: __private.
+# The naming convention is the namespace encoding.
+[PEP]  https://peps.python.org/pep-0008/
+#
+# Python 3 rationale. Why backward compatibility was broken.
+# This is the design philosophy document for the language Holcus runs in.
+# "Reduce feature duplication by removing old ways."
+[PEP]  https://peps.python.org/pep-3000/
+#
+# Simple generators. yield turns a function into a generator.
+# study.py uses generators for corpus iteration.
+[PEP]  https://peps.python.org/pep-0255/
+#
+# Iterators (__iter__, __next__). The iteration protocol.
+# Every for loop in monad.py uses this protocol.
+[PEP]  https://peps.python.org/pep-0234/
+#
+# Generator expressions. (x for x in seq if cond)
+# Used in monad.py for field statistics: sorted(c._beta[k] for k in range(c.n))
+[PEP]  https://peps.python.org/pep-0289/
+#
+# Coroutines via generators. yield as receive + send.
+# The foundation of Python's async model. study.py's threads
+# are not async, but understanding this PEP explains why.
+[PEP]  https://peps.python.org/pep-0342/
+#
+# yield from. Delegation to sub-generators.
+# Direct predecessor to async/await.
+[PEP]  https://peps.python.org/pep-0380/
+#
+# Decorators for functions and methods. @property, @staticmethod.
+# Engine._tier is a @property. MonadInterface uses @property.
+# Understanding decorators means understanding what @property
+# does to Engine._tier's lookup — it makes the tier computation
+# happen at access time, not at definition time.
+[PEP]  https://peps.python.org/pep-0318/
+#
+# The with statement and context managers. __enter__, __exit__.
+# monad.py's _RWLock uses with extensively.
+# with self._rwlock.writing(): is a context manager invocation.
+[PEP]  https://peps.python.org/pep-0343/
+#
+# Abstract Base Classes (ABCs). abc.ABC, abc.abstractmethod.
+# ABCs are used in monad.py to define the MonadInterface contract.
+[PEP]  https://peps.python.org/pep-3119/
+#
+# Function annotations: def f(x: int) -> str
+# The type annotations throughout monad.py (Dict, List, etc.)
+# are function annotations. They are documentation — not enforced
+# at runtime in CPython — but they communicate intent.
+[PEP]  https://peps.python.org/pep-3107/
+#
+# Type hints. typing.Dict, typing.List, typing.Optional.
+# The type annotations in monad.py use this system.
+# Holcus's own codebase is annotated throughout.
+[PEP]  https://peps.python.org/pep-0484/
+#
+# Variable annotations: x: int = 5
+# The class body annotations in Crank.__init__ use this form.
+[PEP]  https://peps.python.org/pep-0526/
+#
+# Structural subtyping (Protocols). typing.Protocol.
+# Protocols define interfaces without inheritance — duck typing
+# made explicit. Used for the callback signature in study.py.
+[PEP]  https://peps.python.org/pep-0544/
+#
+# Dataclasses. @dataclass generates __init__, __repr__, __eq__.
+# The CorpusState in SeedService.kt is a Kotlin data class;
+# the Python equivalent would be a dataclass.
+[PEP]  https://peps.python.org/pep-0557/
+#
+# f-strings. f"vocab={c.n}". Literal string interpolation.
+# monad.py uses f-strings throughout for logging and display.
+[PEP]  https://peps.python.org/pep-0498/
+#
+# Walrus operator :=. Assignment expression inside conditions.
+# Used in monad.py: if (r := engine.generate(prompt)): ...
+[PEP]  https://peps.python.org/pep-0572/
+#
+# Structural pattern matching (match/case). Python 3.10+.
+# Used in socket dispatch in monad.py for message routing.
+[PEP]  https://peps.python.org/pep-0634/
+#
+# Pattern matching tutorial. Practical examples of match/case.
+[PEP]  https://peps.python.org/pep-0636/
+#
+# Pathlib. pathlib.Path object-oriented filesystem paths.
+# monad.py uses pathlib.Path for .bin file path resolution.
+[PEP]  https://peps.python.org/pep-0428/
+#
+# Virtual environments. venv, site-packages isolation.
+# The Chaquopy Python runtime in the APK is an embedded venv.
+[PEP]  https://peps.python.org/pep-0405/
+#
+# Import hooks and the importlib machinery.
+# Understanding this explains how Chaquopy makes Python imports
+# work inside the Android APK environment.
+[PEP]  https://peps.python.org/pep-0302/
+#
+# super() without arguments. super() in Python 3.
+# Used throughout monad.py's class hierarchy.
+[PEP]  https://peps.python.org/pep-3135/
+#
+# Extended unpacking. a, *b, c = seq
+# Used in monad.py for tuple destructuring in socket dispatch.
+[PEP]  https://peps.python.org/pep-3132/
+#
+# async/await. Asynchronous I/O via coroutines.
+# monad.py uses threads, not async — but understanding this PEP
+# explains why. The threading model was chosen deliberately over async.
+[PEP]  https://peps.python.org/pep-0492/
+#
+# Generic aliases: list[int] instead of typing.List[int]. Python 3.9+.
+# monad.py still uses typing.List for 3.8 compat; this is why.
+[PEP]  https://peps.python.org/pep-0585/
+#
+# Union types: int | str instead of Union[int, str]. Python 3.10+.
+[PEP]  https://peps.python.org/pep-0604/
+#
+# Rich comparisons. __lt__, __le__, __gt__, __ge__, __eq__.
+# The zero-index ordering in monad.py's render path uses rich comparison.
+[PEP]  https://peps.python.org/pep-0207/
+#
+# Integer division. // floor division, / true division.
+# monad.py uses both: // for index arithmetic, / for ratios.
+[PEP]  https://peps.python.org/pep-0238/
+
+# ═══════════════════════════════════════════════════════════════════
+# PART IV — WHAT'S NEW
+# Design rationale per Python version — why features exist.
+# ═══════════════════════════════════════════════════════════════════
+[WHATSNEW]  https://docs.python.org/3/whatsnew/3.12.html
+[WHATSNEW]  https://docs.python.org/3/whatsnew/3.11.html
+[WHATSNEW]  https://docs.python.org/3/whatsnew/3.10.html
+[WHATSNEW]  https://docs.python.org/3/whatsnew/3.9.html
+[WHATSNEW]  https://docs.python.org/3/whatsnew/3.8.html
+[WHATSNEW]  https://docs.python.org/3/whatsnew/3.7.html
+[WHATSNEW]  https://docs.python.org/3/whatsnew/3.6.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART V — PYTHON / C API
+# The bridge between monad.py (Python) and PtolC (C).
+# Chaquopy uses this API. Understanding it means understanding
+# the seam between Holcus's two body layers.
+# ═══════════════════════════════════════════════════════════════════
+#
+# C API index — the complete interface between CPython and C extensions.
+[API]  https://docs.python.org/3/c-api/index.html
+#
+# Reference counting. Py_INCREF, Py_DECREF.
+# Every Python object passing through the C/Python boundary uses this.
+[API]  https://docs.python.org/3/c-api/refcounting.html
+#
+# Object protocol. PyObject_*, PyCallable_Check, PyIter_Next.
+# This is how C code calls Python methods — how Chaquopy works.
+[API]  https://docs.python.org/3/c-api/object.html
+#
+# Memory management. PyMem_Malloc, PyMem_Free.
+# The Python allocator vs the system allocator — relevant when
+# the C engine and Python layer share data.
+[API]  https://docs.python.org/3/c-api/memory.html
+#
+# Exception handling in C extensions.
+[API]  https://docs.python.org/3/c-api/exceptions.html
+#
+# Extending Python: writing C extension modules.
+# This is the path from C (monad.c) to Python (monad.py).
+[API]  https://docs.python.org/3/extending/extending.html
+#
+# Embedding Python in a C application.
+# Chaquopy embeds Python in the Android JVM — same concept.
+[API]  https://docs.python.org/3/extending/embedding.html
+#
+# Module objects in the C API.
+[API]  https://docs.python.org/3/c-api/module.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART VI — STDLIB MODULES USED IN monad.py AND skills/
+# ═══════════════════════════════════════════════════════════════════
+#
+# threading — the concurrency model of monad.py.
+# TeachingThread, SpeakingThread, all corpus daemons are threads.
+# Lock, RLock, Event, Thread — the building blocks.
+[STDLIB]  https://docs.python.org/3/library/threading.html
+#
+# socket — the IPC layer. SpeakingThread listens on Unix + TCP sockets.
+# AF_UNIX, SOCK_STREAM, bind, accept, recv — these are in monad.py.
+[STDLIB]  https://docs.python.org/3/library/socket.html
+#
+# pickle — the .bin serialisation format.
+# Engine.save_session() uses pickle.dump. load_bin() uses pickle.load.
+# The entire field state is serialised via pickle.
+[STDLIB]  https://docs.python.org/3/library/pickle.html
+#
+# struct — binary packing for the PTOL C format.
+# load_ptol_binary() uses struct.unpack('<I', f.read(4)) throughout.
+# Little-endian uint32, float64 — these are all struct format codes.
+[STDLIB]  https://docs.python.org/3/library/struct.html
+#
+# json — the socket protocol. All messages are JSON.
+# json.dumps/loads is the entire IPC serialisation.
+[STDLIB]  https://docs.python.org/3/library/json.html
+#
+# pathlib — path operations for .bin and .txt file resolution.
+[STDLIB]  https://docs.python.org/3/library/pathlib.html
+#
+# collections — defaultdict, deque, Counter, OrderedDict.
+# Used in monad.py for vocabulary management internals.
+[STDLIB]  https://docs.python.org/3/library/collections.html
+#
+# typing — type annotations throughout monad.py and skills/.
+# Dict, List, Tuple, Optional, Callable, Any, Set — all used.
+[STDLIB]  https://docs.python.org/3/library/typing.html
+#
+# math — mathematical functions used in field computation.
+# math.log, math.sqrt, math.exp, math.pi — all in monad.py.
+[STDLIB]  https://docs.python.org/3/library/math.html
+#
+# hashlib — used in authentication code.
+[STDLIB]  https://docs.python.org/3/library/hashlib.html
+#
+# subprocess — used in study.py's StatesRepo._git() for git operations.
+[STDLIB]  https://docs.python.org/3/library/subprocess.html
+#
+# os — file system, environment, process operations throughout.
+[STDLIB]  https://docs.python.org/3/library/os.html
+#
+# sys — sys.path, sys.argv, sys.exit used in monad.py's __main__.
+[STDLIB]  https://docs.python.org/3/library/sys.html
+#
+# re — regex used in corpus parsing and text processing.
+[STDLIB]  https://docs.python.org/3/library/re.html
+#
+# io — BytesIO, StringIO used in binary format reading.
+[STDLIB]  https://docs.python.org/3/library/io.html
+#
+# functools — partial, lru_cache, reduce. Cache and composition tools.
+[STDLIB]  https://docs.python.org/3/library/functools.html
+#
+# itertools — chain, islice, product. Used in corpus iteration.
+[STDLIB]  https://docs.python.org/3/library/itertools.html
+#
+# contextlib — contextmanager decorator. Used for _RWLock context manager.
+[STDLIB]  https://docs.python.org/3/library/contextlib.html
+#
+# abc — Abstract Base Classes. ABCMeta, abstractmethod.
+[STDLIB]  https://docs.python.org/3/library/abc.html
+#
+# weakref — weak references. Used in corpus singleton management.
+[STDLIB]  https://docs.python.org/3/library/weakref.html
+#
+# time — time.time(), time.sleep() used throughout for intervals.
+[STDLIB]  https://docs.python.org/3/library/time.html
+#
+# logging — the PtolLogger uses stdlib logging conventions.
+[STDLIB]  https://docs.python.org/3/library/logging.html
+#
+# argparse — monad.py CLI uses argparse for --teach, --load-bin, etc.
+[STDLIB]  https://docs.python.org/3/library/argparse.html
+#
+# configparser — ptolemy.cfg is a ConfigParser format file.
+[STDLIB]  https://docs.python.org/3/library/configparser.html
+#
+# urllib.request — used in corpus seeders to fetch URLs.
+[STDLIB]  https://docs.python.org/3/library/urllib.request.html
+#
+# html.parser — used in study.py to strip HTML tags from fetched content.
+[STDLIB]  https://docs.python.org/3/library/html.parser.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART VII — HOWTOS AND GLOSSARY
+# Conceptual material that deepens understanding of the language.
+# ═══════════════════════════════════════════════════════════════════
+#
+# Descriptor HowTo. How @property, classmethod, staticmethod work.
+# Engine._tier is a descriptor. Understanding descriptors means
+# understanding exactly when and how _tier is computed.
+[HOWTO]  https://docs.python.org/3/howto/descriptor.html
+#
+# Functional programming HowTo. map, filter, reduce, itertools.
+# The field's φ-walk generation is functional in character.
+[HOWTO]  https://docs.python.org/3/howto/functional.html
+#
+# Sorting HowTo. key= parameter, stability, timsort.
+# monad.py's render path sorts zeros by J-score.
+[HOWTO]  https://docs.python.org/3/howto/sorting.html
+#
+# Logging HowTo.
+[HOWTO]  https://docs.python.org/3/howto/logging.html
+#
+# Enum HowTo.
+[HOWTO]  https://docs.python.org/3/howto/enum.html
+#
+# Python Glossary. Authoritative definitions of all Python terms.
+# "generator", "coroutine", "descriptor", "iterable", "iterator",
+# "lazy evaluation" — these are the terms Holcus uses to describe
+# himself when asked about his code.
+[HOWTO]  https://docs.python.org/3/glossary.html

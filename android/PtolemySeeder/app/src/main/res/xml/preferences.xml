@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- ── Storage ─────────────────────────────────────────────────────── -->
+    <PreferenceCategory app:title="Storage">
+
+        <ListPreference
+            app:key="output_dir"
+            app:title="Output Directory"
+            app:summary="Where trained .bin files are saved"
+            app:entries="@array/output_dir_entries"
+            app:entryValues="@array/output_dir_values"
+            app:defaultValue="internal" />
+
+        <ListPreference
+            app:key="tmp_dir"
+            app:title="Working / Temp Directory"
+            app:summary="For zip downloads and intermediate files"
+            app:entries="@array/tmp_dir_entries"
+            app:entryValues="@array/tmp_dir_values"
+            app:defaultValue="auto" />
+
+        <EditTextPreference
+            app:key="inbox_path"
+            app:title="PTorrent Inbox Path"
+            app:summary="/sdcard/Ptolemy/ptorrents/"
+            app:defaultValue="/sdcard/Ptolemy/ptorrents/" />
+
+    </PreferenceCategory>
+
+    <!-- ── MCP Server ──────────────────────────────────────────────────── -->
+    <PreferenceCategory app:title="MCP Server">
+
+        <SwitchPreferenceCompat
+            app:key="mcp_enabled"
+            app:title="Enable MCP Server"
+            app:summary="Expose ptorrent tools via Model Context Protocol"
+            app:defaultValue="false" />
+
+        <EditTextPreference
+            app:key="mcp_port"
+            app:title="Port"
+            app:summary="Default: 3000"
+            app:defaultValue="3000"
+            app:dependency="mcp_enabled" />
+
+        <ListPreference
+            app:key="mcp_access"
+            app:title="Network Access"
+            app:entries="@array/mcp_access_entries"
+            app:entryValues="@array/mcp_access_values"
+            app:defaultValue="usb"
+            app:dependency="mcp_enabled" />
+
+    </PreferenceCategory>
+
+    <!-- ── Network ─────────────────────────────────────────────────────── -->
+    <PreferenceCategory app:title="Network">
+
+        <ListPreference
+            app:key="user_agent"
+            app:title="User-Agent"
+            app:entries="@array/ua_entries"
+            app:entryValues="@array/ua_values"
+            app:defaultValue="auto" />
+
+        <EditTextPreference
+            app:key="request_timeout"
+            app:title="Request Timeout (seconds)"
+            app:defaultValue="15" />
+
+        <EditTextPreference
+            app:key="retry_count"
+            app:title="Retry on Failure"
+            app:defaultValue="2" />
+
+        <SwitchPreferenceCompat
+            app:key="wifi_only_traversal"
+            app:title="WiFi Only for Traversal"
+            app:summary="Prevent corpus seeding on mobile data"
+            app:defaultValue="false" />
+
+    </PreferenceCategory>
+
+    <!-- ── Seeder ───────────────────────────────────────────────────────── -->
+    <PreferenceCategory app:title="Seeder">
+
+        <EditTextPreference
+            app:key="checkpoint_every"
+            app:title="Checkpoint Every N URLs"
+            app:defaultValue="20" />
+
+        <EditTextPreference
+            app:key="parallel_threads"
+            app:title="Parallel Corpus Threads"
+            app:defaultValue="4" />
+
+    </PreferenceCategory>
+
+    <!-- ── Cloud Sync ──────────────────────────────────────────────────── -->
+    <PreferenceCategory app:title="Cloud Sync">
+
+        <SwitchPreferenceCompat
+            app:key="cloud_google_drive"
+            app:title="Google Drive"
+            app:summary="Upload trained bins on completion" />
+
+        <SwitchPreferenceCompat
+            app:key="cloud_dropbox"
+            app:title="Dropbox"
+            app:summary="Upload trained bins on completion" />
+
+        <SwitchPreferenceCompat
+            app:key="cloud_onedrive"
+            app:title="OneDrive"
+            app:summary="Upload trained bins on completion" />
+
+        <SwitchPreferenceCompat
+            app:key="cloud_icloud"
+            app:title="iCloud (WebDAV)"
+            app:summary="Experimental on Android — requires app-specific password" />
+
+        <SwitchPreferenceCompat
+            app:key="wifi_only_upload"
+            app:title="WiFi Only for Uploads"
+            app:summary="Recommended — bins can be 100MB+"
+            app:defaultValue="true" />
+
+    </PreferenceCategory>
+
+    <!-- ── API Credentials ─────────────────────────────────────────────── -->
+    <PreferenceCategory app:title="API Credentials">
+
+        <EditTextPreference
+            app:key="github_token"
+            app:title="GitHub Token (APK Traversal)"
+            app:summary="PTOL_SEED_TOKEN — stored encrypted" />
+
+        <EditTextPreference
+            app:key="ads_api_key"
+            app:title="NASA ADS Key"
+            app:summary="Stored encrypted" />
+
+        <EditTextPreference
+            app:key="orcid_id"
+            app:title="ORCID ID"
+            app:defaultValue="0009-0007-7239-6760" />
+
+        <Preference
+            app:key="qualcomm_stub"
+            app:title="Qualcomm Developer Key"
+            app:summary="Coming soon" />
+
+    </PreferenceCategory>
+
+    <!-- ── About ────────────────────────────────────────────────────────── -->
+    <PreferenceCategory app:title="About">
+
+        <Preference
+            app:key="version"
+            app:title="PTorrent APK"
+            app:summary="Version 3.0 — Ptolemy Holcus Engine v1.218" />
+
+        <Preference
+            app:key="adb_forward"
+            app:title="ADB Forward Command"
+            app:summary="adb forward tcp:3001 tcp:3000 — tap to copy" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

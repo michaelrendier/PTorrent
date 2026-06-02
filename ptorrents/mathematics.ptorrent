@@ -1,0 +1,20 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "corpus",
+  "name": "Mathematics",
+  "bin": "monad_mathematics.bin",
+  "txt": "mathematics_corpus.txt",
+  "primary_tags": [
+    "NUMBERTHEORY",
+    "RIEMANN",
+    "SPECTRAL",
+    "MODULAR",
+    "PRIMES",
+    "CLAY",
+    "HARMONIC"
+  ],
+  "primary_weight": 2.0,
+  "context_weight": 1.0,
+  "color": "orange",
+  "description": "Riemann zeta, spectral theory, prime distribution, modular forms, Leech lattice, Lambert W, all six Clay projections. The mathematical substrate of H_RB. The Riemann Zeta = what it IS \u2014 the forward Noether current J^\u03bc."
+}

@@ -1,0 +1,23 @@
+PTorrent — What's New
+======================
+
+Version 2.0 (2026-05-30)
+--------------------------
+
+PTorrent file format defined. The .ptorrent JSON descriptor is now the
+canonical distribution unit for corpus seeding jobs — analogous to a
+.torrent file, but for knowledge corpora rather than arbitrary data.
+
+  * Two delivery paths: adb inbox/ push and tap-to-open via intent filters
+  * Corpus detail page with live URL-level status tracking
+  * Transmission-style control bar: Resume / Pause / Clear / Add
+  * Physics (~130 URLs) and Mathematics (~130 URLs) corpora shipped
+  * seed_runner.py now exports run_one() for single-PTorrent seeding
+  * Chaquopy 15.0.1 bridge, Python 3.12 embedded
+
+Version 1.0 (2026-05-26)
+--------------------------
+
+Initial release. Five corpora seeded in parallel across Android devices.
+BitTorrent-inspired architecture without tracker, gradient server, or
+central coordinator. Corpus traversal runs entirely on-device.

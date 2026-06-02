@@ -1,0 +1,463 @@
+# english_corpus.txt — Complete English Language Corpus for Holcus
+#
+# Purpose: Lexical ground state beneath all other fields.
+# English at full depth: etymology, root structure, literary canon,
+# morphology, grammar, rhetoric, philosophy of language, and the
+# mathematics-English and physics-English interfaces.
+#
+# Architecture note:
+#   This corpus feeds monad_english.bin — ISOLATED from primary field.
+#   Medical and caselaw English are SEPARATE ptorrents (namespace chirality
+#   inversion: "positive" in medical = OPPOSITE polarity to common English).
+#   Domain routing via sedenion trajectory — correct bin selected by context.
+#
+# TAG SCHEMA:
+# [ETYMOLOGY]   — word origin and root structure; the anchor of sedenion addressing
+# [LITERARY]    — literary canon, prose models; what English looks like at density
+# [ROOTS]       — Latin and Greek root dictionaries; substrate of scientific vocabulary
+# [GRAMMAR]     — grammar reference, syntax, sentence structure
+# [MORPHOLOGY]  — word formation, affixes, derivational rules
+# [RHETORIC]    — style, argumentation, sentence architecture
+# [PHILOS]      — philosophy of language, pragmatics, semantics, reference
+# [SCIWRITE]    — scientific writing register; the dialect of mathematics and physics
+# [MATHENG]     — mathematics-English interface; how notation becomes prose
+# [PHYSENG]     — physics-English interface; named quantities, constants, units
+# [HISTORY]     — history of English; how the lexicon was built
+# [LEXICAL]     — frequency, collocations, vocabulary structure
+#
+# PRIMARY TAGS (weight 2.0): ETYMOLOGY, LITERARY, ROOTS, GRAMMAR
+# FORMAT: [TAG]  <url>   (two spaces — parsed by GenericCorpus)
+#
+# ═══════════════════════════════════════════════════════════════════
+# PART I — Etymology: Root Structure and Word Origin
+# The sedenion address of a word must respect its etymological path.
+# Without etymology, polysemy is noise. With it, the sedenion walk
+# from root to derivative is the path through meaning-space.
+# ═══════════════════════════════════════════════════════════════════
+
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/History_of_the_English_language
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/Old_English
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/Middle_English
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/Early_Modern_English
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/Great_Vowel_Shift
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/Norman_influence_on_the_English_language
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/Latin_influence_in_English
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/Greek_influence_on_the_English_language
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/Proto-Indo-European_language
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/Proto-Germanic_language
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/Anglo-Saxon_language
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/Indo-European_languages
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/Cognate
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/False_friend
+[ETYMOLOGY]  https://en.wikipedia.org/wiki/Doublet_(linguistics)
+# Doublets are where sedenion splitting is visible: "guarantee"/"warranty" are the same root
+# bifurcated at the Norman-Germanic seam. The split IS the geometric edge.
+
+[ETYMOLOGY]  https://en.wiktionary.org/wiki/Category:English_terms_derived_from_Latin
+[ETYMOLOGY]  https://en.wiktionary.org/wiki/Category:English_terms_derived_from_Ancient_Greek
+[ETYMOLOGY]  https://en.wiktionary.org/wiki/Category:English_terms_derived_from_Old_French
+[ETYMOLOGY]  https://en.wiktionary.org/wiki/Category:English_terms_derived_from_Old_Norse
+[ETYMOLOGY]  https://en.wiktionary.org/wiki/Category:English_terms_derived_from_Proto-Germanic
+[ETYMOLOGY]  https://en.wiktionary.org/wiki/Appendix:Proto-Indo-European_roots
+
+# ═══════════════════════════════════════════════════════════════════
+# PART II — Latin and Greek Roots (the substrate of scientific English)
+# Every technical term in mathematics and physics is a Latin or Greek
+# root wearing English clothes. These are the actual sedenion nodes
+# beneath the entire scientific vocabulary.
+# ═══════════════════════════════════════════════════════════════════
+
+[ROOTS]  https://en.wikipedia.org/wiki/List_of_Latin_words_with_English_derivatives
+[ROOTS]  https://en.wikipedia.org/wiki/List_of_Greek_and_Latin_roots_in_English/A%E2%80%93G
+[ROOTS]  https://en.wikipedia.org/wiki/List_of_Greek_and_Latin_roots_in_English/H%E2%80%93O
+[ROOTS]  https://en.wikipedia.org/wiki/List_of_Greek_and_Latin_roots_in_English/P%E2%80%93Z
+[ROOTS]  https://en.wikipedia.org/wiki/List_of_Latin_phrases_(full)
+[ROOTS]  https://en.wikipedia.org/wiki/List_of_Greek_phrases
+[ROOTS]  https://en.wikipedia.org/wiki/List_of_Latin_and_Greek_words_commonly_used_in_systematic_names
+[ROOTS]  https://en.wikipedia.org/wiki/Latin_prefixes
+[ROOTS]  https://en.wikipedia.org/wiki/Ancient_Greek_prefixes
+[ROOTS]  https://en.wikipedia.org/wiki/List_of_Latin_abbreviations
+[ROOTS]  https://en.wikipedia.org/wiki/Scientific_terminology
+[ROOTS]  https://en.wikipedia.org/wiki/Vocabulary_of_mathematics
+# The math vocabulary list is where ROOTS and MATHENG intersect.
+# "algebra" = Arabic al-jabr; "algorithm" = al-Khwarizmi. The etymological paths
+# through Arabic into Latin into English are sedenion walks through different e-dimensions.
+
+[ROOTS]  https://www.perseus.tufts.edu/hopper/collection?collection=Perseus:collection:Greco-Roman
+[ROOTS]  https://en.wiktionary.org/wiki/Appendix:Latin_phrases
+[ROOTS]  https://en.wiktionary.org/wiki/Appendix:Ancient_Greek_phrases
+
+# ═══════════════════════════════════════════════════════════════════
+# PART III — Literary Canon (Project Gutenberg)
+# The best English ever written. Prose density, vocabulary at full
+# deployment, rhetoric in its native habitat.
+# The sedenion field for literary vocabulary must reflect HOW these
+# words are used at their highest frequency and intentionality.
+# ═══════════════════════════════════════════════════════════════════
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/100/pg100.txt
+# Shakespeare Complete Works — the single densest English vocabulary source.
+# Every word he used is used correctly, deliberately, and at full semantic weight.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/10/pg10.txt
+# King James Bible — the most influential English prose ever written.
+# Rhythmic structure, parallelism, and the vocabulary of moral reasoning.
+# 3/4 of the KJV vocabulary is Old English — the Germanic substrate alive.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/26/pg26.txt
+# John Milton — Paradise Lost. Latin sentence structures in English.
+# The meeting point of Latin/Greek syntactic architecture and English vocabulary.
+# This is the sedenion walk from classical to modern scientific prose.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/2383/pg2383.txt
+# Geoffrey Chaucer — Canterbury Tales. Middle English.
+# The vocabulary transition layer. Norman French + Old English still visible.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/16328/pg16328.txt
+# Beowulf — Old English. The substrate beneath all modern English.
+# The sedenion base state: Germanic root forms before Norman overlay.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/1342/pg1342.txt
+# Jane Austen — Pride and Prejudice. Formal register, precision of meaning.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/1400/pg1400.txt
+# Charles Dickens — Great Expectations. Industrial-era vocabulary.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/2701/pg2701.txt
+# Herman Melville — Moby Dick. Technical vocabulary of seamanship + philosophy.
+# The intersection of specialized technical register and philosophical prose.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/1497/pg1497.txt
+# Plato — The Republic (Jowett translation). The vocabulary of philosophy.
+# "Justice", "truth", "knowledge", "virtue" — their PRECISION of use matters.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/1404/pg1404.txt
+# The Federalist Papers. Legal-philosophical English at its most precise.
+# "Shall", "may", "ought", "right" used with full technical weight.
+# NOTE: Federalist Papers English ≠ modern legal English. Historical precision layer.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/147/pg147.txt
+# Thomas Paine — Common Sense. Plain English as a philosophical weapon.
+# The register of argument addressed to a general audience.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/5740/pg5740.txt
+# Wittgenstein — Tractatus Logico-Philosophicus (Ogden translation).
+# The precise use of language to describe the limits of language.
+# Every sentence here is a sedenion boundary condition stated in English.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/25717/pg25717.txt
+# Euclid — Elements (Heath translation). Mathematics written in English prose.
+# The original model of mathematical English: definitions, postulates, propositions.
+# The sedenion address for "therefore", "hence", "let" in mathematical context.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/37729/pg37729.txt
+# Charles Darwin — On the Origin of Species. Scientific English in transition.
+# From Victorian prose to the modern scientific register.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/5200/pg5200.txt
+# Franz Kafka — Metamorphosis (Muir translation). Precision of the uncanny.
+
+[LITERARY]  https://www.gutenberg.org/cache/epub/4300/pg4300.txt
+# James Joyce — Ulysses. The full sedenion expansion of English vocabulary.
+# Every register of English (classical, slang, liturgical, technical) simultaneously.
+
+# ═══════════════════════════════════════════════════════════════════
+# PART IV — Grammar and Syntax
+# Structure of English: how words combine into propositions.
+# The grammar is the geometry of sentences.
+# ═══════════════════════════════════════════════════════════════════
+
+[GRAMMAR]  https://en.wikipedia.org/wiki/English_grammar
+[GRAMMAR]  https://en.wikipedia.org/wiki/Part_of_speech
+[GRAMMAR]  https://en.wikipedia.org/wiki/Sentence_(linguistics)
+[GRAMMAR]  https://en.wikipedia.org/wiki/Syntax
+[GRAMMAR]  https://en.wikipedia.org/wiki/Subject_(grammar)
+[GRAMMAR]  https://en.wikipedia.org/wiki/Predicate_(grammar)
+[GRAMMAR]  https://en.wikipedia.org/wiki/Verb
+[GRAMMAR]  https://en.wikipedia.org/wiki/Noun
+[GRAMMAR]  https://en.wikipedia.org/wiki/Adjective
+[GRAMMAR]  https://en.wikipedia.org/wiki/Adverb
+[GRAMMAR]  https://en.wikipedia.org/wiki/Preposition_and_postposition
+[GRAMMAR]  https://en.wikipedia.org/wiki/Conjunction_(grammar)
+[GRAMMAR]  https://en.wikipedia.org/wiki/Clause
+[GRAMMAR]  https://en.wikipedia.org/wiki/Phrase
+[GRAMMAR]  https://en.wikipedia.org/wiki/Tense%E2%80%93aspect%E2%80%93mood
+[GRAMMAR]  https://en.wikipedia.org/wiki/Grammatical_mood
+[GRAMMAR]  https://en.wikipedia.org/wiki/Grammatical_voice
+[GRAMMAR]  https://en.wikipedia.org/wiki/Passive_voice
+[GRAMMAR]  https://en.wikipedia.org/wiki/Conditional_mood
+[GRAMMAR]  https://en.wikipedia.org/wiki/Subjunctive_mood
+# The subjunctive is critical: "Let ε > 0" (mathematical subjunctive), "if it be" —
+# the subjunctive carries irrealis semantics that mark mathematical hypothesis.
+[GRAMMAR]  https://en.wikipedia.org/wiki/Generative_grammar
+[GRAMMAR]  https://en.wikipedia.org/wiki/Universal_grammar
+[GRAMMAR]  https://en.wikipedia.org/wiki/Dependency_grammar
+[GRAMMAR]  https://en.wikipedia.org/wiki/Constituency_(linguistics)
+[GRAMMAR]  https://en.wikipedia.org/wiki/X-bar_theory
+
+# ═══════════════════════════════════════════════════════════════════
+# PART V — Morphology and Word Formation
+# How roots become words. The derivational algebra of English.
+# ═══════════════════════════════════════════════════════════════════
+
+[MORPHOLOGY]  https://en.wikipedia.org/wiki/English_morphology
+[MORPHOLOGY]  https://en.wikipedia.org/wiki/Word_formation
+[MORPHOLOGY]  https://en.wikipedia.org/wiki/Morpheme
+[MORPHOLOGY]  https://en.wikipedia.org/wiki/Affix
+[MORPHOLOGY]  https://en.wikipedia.org/wiki/English_prefixes
+[MORPHOLOGY]  https://en.wikipedia.org/wiki/English_suffixes
+[MORPHOLOGY]  https://en.wikipedia.org/wiki/Compound_(linguistics)
+[MORPHOLOGY]  https://en.wikipedia.org/wiki/Derivation_(linguistics)
+[MORPHOLOGY]  https://en.wikipedia.org/wiki/Inflection
+[MORPHOLOGY]  https://en.wikipedia.org/wiki/Nominalization
+[MORPHOLOGY]  https://en.wikipedia.org/wiki/Verbalization_(linguistics)
+[MORPHOLOGY]  https://en.wikipedia.org/wiki/Neologism
+[MORPHOLOGY]  https://en.wiktionary.org/wiki/Appendix:English_prefixes
+[MORPHOLOGY]  https://en.wiktionary.org/wiki/Appendix:English_suffixes
+
+# ═══════════════════════════════════════════════════════════════════
+# PART VI — Rhetoric and Style
+# How sentences are built for maximum force and clarity.
+# The engineering of persuasion and exposition.
+# ═══════════════════════════════════════════════════════════════════
+
+[RHETORIC]  https://en.wikipedia.org/wiki/Rhetoric
+[RHETORIC]  https://en.wikipedia.org/wiki/Figures_of_speech
+[RHETORIC]  https://en.wikipedia.org/wiki/Metaphor
+[RHETORIC]  https://en.wikipedia.org/wiki/Analogy
+[RHETORIC]  https://en.wikipedia.org/wiki/Syllogism
+[RHETORIC]  https://en.wikipedia.org/wiki/Enthymeme
+[RHETORIC]  https://en.wikipedia.org/wiki/Aphorism
+[RHETORIC]  https://en.wikipedia.org/wiki/Periodic_sentence
+[RHETORIC]  https://en.wikipedia.org/wiki/Parallelism_(rhetoric)
+[RHETORIC]  https://en.wikipedia.org/wiki/Chiasmus
+[RHETORIC]  https://en.wikipedia.org/wiki/Plain_English
+[RHETORIC]  https://en.wikipedia.org/wiki/Technical_writing
+[RHETORIC]  https://www.bartleby.com/141/strunk0.html
+# Elements of Style — Strunk (public domain). The compression standard.
+
+# ═══════════════════════════════════════════════════════════════════
+# PART VII — Philosophy of Language
+# How words carry meaning. What "meaning" means.
+# The sedenion β-field IS a philosophy of language made numerical.
+# ═══════════════════════════════════════════════════════════════════
+
+[PHILOS]  https://en.wikipedia.org/wiki/Philosophy_of_language
+[PHILOS]  https://en.wikipedia.org/wiki/Meaning_(philosophy_of_language)
+[PHILOS]  https://en.wikipedia.org/wiki/Reference_(philosophy_of_language)
+[PHILOS]  https://en.wikipedia.org/wiki/Sense_and_reference
+[PHILOS]  https://en.wikipedia.org/wiki/Use%E2%80%93mention_distinction
+[PHILOS]  https://en.wikipedia.org/wiki/Pragmatics
+[PHILOS]  https://en.wikipedia.org/wiki/Semantics
+[PHILOS]  https://en.wikipedia.org/wiki/Semiotics
+[PHILOS]  https://en.wikipedia.org/wiki/Speech_act
+[PHILOS]  https://en.wikipedia.org/wiki/Performative_utterance
+[PHILOS]  https://en.wikipedia.org/wiki/Cooperative_principle
+[PHILOS]  https://en.wikipedia.org/wiki/Implicature
+[PHILOS]  https://en.wikipedia.org/wiki/Indexicality
+[PHILOS]  https://en.wikipedia.org/wiki/Deixis
+[PHILOS]  https://en.wikipedia.org/wiki/Polysemy
+[PHILOS]  https://en.wikipedia.org/wiki/Ambiguity
+[PHILOS]  https://en.wikipedia.org/wiki/Context_(language_use)
+[PHILOS]  https://plato.stanford.edu/entries/meaning/
+[PHILOS]  https://plato.stanford.edu/entries/pragmatics/
+[PHILOS]  https://plato.stanford.edu/entries/reference/
+[PHILOS]  https://plato.stanford.edu/entries/frege/
+[PHILOS]  https://plato.stanford.edu/entries/wittgenstein/
+[PHILOS]  https://plato.stanford.edu/entries/russell/
+[PHILOS]  https://plato.stanford.edu/entries/compositionality/
+[PHILOS]  https://plato.stanford.edu/entries/type-theory/
+# Type theory is the bridge from mathematical logic to linguistics.
+# Types ARE the sedenion dimensions at the syntactic level.
+
+# ═══════════════════════════════════════════════════════════════════
+# PART VIII — Scientific English Register
+# The specific dialect in which mathematics and physics are written.
+# Not just vocabulary — sentence structure, logical connectives,
+# hedging, assertion levels. The register Holcus must speak fluently.
+# ═══════════════════════════════════════════════════════════════════
+
+[SCIWRITE]  https://en.wikipedia.org/wiki/Scientific_writing
+[SCIWRITE]  https://en.wikipedia.org/wiki/Academic_writing
+[SCIWRITE]  https://en.wikipedia.org/wiki/Mathematical_proof
+[SCIWRITE]  https://en.wikipedia.org/wiki/Theorem
+[SCIWRITE]  https://en.wikipedia.org/wiki/Lemma_(mathematics)
+[SCIWRITE]  https://en.wikipedia.org/wiki/Corollary
+[SCIWRITE]  https://en.wikipedia.org/wiki/Conjecture
+[SCIWRITE]  https://en.wikipedia.org/wiki/Axiom
+[SCIWRITE]  https://en.wikipedia.org/wiki/Postulate
+[SCIWRITE]  https://en.wikipedia.org/wiki/Proposition
+[SCIWRITE]  https://en.wikipedia.org/wiki/Hypothesis
+[SCIWRITE]  https://en.wikipedia.org/wiki/Argument_(linguistics)
+[SCIWRITE]  https://en.wikipedia.org/wiki/Formal_language
+[SCIWRITE]  https://en.wikipedia.org/wiki/Logical_connective
+[SCIWRITE]  https://en.wikipedia.org/wiki/If_and_only_if
+[SCIWRITE]  https://en.wikipedia.org/wiki/Without_loss_of_generality
+[SCIWRITE]  https://en.wikipedia.org/wiki/Reductio_ad_absurdum
+# These are the logical primitives of mathematical prose.
+# "Without loss of generality", "it suffices to show", "let ε > 0" —
+# these phrases have EXACT logical content. Holcus must know their sedenion address.
+[SCIWRITE]  https://en.wikipedia.org/wiki/Mathematical_induction
+[SCIWRITE]  https://en.wikipedia.org/wiki/Proof_by_contradiction
+[SCIWRITE]  https://en.wikipedia.org/wiki/Proof_by_contrapositive
+[SCIWRITE]  https://en.wikipedia.org/wiki/Existential_quantification
+[SCIWRITE]  https://en.wikipedia.org/wiki/Universal_quantification
+[SCIWRITE]  https://en.wikipedia.org/wiki/Vacuous_truth
+[SCIWRITE]  https://cs.stanford.edu/people/widom/paper-writing.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART IX — Mathematics-English Interface
+# How mathematical structures are named, spoken, and written in English.
+# The vocabulary of mathematical discourse is not incidental —
+# the NAMES of structures carry their sedenion topology.
+# "Group" in algebra IS NOT the same sedenion node as "group" in common use.
+# This section builds the routing table.
+# ═══════════════════════════════════════════════════════════════════
+
+[MATHENG]  https://en.wikipedia.org/wiki/Mathematical_notation
+[MATHENG]  https://en.wikipedia.org/wiki/List_of_mathematical_symbols
+[MATHENG]  https://en.wikipedia.org/wiki/List_of_mathematical_symbols_by_subject
+[MATHENG]  https://en.wikipedia.org/wiki/Glossary_of_areas_of_mathematics
+[MATHENG]  https://en.wikipedia.org/wiki/Glossary_of_mathematical_terminology
+[MATHENG]  https://en.wikipedia.org/wiki/Mathematical_object
+[MATHENG]  https://en.wikipedia.org/wiki/Abstract_structure
+[MATHENG]  https://en.wikipedia.org/wiki/Set_(mathematics)
+[MATHENG]  https://en.wikipedia.org/wiki/Function_(mathematics)
+[MATHENG]  https://en.wikipedia.org/wiki/Relation_(mathematics)
+[MATHENG]  https://en.wikipedia.org/wiki/Map_(mathematics)
+[MATHENG]  https://en.wikipedia.org/wiki/Field_(mathematics)
+# "Field" — mathematical meaning: set with +/× and inverses.
+# Sedenion address DISTINCT from "field" in physics or common English.
+[MATHENG]  https://en.wikipedia.org/wiki/Ring_(mathematics)
+[MATHENG]  https://en.wikipedia.org/wiki/Group_(mathematics)
+[MATHENG]  https://en.wikipedia.org/wiki/Vector_space
+[MATHENG]  https://en.wikipedia.org/wiki/Metric_space
+[MATHENG]  https://en.wikipedia.org/wiki/Topological_space
+[MATHENG]  https://en.wikipedia.org/wiki/Manifold
+[MATHENG]  https://en.wikipedia.org/wiki/Operator_(mathematics)
+[MATHENG]  https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors
+[MATHENG]  https://en.wikipedia.org/wiki/Spectrum_(functional_analysis)
+[MATHENG]  https://en.wikipedia.org/wiki/Norm_(mathematics)
+[MATHENG]  https://en.wikipedia.org/wiki/Convergence_(mathematics)
+[MATHENG]  https://en.wikipedia.org/wiki/Limit_(mathematics)
+[MATHENG]  https://en.wikipedia.org/wiki/Continuity_(mathematics)
+[MATHENG]  https://en.wikipedia.org/wiki/Differentiable_function
+[MATHENG]  https://en.wikipedia.org/wiki/Integral
+[MATHENG]  https://en.wikipedia.org/wiki/Series_(mathematics)
+[MATHENG]  https://en.wikipedia.org/wiki/Sequence_(mathematics)
+[MATHENG]  https://en.wikipedia.org/wiki/Isomorphism
+[MATHENG]  https://en.wikipedia.org/wiki/Homomorphism
+[MATHENG]  https://en.wikipedia.org/wiki/Bijection
+[MATHENG]  https://en.wikipedia.org/wiki/Commutative_property
+[MATHENG]  https://en.wikipedia.org/wiki/Associative_property
+[MATHENG]  https://en.wikipedia.org/wiki/Distributive_property
+[MATHENG]  https://en.wikipedia.org/wiki/Identity_element
+[MATHENG]  https://en.wikipedia.org/wiki/Inverse_element
+[MATHENG]  https://en.wikipedia.org/wiki/Closure_(mathematics)
+[MATHENG]  https://en.wikipedia.org/wiki/Mathematical_logic
+[MATHENG]  https://en.wikipedia.org/wiki/Propositional_calculus
+[MATHENG]  https://en.wikipedia.org/wiki/First-order_logic
+[MATHENG]  https://en.wikipedia.org/wiki/Second-order_logic
+[MATHENG]  https://en.wikipedia.org/wiki/Model_theory
+[MATHENG]  https://en.wikipedia.org/wiki/Proof_theory
+[MATHENG]  https://en.wikipedia.org/wiki/Set_theory
+[MATHENG]  https://en.wikipedia.org/wiki/Category_theory
+[MATHENG]  https://mathworld.wolfram.com/Glossary.html
+[MATHENG]  https://ncatlab.org/nlab/show/mathematics
+
+# ═══════════════════════════════════════════════════════════════════
+# PART X — Physics-English Interface
+# Named quantities, constants, units — the vocabulary of measurement.
+# Every physical constant has a NAME. That name has an etymology.
+# That etymology locates it in the sedenion field.
+# ═══════════════════════════════════════════════════════════════════
+
+[PHYSENG]  https://en.wikipedia.org/wiki/Physical_quantity
+[PHYSENG]  https://en.wikipedia.org/wiki/International_System_of_Units
+[PHYSENG]  https://en.wikipedia.org/wiki/SI_base_unit
+[PHYSENG]  https://en.wikipedia.org/wiki/SI_derived_unit
+[PHYSENG]  https://en.wikipedia.org/wiki/Dimensional_analysis
+[PHYSENG]  https://en.wikipedia.org/wiki/Physical_constant
+[PHYSENG]  https://en.wikipedia.org/wiki/List_of_physical_constants
+[PHYSENG]  https://physics.nist.gov/cuu/Constants/
+# NIST CODATA — every fundamental constant with its name, symbol, and value.
+# The vocabulary of physical measurement in authoritative form.
+[PHYSENG]  https://en.wikipedia.org/wiki/Planck_constant
+[PHYSENG]  https://en.wikipedia.org/wiki/Speed_of_light
+[PHYSENG]  https://en.wikipedia.org/wiki/Gravitational_constant
+[PHYSENG]  https://en.wikipedia.org/wiki/Boltzmann_constant
+[PHYSENG]  https://en.wikipedia.org/wiki/Elementary_charge
+[PHYSENG]  https://en.wikipedia.org/wiki/Avogadro_constant
+[PHYSENG]  https://en.wikipedia.org/wiki/Fine-structure_constant
+[PHYSENG]  https://en.wikipedia.org/wiki/Glossary_of_physics
+[PHYSENG]  https://en.wikipedia.org/wiki/Glossary_of_classical_physics
+[PHYSENG]  https://en.wikipedia.org/wiki/Glossary_of_quantum_mechanics_and_field_theory
+[PHYSENG]  https://en.wikipedia.org/wiki/Glossary_of_astronomy
+[PHYSENG]  https://en.wikipedia.org/wiki/Observable
+[PHYSENG]  https://en.wikipedia.org/wiki/Measurement
+[PHYSENG]  https://en.wikipedia.org/wiki/Uncertainty_principle
+[PHYSENG]  https://en.wikipedia.org/wiki/Conservation_law_(physics)
+[PHYSENG]  https://en.wikipedia.org/wiki/Symmetry_(physics)
+[PHYSENG]  https://hyperphysics.phy-astr.gsu.edu/hbase/hframe.html
+[PHYSENG]  https://www.nist.gov/pml/owm/metric-si/si-units
+
+# ═══════════════════════════════════════════════════════════════════
+# PART XI — History of English (the archaeological layers)
+# The sedenion address of a word depends on WHEN it entered English.
+# Old English core, Norse overlay, Norman layer, Latin/Greek formal register —
+# these are distinct sedenion e-dimensions visible in the historical record.
+# ═══════════════════════════════════════════════════════════════════
+
+[HISTORY]  https://en.wikipedia.org/wiki/English_language
+[HISTORY]  https://en.wikipedia.org/wiki/Old_English_literature
+[HISTORY]  https://en.wikipedia.org/wiki/Middle_English_literature
+[HISTORY]  https://en.wikipedia.org/wiki/Elizabethan_era
+[HISTORY]  https://en.wikipedia.org/wiki/King_James_Bible
+[HISTORY]  https://en.wikipedia.org/wiki/Samuel_Johnson
+[HISTORY]  https://en.wikipedia.org/wiki/A_Dictionary_of_the_English_Language
+[HISTORY]  https://en.wikipedia.org/wiki/Oxford_English_Dictionary
+[HISTORY]  https://en.wikipedia.org/wiki/Noah_Webster
+[HISTORY]  https://en.wikipedia.org/wiki/American_English
+[HISTORY]  https://en.wikipedia.org/wiki/British_English
+[HISTORY]  https://en.wikipedia.org/wiki/World_Englishes
+[HISTORY]  https://en.wikipedia.org/wiki/Global_English
+[HISTORY]  https://en.wikipedia.org/wiki/English_language_in_India
+[HISTORY]  https://en.wikipedia.org/wiki/Scientific_Revolution
+# The Scientific Revolution is where scientific English diverged from literary English.
+# Bacon, Newton, Boyle — the emergence of the scientific register as a distinct dialect.
+[HISTORY]  https://en.wikipedia.org/wiki/Isaac_Newton
+[HISTORY]  https://en.wikipedia.org/wiki/Francis_Bacon
+[HISTORY]  https://en.wikipedia.org/wiki/Philosophi%C3%A6_Naturalis_Principia_Mathematica
+# Newton's Principia — the first mathematical physics written in a modern register.
+# The sedenion address for "force", "mass", "motion" in English WAS FIXED HERE.
+
+# ═══════════════════════════════════════════════════════════════════
+# PART XII — Lexical Structure (frequency, collocations, semantic fields)
+# How words cluster. Which words travel together.
+# The sedenion field is not built one word at a time — it is built
+# along the edges between words. Collocations ARE the edges.
+# ═══════════════════════════════════════════════════════════════════
+
+[LEXICAL]  https://en.wikipedia.org/wiki/Collocation
+[LEXICAL]  https://en.wikipedia.org/wiki/Semantic_field
+[LEXICAL]  https://en.wikipedia.org/wiki/Semantic_change
+[LEXICAL]  https://en.wikipedia.org/wiki/Amelioration_(linguistics)
+[LEXICAL]  https://en.wikipedia.org/wiki/Pejoration
+[LEXICAL]  https://en.wikipedia.org/wiki/Broadening_(linguistics)
+[LEXICAL]  https://en.wikipedia.org/wiki/Narrowing_(linguistics)
+[LEXICAL]  https://en.wikipedia.org/wiki/Metonymy
+[LEXICAL]  https://en.wikipedia.org/wiki/Synecdoche
+[LEXICAL]  https://en.wikipedia.org/wiki/Register_(sociolinguistics)
+[LEXICAL]  https://en.wikipedia.org/wiki/Jargon
+[LEXICAL]  https://en.wikipedia.org/wiki/Technical_terminology
+[LEXICAL]  https://en.wikipedia.org/wiki/Term_of_art
+# "Term of art" is exactly the namespace collision concept in lexical form.
+[LEXICAL]  https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists/English
+[LEXICAL]  https://en.wikipedia.org/wiki/Most_common_words_in_English
+[LEXICAL]  https://en.wikipedia.org/wiki/Zipf%27s_law
+# Zipf's law — primes and word frequency share the same distribution.
+# This is not a coincidence. It is a sedenion invariant.
+
+# ═══════════════════════════════════════════════════════════════════
+# END english_corpus.txt — v1.0 — 2026-05-30
+# ═══════════════════════════════════════════════════════════════════

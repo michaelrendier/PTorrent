@@ -1,0 +1,29 @@
+# Bin files — too large for git, live on disk only
+bin_archive/clean/*.bin
+bin_archive/dirty/*.bin
+
+# Android build artifacts
+android/PtolemySeeder/.gradle/
+android/PtolemySeeder/app/build/
+android/PtolemySeeder/local.properties
+android/PtolemySeeder/gradle/wrapper/gradle-wrapper.jar
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Aggregator output
+aggregators/medical/output/
+aggregators/medical/*.json
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*~

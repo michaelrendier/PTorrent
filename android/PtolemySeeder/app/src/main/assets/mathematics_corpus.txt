@@ -1,0 +1,250 @@
+# mathematics_corpus.txt — Mathematics layer for Holcus TDI engine.
+#
+# TAG SCHEMA
+# [NUMBERTHEORY]  — algebraic / analytic number theory
+# [PRIMES]        — prime distribution, sieves, gaps
+# [RIEMANN]       — Riemann zeta, critical line, zeros
+# [SPECTRAL]      — spectral theory, eigenvalues, operators
+# [MODULAR]       — modular forms, L-functions, automorphic
+# [GEOMETRY]      — differential geometry, topology, manifolds
+# [HARMONIC]      — harmonic analysis, Fourier, wavelets
+# [ALGEBRA]       — abstract algebra, groups, rings, representation
+# [ANALYSIS]      — real/complex analysis, functional analysis
+# [CLAY]          — Clay Millennium Problems — mathematics side
+# [CONTEXT]       — history, surveys, biographies, overview
+#
+# FORMAT: [TAG]  <url>   (two spaces — parsed by GenericCorpus)
+
+# ═══════════════════════════════════════════════════════════════════
+# PART I — Prime Number Theory
+# ═══════════════════════════════════════════════════════════════════
+
+[PRIMES]  https://en.wikipedia.org/wiki/Prime_number
+[PRIMES]  https://en.wikipedia.org/wiki/Prime_number_theorem
+[PRIMES]  https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+[PRIMES]  https://en.wikipedia.org/wiki/Bertrand%27s_postulate
+[PRIMES]  https://en.wikipedia.org/wiki/Prime_gap
+[PRIMES]  https://en.wikipedia.org/wiki/Goldbach%27s_conjecture
+[PRIMES]  https://en.wikipedia.org/wiki/Twin_prime
+[PRIMES]  https://en.wikipedia.org/wiki/Legendre_sieve
+[PRIMES]  https://en.wikipedia.org/wiki/Sieve_of_Sundaram
+[PRIMES]  https://en.wikipedia.org/wiki/Green%E2%80%93Tao_theorem
+[PRIMES]  https://mathworld.wolfram.com/PrimeNumber.html
+[PRIMES]  https://mathworld.wolfram.com/PrimeCountingFunction.html
+[PRIMES]  https://mathworld.wolfram.com/PrimeNumberTheorem.html
+[PRIMES]  https://mathworld.wolfram.com/PrimesRacer.html
+[PRIMES]  https://plus.maths.org/content/prime-numbers
+
+# ═══════════════════════════════════════════════════════════════════
+# PART II — Riemann Zeta Function and Hypothesis
+# ═══════════════════════════════════════════════════════════════════
+
+[RIEMANN]  https://en.wikipedia.org/wiki/Riemann_hypothesis
+[RIEMANN]  https://en.wikipedia.org/wiki/Riemann_zeta_function
+[RIEMANN]  https://en.wikipedia.org/wiki/Critical_line_theorem
+[RIEMANN]  https://en.wikipedia.org/wiki/Explicit_formulae_(L-function)
+[RIEMANN]  https://en.wikipedia.org/wiki/Zeros_and_poles_of_the_Riemann_zeta_function
+[RIEMANN]  https://en.wikipedia.org/wiki/Hilbert%E2%80%93P%C3%B3lya_conjecture
+[RIEMANN]  https://en.wikipedia.org/wiki/Montgomery%27s_pair_correlation_conjecture
+[RIEMANN]  https://en.wikipedia.org/wiki/Selberg_class
+[RIEMANN]  https://en.wikipedia.org/wiki/Analytic_continuation
+[RIEMANN]  https://en.wikipedia.org/wiki/Functional_equation_(L-function)
+[RIEMANN]  https://en.wikipedia.org/wiki/De_Bruijn%E2%80%93Newman_constant
+[RIEMANN]  https://mathworld.wolfram.com/RiemannZetaFunction.html
+[RIEMANN]  https://mathworld.wolfram.com/RiemannHypothesis.html
+[RIEMANN]  https://mathworld.wolfram.com/CriticalLine.html
+[RIEMANN]  https://mathworld.wolfram.com/RiemannZetaFunctionZeros.html
+[RIEMANN]  https://dlmf.nist.gov/25
+[RIEMANN]  https://www.claymath.org/millennium/riemann-hypothesis/
+[RIEMANN]  https://plus.maths.org/content/missing-piece
+
+# ═══════════════════════════════════════════════════════════════════
+# PART III — Spectral Theory and Random Matrix Theory
+# ═══════════════════════════════════════════════════════════════════
+
+[SPECTRAL]  https://en.wikipedia.org/wiki/Spectral_theory
+[SPECTRAL]  https://en.wikipedia.org/wiki/Random_matrix
+[SPECTRAL]  https://en.wikipedia.org/wiki/GUE_conjecture
+[SPECTRAL]  https://en.wikipedia.org/wiki/Gaussian_unitary_ensemble
+[SPECTRAL]  https://en.wikipedia.org/wiki/Wigner_semicircle_distribution
+[SPECTRAL]  https://en.wikipedia.org/wiki/Eigenvalue
+[SPECTRAL]  https://en.wikipedia.org/wiki/Self-adjoint_operator
+[SPECTRAL]  https://en.wikipedia.org/wiki/Spectral_theorem
+[SPECTRAL]  https://en.wikipedia.org/wiki/Berry%E2%80%93Keating_conjecture
+[SPECTRAL]  https://en.wikipedia.org/wiki/Selberg_zeta_function
+[SPECTRAL]  https://en.wikipedia.org/wiki/Weyl_law
+[SPECTRAL]  https://en.wikipedia.org/wiki/Heat_kernel
+[SPECTRAL]  https://mathworld.wolfram.com/RandomMatrixTheory.html
+[SPECTRAL]  https://mathworld.wolfram.com/SpectralTheorem.html
+[SPECTRAL]  https://mathworld.wolfram.com/WignerSemicircleDistribution.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART IV — Modular Forms and L-functions
+# ═══════════════════════════════════════════════════════════════════
+
+[MODULAR]  https://en.wikipedia.org/wiki/Modular_form
+[MODULAR]  https://en.wikipedia.org/wiki/L-function
+[MODULAR]  https://en.wikipedia.org/wiki/Langlands_program
+[MODULAR]  https://en.wikipedia.org/wiki/Modularity_theorem
+[MODULAR]  https://en.wikipedia.org/wiki/Elliptic_curve
+[MODULAR]  https://en.wikipedia.org/wiki/Birch_and_Swinnerton-Dyer_conjecture
+[MODULAR]  https://en.wikipedia.org/wiki/Hecke_operator
+[MODULAR]  https://en.wikipedia.org/wiki/Dirichlet_L-function
+[MODULAR]  https://en.wikipedia.org/wiki/Dedekind_eta_function
+[MODULAR]  https://en.wikipedia.org/wiki/Ramanujan%27s_tau_function
+[MODULAR]  https://en.wikipedia.org/wiki/Maass_form
+[MODULAR]  https://mathworld.wolfram.com/ModularForm.html
+[MODULAR]  https://mathworld.wolfram.com/LFunction.html
+[MODULAR]  https://www.lmfdb.org/
+[MODULAR]  https://www.claymath.org/millennium/birch-and-swinnerton-dyer-conjecture/
+
+# ═══════════════════════════════════════════════════════════════════
+# PART V — Harmonic Analysis and Fourier Theory
+# ═══════════════════════════════════════════════════════════════════
+
+[HARMONIC]  https://en.wikipedia.org/wiki/Harmonic_analysis
+[HARMONIC]  https://en.wikipedia.org/wiki/Fourier_transform
+[HARMONIC]  https://en.wikipedia.org/wiki/Fourier_series
+[HARMONIC]  https://en.wikipedia.org/wiki/Pontryagin_duality
+[HARMONIC]  https://en.wikipedia.org/wiki/Hardy_space
+[HARMONIC]  https://en.wikipedia.org/wiki/Plancherel_theorem
+[HARMONIC]  https://en.wikipedia.org/wiki/Wavelet
+[HARMONIC]  https://en.wikipedia.org/wiki/Gabor_transform
+[HARMONIC]  https://en.wikipedia.org/wiki/Uncertainty_principle
+[HARMONIC]  https://en.wikipedia.org/wiki/Spherical_harmonics
+[HARMONIC]  https://en.wikipedia.org/wiki/Laplace%E2%80%93Beltrami_operator
+[HARMONIC]  https://en.wikipedia.org/wiki/Poisson_kernel
+[HARMONIC]  https://dlmf.nist.gov/14
+[HARMONIC]  https://mathworld.wolfram.com/SphericalHarmonic.html
+[HARMONIC]  https://mathworld.wolfram.com/FourierTransform.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART VI — Differential Geometry and Topology
+# ═══════════════════════════════════════════════════════════════════
+
+[GEOMETRY]  https://en.wikipedia.org/wiki/Differential_geometry
+[GEOMETRY]  https://en.wikipedia.org/wiki/Riemannian_geometry
+[GEOMETRY]  https://en.wikipedia.org/wiki/Ricci_flow
+[GEOMETRY]  https://en.wikipedia.org/wiki/Poincar%C3%A9_conjecture
+[GEOMETRY]  https://en.wikipedia.org/wiki/Topology
+[GEOMETRY]  https://en.wikipedia.org/wiki/Fiber_bundle
+[GEOMETRY]  https://en.wikipedia.org/wiki/Gauge_theory
+[GEOMETRY]  https://en.wikipedia.org/wiki/Hodge_conjecture
+[GEOMETRY]  https://en.wikipedia.org/wiki/Characteristic_class
+[GEOMETRY]  https://en.wikipedia.org/wiki/Atiyah%E2%80%93Singer_index_theorem
+[GEOMETRY]  https://en.wikipedia.org/wiki/Calabi%E2%80%93Yau_manifold
+[GEOMETRY]  https://en.wikipedia.org/wiki/Chern%E2%80%93Weil_theory
+[GEOMETRY]  https://mathworld.wolfram.com/RicciFlow.html
+[GEOMETRY]  https://mathworld.wolfram.com/GaugeTheory.html
+[GEOMETRY]  https://www.claymath.org/millennium/hodge-conjecture/
+
+# ═══════════════════════════════════════════════════════════════════
+# PART VII — Abstract Algebra and Representation Theory
+# ═══════════════════════════════════════════════════════════════════
+
+[ALGEBRA]  https://en.wikipedia.org/wiki/Group_theory
+[ALGEBRA]  https://en.wikipedia.org/wiki/Representation_theory
+[ALGEBRA]  https://en.wikipedia.org/wiki/Lie_group
+[ALGEBRA]  https://en.wikipedia.org/wiki/Lie_algebra
+[ALGEBRA]  https://en.wikipedia.org/wiki/Root_system
+[ALGEBRA]  https://en.wikipedia.org/wiki/E8_(mathematics)
+[ALGEBRA]  https://en.wikipedia.org/wiki/Leech_lattice
+[ALGEBRA]  https://en.wikipedia.org/wiki/Monster_group
+[ALGEBRA]  https://en.wikipedia.org/wiki/Monstrous_moonshine
+[ALGEBRA]  https://en.wikipedia.org/wiki/Division_algebra
+[ALGEBRA]  https://en.wikipedia.org/wiki/Octonion
+[ALGEBRA]  https://en.wikipedia.org/wiki/Sedenion
+[ALGEBRA]  https://en.wikipedia.org/wiki/Clifford_algebra
+[ALGEBRA]  https://mathworld.wolfram.com/LieGroup.html
+[ALGEBRA]  https://mathworld.wolfram.com/Octonion.html
+[ALGEBRA]  https://mathworld.wolfram.com/LeechLattice.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART VIII — Mathematical Analysis
+# ═══════════════════════════════════════════════════════════════════
+
+[ANALYSIS]  https://en.wikipedia.org/wiki/Functional_analysis
+[ANALYSIS]  https://en.wikipedia.org/wiki/Hilbert_space
+[ANALYSIS]  https://en.wikipedia.org/wiki/Banach_space
+[ANALYSIS]  https://en.wikipedia.org/wiki/Operator_theory
+[ANALYSIS]  https://en.wikipedia.org/wiki/Compact_operator
+[ANALYSIS]  https://en.wikipedia.org/wiki/Trace_class
+[ANALYSIS]  https://en.wikipedia.org/wiki/Fredholm_operator
+[ANALYSIS]  https://en.wikipedia.org/wiki/Complex_analysis
+[ANALYSIS]  https://en.wikipedia.org/wiki/Cauchy%27s_integral_formula
+[ANALYSIS]  https://en.wikipedia.org/wiki/Entire_function
+[ANALYSIS]  https://en.wikipedia.org/wiki/Meromorphic_function
+[ANALYSIS]  https://en.wikipedia.org/wiki/Residue_theorem
+[ANALYSIS]  https://en.wikipedia.org/wiki/Hadamard_factorization_theorem
+[ANALYSIS]  https://dlmf.nist.gov/5
+[ANALYSIS]  https://mathworld.wolfram.com/HilbertSpace.html
+[ANALYSIS]  https://mathworld.wolfram.com/GammaFunction.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART IX — Number Theory — Algebraic and Analytic
+# ═══════════════════════════════════════════════════════════════════
+
+[NUMBERTHEORY]  https://en.wikipedia.org/wiki/Algebraic_number_theory
+[NUMBERTHEORY]  https://en.wikipedia.org/wiki/Analytic_number_theory
+[NUMBERTHEORY]  https://en.wikipedia.org/wiki/Dirichlet%27s_theorem_on_arithmetic_progressions
+[NUMBERTHEORY]  https://en.wikipedia.org/wiki/Euler_product_formula
+[NUMBERTHEORY]  https://en.wikipedia.org/wiki/M%C3%B6bius_function
+[NUMBERTHEORY]  https://en.wikipedia.org/wiki/Von_Mangoldt_function
+[NUMBERTHEORY]  https://en.wikipedia.org/wiki/Chebyshev_function
+[NUMBERTHEORY]  https://en.wikipedia.org/wiki/Dedekind_zeta_function
+[NUMBERTHEORY]  https://en.wikipedia.org/wiki/Artin_L-function
+[NUMBERTHEORY]  https://en.wikipedia.org/wiki/Class_field_theory
+[NUMBERTHEORY]  https://en.wikipedia.org/wiki/Quadratic_reciprocity
+[NUMBERTHEORY]  https://en.wikipedia.org/wiki/P-adic_number
+[NUMBERTHEORY]  https://en.wikipedia.org/wiki/Adele_ring
+[NUMBERTHEORY]  https://mathworld.wolfram.com/EulerProduct.html
+[NUMBERTHEORY]  https://mathworld.wolfram.com/DirichletSeriesGeneratingFunction.html
+
+# ═══════════════════════════════════════════════════════════════════
+# PART X — Clay Millennium Problems — Mathematics
+# ═══════════════════════════════════════════════════════════════════
+
+[CLAY]  https://www.claymath.org/millennium-problems/
+[CLAY]  https://www.claymath.org/millennium/riemann-hypothesis/
+[CLAY]  https://www.claymath.org/millennium/birch-and-swinnerton-dyer-conjecture/
+[CLAY]  https://www.claymath.org/millennium/hodge-conjecture/
+[CLAY]  https://www.claymath.org/millennium/p-vs-np/
+[CLAY]  https://en.wikipedia.org/wiki/Millennium_Prize_Problems
+[CLAY]  https://en.wikipedia.org/wiki/P_versus_NP_problem
+[CLAY]  https://en.wikipedia.org/wiki/Hodge_conjecture
+[CLAY]  https://en.wikipedia.org/wiki/Birch_and_Swinnerton-Dyer_conjecture
+
+# ═══════════════════════════════════════════════════════════════════
+# PART XI — Special Functions (DLMF)
+# ═══════════════════════════════════════════════════════════════════
+
+[ANALYSIS]  https://dlmf.nist.gov/
+[ANALYSIS]  https://dlmf.nist.gov/1
+[ANALYSIS]  https://dlmf.nist.gov/10
+[ANALYSIS]  https://dlmf.nist.gov/15
+[ANALYSIS]  https://dlmf.nist.gov/18
+[ANALYSIS]  https://dlmf.nist.gov/22
+[ANALYSIS]  https://dlmf.nist.gov/25.2
+[ANALYSIS]  https://dlmf.nist.gov/25.4
+[ANALYSIS]  https://dlmf.nist.gov/25.10
+[SPECTRAL]  https://dlmf.nist.gov/28
+
+# ═══════════════════════════════════════════════════════════════════
+# PART XII — Context, History, Surveys
+# ═══════════════════════════════════════════════════════════════════
+
+[CONTEXT]  https://en.wikipedia.org/wiki/History_of_mathematics
+[CONTEXT]  https://en.wikipedia.org/wiki/Mathematical_proof
+[CONTEXT]  https://en.wikipedia.org/wiki/Hilbert%27s_problems
+[CONTEXT]  https://en.wikipedia.org/wiki/Hilbert%27s_eighth_problem
+[CONTEXT]  https://en.wikipedia.org/wiki/Conjecture
+[CONTEXT]  https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems
+[CONTEXT]  https://en.wikipedia.org/wiki/Lambert_W_function
+[CONTEXT]  https://en.wikipedia.org/wiki/Fixed_point_(mathematics)
+[CONTEXT]  https://en.wikipedia.org/wiki/Euler%27s_identity
+[CONTEXT]  https://en.wikipedia.org/wiki/Euler%27s_totient_function
+[CONTEXT]  https://mathworld.wolfram.com/LambertW-Function.html
+[CONTEXT]  https://mathworld.wolfram.com/FixedPoint.html
+[CONTEXT]  https://plus.maths.org/content/mathematical-mysteries-twin-prime-conjecture
+[CONTEXT]  https://plus.maths.org/content/riemann-hypothesis
+[CONTEXT]  https://www.ams.org/notices/200303/fea-conrey-web.pdf

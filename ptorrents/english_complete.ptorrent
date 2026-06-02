@@ -1,0 +1,17 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "corpus",
+  "name": "English Language \u2014 Complete",
+  "bin": "monad_english.bin",
+  "txt": "english_corpus.txt",
+  "primary_tags": [
+    "ETYMOLOGY",
+    "LITERARY",
+    "ROOTS",
+    "GRAMMAR"
+  ],
+  "primary_weight": 2.0,
+  "context_weight": 1.0,
+  "color": "silver",
+  "description": "Complete English language corpus \u2014 etymology and root structure, literary canon (Shakespeare through Joyce), morphology, grammar, rhetoric, philosophy of language, and the mathematics-English and physics-English interface vocabularies. The lexical ground state beneath all other Holcus fields. Medical and caselaw English are SEPARATE ptorrents due to namespace chirality inversion."
+}
