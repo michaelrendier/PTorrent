@@ -7,18 +7,46 @@
 
 ---
 
-## Overview
+## What PTorrent Is
 
-A `.ptorrent` file is a UTF-8 JSON document that fully describes one corpus
-seeding job. It is the distribution unit of the PTorrent protocol — analogous
-to a `.torrent` file in BitTorrent, but purpose-built for knowledge corpus
-distribution across Android devices running the PtolemySeeder APK.
+PTorrent is targeted web crawler access for people who don't write web crawlers.
 
-Unlike BitTorrent, PTorrent has no tracker, no DHT, no peer exchange, and no
-block-level checksumming. The "torrent" is a description of *what to fetch
-from the open web*, not a description of pieces held by peers. PTorrent
-distributes the *job*, not the *data* — each device independently traverses
-the URL list and builds its own checkpoint binary.
+A `.ptorrent` file is a declarative crawler specification written in plain JSON.
+You describe *what to fetch, how to tag it, and where to save the result*. The
+PtolemySeeder APK is the runtime — it reads the file, traverses the URL list or
+API, and builds the output. No Python. No HTTP libraries. No scraping boilerplate.
+
+The design principle: **modify, don't write from scratch.** Copy an existing
+`.ptorrent`, change the name, swap the URLs, adjust the tags. That's all it takes
+to redirect the crawler at a new dataset or web source. The format is intentionally
+minimal so that modification is the primary user action.
+
+PTorrent distributes the *job*, not the *data*. Each device independently
+traverses the source and builds its own output — analogous to how BitTorrent peers
+independently verify and store pieces, but applied to knowledge acquisition
+rather than file transfer.
+
+---
+
+## Three Uses of a .ptorrent File
+
+### 1. Corpus crawler
+Fetch web pages, extract text, seed a monad checkpoint binary.
+Users who want to train a Ptolemy LSHS on a new domain write or modify a corpus
+`.ptorrent`. The PtolemySeeder APK does the rest overnight.
+
+### 2. Dataset retrieval
+Pull structured data from a REST API, paginate through results, save as JSON/CSV.
+Users who want a local copy of a public dataset (Riemann zeros, SPARC rotation
+curves, PubMed abstracts) point a dataset `.ptorrent` at the API.
+
+### 3. Dataset Phonebook entry
+Record *where a dataset lives* — not the data itself, but its address, format,
+API details, and dump availability. A phonebook `.ptorrent` is a structured
+citation for a public dataset: canonical URL, API endpoint, bulk dump location,
+license, and verification timestamp. The goal is a single machine-readable,
+dynamically-maintained index of all publicly available datasets — across all
+disciplines, for all researchers. See the Dataset Phonebook section below.
 
 ---
 
@@ -27,26 +55,28 @@ the URL list and builds its own checkpoint binary.
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `ptorrent_version` | string | yes | Format version. Currently `"1.0"`. |
-| `type` | string | yes | Job type. See Types below. |
-| `name` | string | yes | Human-readable corpus name. |
-| `bin` | string | yes* | Output checkpoint filename (e.g. `monad_physics.bin`). Required unless `type` is `"dataset"`. |
+| `type` | string | yes | Job type: `corpus`, `dataset`, `transfer`, `phonebook`. |
+| `name` | string | yes | Human-readable name. |
+| `bin` | string | yes* | Output checkpoint filename. Required for `corpus` and `transfer` types. |
 | `txt` | string | no | Corpus URL list filename. Optional if `urls` is embedded. |
-| `requires_bin` | string | no | Bin file that must be loaded before seeding begins. Used for transfer-learning chains. |
-| `primary_tags` | string[] | yes | Semantic domain tags. Used for corpus card display and monad weighting. |
+| `requires_bin` | string | no | Bin file that must be loaded before seeding. Used for transfer-learning chains. |
+| `primary_tags` | string[] | yes | Semantic domain tags. Used for display and monad weighting. |
 | `primary_weight` | float | no | Weight multiplier for primary-tagged words (default 1.0). |
 | `context_weight` | float | no | Weight multiplier for context words (default 1.0). |
 | `color` | string | yes | Card accent color name. See Color Table. |
-| `description` | string | yes | One-sentence description of what this corpus teaches. |
+| `description` | string | yes | One-sentence description of what this file does or describes. |
 | `ua` | string | no | User-agent hint for HTTP requests. Default `"ptolemy"`. |
 | `urls` | object[] | no | Embedded URL list. If present, no `.txt` file is needed. |
 | `source` | object | no | External data source descriptor (REST, NLTK, stream). |
+| `phonebook` | object | no | Dataset Phonebook entry. Present when `type` is `"phonebook"`. |
 | `test` | string | no | Name of test function to run after seeding. |
 | `test_params` | object | no | Parameters passed to the test function. |
-| `output` | string | no | Output JSON filename for dataset jobs. |
-| `output_format` | string | no | Output format: `"json"`. |
+| `output` | string | no | Output filename for dataset jobs. |
+| `output_format` | string | no | Output format: `"json"`, `"csv"`, `"fits"`, `"hdf5"`. |
 | `output_top_n` | int | no | Limit output to top N results. |
 | `checkpoint_every` | int | no | Save checkpoint every N URLs (default 10). |
 | `model_hook` | string | null | Reserved for future model hook integration. |
+| `trackers` | string[] | no | BitTorrent tracker URLs for peer-seeded bin distribution. |
 
 ---
 
@@ -54,9 +84,10 @@ the URL list and builds its own checkpoint binary.
 
 | Type | Description |
 |------|-------------|
-| `corpus` | Standard corpus job — fetches URLs and seeds a monad checkpoint. |
-| `dataset` | Data retrieval job — fetches structured data from a source API. |
-| `transfer` | Transfer-learning job — loads `requires_bin` then continues seeding. |
+| `corpus` | Fetch URLs, extract text, seed a monad checkpoint binary. |
+| `dataset` | Fetch structured data from a source API and save to file. |
+| `transfer` | Load `requires_bin` then continue seeding additional corpus text. |
+| `phonebook` | Dataset Phonebook entry — records where a dataset lives, not the data itself. |
 
 ---
 
@@ -65,10 +96,7 @@ the URL list and builds its own checkpoint binary.
 Each element of the embedded URL list:
 
 ```json
-{
-  "tag":  "WAVES",
-  "url":  "https://example.com/wave-mechanics"
-}
+{ "tag": "WAVES", "url": "https://example.com/wave-mechanics" }
 ```
 
 `tag` must be one of the values in `primary_tags` or a sub-tag. Used to
@@ -78,15 +106,15 @@ categorize URL status in the corpus detail page.
 
 ## `source` Object
 
-For `"dataset"` type jobs that pull from an API:
+For `dataset` type jobs pulling from an API:
 
 ```json
 {
-  "mode":         "rest",
-  "endpoint":     "https://api.example.com/data",
-  "format":       "json",
-  "pagination":   true,
-  "total_known":  100000
+  "mode":        "rest",
+  "endpoint":    "https://api.example.com/data",
+  "format":      "json",
+  "pagination":  true,
+  "total_known": 100000
 }
 ```
 
@@ -94,15 +122,151 @@ For `"dataset"` type jobs that pull from an API:
 |-------|--------|-------------|
 | `mode` | `"rest"`, `"nltk"`, `"stream"` | Fetch mode |
 | `endpoint` | URL string | API endpoint |
-| `format` | `"json"`, `"xml"`, `"plain_floats"` | Response format |
+| `format` | `"json"`, `"xml"`, `"plain_floats"`, `"csv"` | Response format |
 | `pagination` | bool | Whether to page through results |
 | `total_known` | int | Expected total record count |
 
 ---
 
-## Color Table
+## `phonebook` Object — Dataset Phonebook Entry
 
-Colors are resolved to hex in the PtolemySeeder UI:
+A `phonebook` entry records the metadata needed to *find and access* a public
+dataset — not the data itself. It is a structured, machine-readable citation
+that answers: where is it, what format, is there an API, is there a bulk dump,
+is it still alive?
+
+```json
+{
+  "dataset_url": "https://canonical.home/of/dataset",
+  "license": "CC-BY-4.0",
+  "citation": "10.1234/doi.or.bibtex.key",
+  "maintainer": "Institution or person name",
+  "last_dataset_update": "2025-01",
+  "last_verified": "2026-06-02",
+  "size_records": 1000000,
+  "size_gb": 42.5,
+  "api": {
+    "available": true,
+    "type": "REST",
+    "endpoint": "https://api.example.com/v1/",
+    "auth": "none",
+    "rate_limit": "1000/day",
+    "docs_url": "https://api.example.com/docs"
+  },
+  "dumps": [
+    {
+      "url": "https://example.com/dumps/dataset-2025.tar.gz",
+      "format": "CSV",
+      "size_gb": 42.5,
+      "update_freq": "annual",
+      "last_verified": "2026-06-02"
+    }
+  ]
+}
+```
+
+### `phonebook` Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `dataset_url` | string | Canonical home page for the dataset |
+| `license` | string | SPDX license identifier (e.g. `"CC-BY-4.0"`, `"ODbL-1.0"`, `"public domain"`) |
+| `citation` | string | DOI or BibTeX key for citing this dataset |
+| `maintainer` | string | Institution or person responsible for the dataset |
+| `last_dataset_update` | string | When the dataset was last updated by its maintainer |
+| `last_verified` | string | ISO date when PTorrent last confirmed this entry is live |
+| `size_records` | int | Approximate number of records |
+| `size_gb` | float | Approximate total size in gigabytes |
+| `api.available` | bool | Whether a programmatic API exists |
+| `api.type` | string | API type: `"REST"`, `"GraphQL"`, `"SPARQL"`, `"FTP"`, `"JDBC"` |
+| `api.endpoint` | string | Primary API endpoint URL |
+| `api.auth` | string | Auth required: `"none"`, `"api_key"`, `"oauth2"`, `"institutional"` |
+| `api.rate_limit` | string | Rate limit description (e.g. `"1000/day"`, `"3/second"`) |
+| `api.docs_url` | string | URL for API documentation |
+| `dumps[].url` | string | Direct download URL for a bulk dump |
+| `dumps[].format` | string | File format: `"CSV"`, `"JSON"`, `"XML"`, `"HDF5"`, `"FITS"`, `"Parquet"`, `"tar.gz"` |
+| `dumps[].size_gb` | float | Size of this dump in gigabytes |
+| `dumps[].update_freq` | string | How often dumps are released: `"daily"`, `"monthly"`, `"annual"`, `"static"` |
+| `dumps[].last_verified` | string | ISO date when this dump URL was last confirmed live |
+
+### Phonebook Example — SPARC Galaxy Rotation Curves
+
+```json
+{
+  "ptorrent_version": "1.0",
+  "type": "phonebook",
+  "name": "SPARC — Spitzer Photometry and Accurate Rotation Curves",
+  "primary_tags": ["ASTROPHYSICS", "DARK_MATTER", "ROTATION_CURVES", "GALAXIES"],
+  "color": "cyan",
+  "description": "175 late-type galaxies with high-quality rotation curves and Spitzer 3.6μm photometry.",
+  "phonebook": {
+    "dataset_url": "http://astroweb.cwru.edu/SPARC/",
+    "license": "public domain",
+    "citation": "Lelli et al. 2016, AJ, 152, 157",
+    "maintainer": "Federico Lelli, Case Western Reserve University",
+    "last_dataset_update": "2016-10",
+    "last_verified": "2026-06-02",
+    "size_records": 175,
+    "size_gb": 0.01,
+    "api": {
+      "available": false
+    },
+    "dumps": [
+      {
+        "url": "http://astroweb.cwru.edu/SPARC/SPARC_Lelli2016c.mrt",
+        "format": "MRT",
+        "size_gb": 0.01,
+        "update_freq": "static",
+        "last_verified": "2026-06-02"
+      }
+    ]
+  }
+}
+```
+
+### Phonebook Example — HuggingFace Common Voice
+
+```json
+{
+  "ptorrent_version": "1.0",
+  "type": "phonebook",
+  "name": "Mozilla Common Voice — multilingual speech corpus",
+  "primary_tags": ["SPEECH", "AUDIO", "MULTILINGUAL", "NLP"],
+  "color": "blue",
+  "description": "Crowd-sourced multilingual speech dataset; 100+ languages, 20,000+ hours.",
+  "phonebook": {
+    "dataset_url": "https://commonvoice.mozilla.org/en/datasets",
+    "license": "CC-0",
+    "citation": "Ardila et al. 2020, LREC",
+    "maintainer": "Mozilla Foundation",
+    "last_dataset_update": "2024-06",
+    "last_verified": "2026-06-02",
+    "size_records": 16000000,
+    "size_gb": 1800,
+    "api": {
+      "available": true,
+      "type": "REST",
+      "endpoint": "https://huggingface.co/datasets/mozilla-foundation/common_voice_17_0",
+      "auth": "api_key",
+      "rate_limit": "none documented",
+      "docs_url": "https://huggingface.co/docs/datasets/"
+    },
+    "dumps": [
+      {
+        "url": "https://commonvoice.mozilla.org/en/datasets",
+        "format": "tar.gz",
+        "size_gb": 1800,
+        "update_freq": "annual",
+        "last_verified": "2026-06-02"
+      }
+    ]
+  }
+}
+```
+
+---
+
+## Color Table
 
 | Name | Hex | Used By |
 |------|-----|---------|
@@ -111,7 +275,7 @@ Colors are resolved to hex in the PtolemySeeder UI:
 | `red` | `#B05050` | Prime Directive III — Fermat |
 | `green` | `#6EAD7A` | Python Language |
 | `purple` | `#9B7DC8` | C / POSIX |
-| `cyan` | `#4EC9C9` | Physics |
+| `cyan` | `#4EC9C9` | Physics, Astrophysics |
 | `orange` | `#D4915A` | Mathematics |
 | `silver` | `#A8A8A8` | English Language (complete) |
 
@@ -127,10 +291,10 @@ Colors are resolved to hex in the PtolemySeeder UI:
   "bin": "monad_qft.bin",
   "primary_tags": ["QFT", "YANGMILLS", "SPECTRAL"],
   "color": "cyan",
-  "description": "Quantum field theory vocabulary for H_RB Yang-Mills projection.",
+  "description": "QFT vocabulary for H_RB Yang-Mills projection.",
   "urls": [
-    { "tag": "QFT",      "url": "https://..." },
-    { "tag": "YANGMILLS","url": "https://..." }
+    { "tag": "QFT",       "url": "https://..." },
+    { "tag": "YANGMILLS", "url": "https://..." }
   ]
 }
 ```
@@ -169,30 +333,23 @@ adb push my_corpus.ptorrent \
   /sdcard/Android/data/com.ptolemy.seeder/files/inbox/
 ```
 
-The `SeedService` FileObserver watches `inbox/` for `CLOSE_WRITE | MOVED_TO`
-events. The file is picked up automatically, parsed, added to
-`corpus_list.json` on-device, and the URL list is pre-populated in the UI.
-
 ### b) Tap to open (Intent)
 
 `.ptorrent` files are registered in `AndroidManifest.xml` via three intent
-filters: `application/x-ptorrent` MIME type, `*.ptorrent` via `content://`
-scheme, and `*.ptorrent` via `file://` scheme. Tapping in any file manager
-opens PtolemySeeder and queues the job.
+filters: `application/x-ptorrent` MIME, `*.ptorrent` via `content://`,
+and `*.ptorrent` via `file://`. Tapping in any file manager opens the Seeder.
 
 ---
 
 ## Implementation Notes
 
 - All `.ptorrent` files must be valid UTF-8 JSON.
-- The `bin` field value is used as the output filename on the device at
-  `/sdcard/Android/data/com.ptolemy.seeder/files/<bin>`.
-- If both `txt` and `urls` are absent, the corpus job will fail silently —
-  always provide one or the other.
-- `requires_bin` is checked at job start; if the required bin is not present
-  on device, the job is queued but not started.
-- `checkpoint_every` defaults to 10 URLs. Lower values increase write
-  overhead; higher values risk losing progress on interruption.
+- The `bin` field is the output filename on device at `/sdcard/Android/data/com.ptolemy.seeder/files/<bin>`.
+- If both `txt` and `urls` are absent on a `corpus` job, the job fails silently.
+- `requires_bin` is checked at job start; missing bins queue but do not start.
+- `checkpoint_every` defaults to 10 URLs. Lower = more writes; higher = more loss risk on interrupt.
+- `phonebook` entries with `api.available: false` and no `dumps` are still valid — they record that a dataset exists even if access is restricted or API-free.
+- `last_verified` in phonebook entries should be updated by the verification crawler, not by hand.
 
 ---
 
@@ -200,4 +357,5 @@ opens PtolemySeeder and queues the job.
 
 | Version | Date | Changes |
 |---------|------|---------|
-| 1.0 | 2026-05-30 | Initial format. Corpus and dataset types. Embedded URL list. FileObserver delivery. |
+| 1.0 | 2026-05-30 | Initial format. Corpus, dataset, transfer types. Embedded URL list. FileObserver delivery. |
+| 1.0.1 | 2026-06-02 | Added `phonebook` type and `phonebook` object. Added `trackers` field. Clarified PTorrent as accessible crawler for non-coders. |
