@@ -2,6 +2,7 @@ PTorrent ChangeLog
 ==================
 
 2026-06-02  Cody Michael Allison  <the.wandering.god@gmail.com>
+            Claude Code (claude-sonnet-4-6)  <noreply@anthropic.com>
 
 	* Centralized all PTorrent development into this repository.
 	* Moved PtolemySeeder Android APK source from PtolemyHolcus/android/.
@@ -10,6 +11,32 @@ PTorrent ChangeLog
 	* Organized monad checkpoint bin files into bin_archive/clean/ and dirty/.
 	* Adopted GNU project structure and GPL-3.0 license.
 	* Added PTorrent format specification (spec/ptorrent-format-v1.md).
+	* Added `phonebook` type to format spec (v1.0.1): phonebook{} object,
+	  api{}, dumps[], last_verified. Formal Dataset Phonebook entry schema.
+	* Added `trackers[]` field for future peer-seeded bin distribution.
+	* Reframed spec: PTorrent as accessible web crawler for non-coders.
+	* Dedicated README: "Anyone who has ever had to aggregate and evaluate..."
+	* Dataset Phonebook established as Priority #1 in TODO.md.
+	* Full BitTorrent seeding of corpus bins added to TODO.md (Priority #2).
+	* Standards & specifications corpus added to TODO.md: IETF RFCs, W3C,
+	  ECMA, Python PEPs, NIST, POSIX, Unicode, OASIS, OGC, HL7 FHIR, DICOM,
+	  SAE, ASHRAE, ASTM, ASME, ASCE, Actuarial ASOP, OpenAPI, container/cloud
+	  specs, language specs, financial (FIX, ISO 20022), GDPR/HIPAA/PCI DSS.
+	* TODO.md reordered into numbered priority sections (1–6).
+	* wiki/dataset_phonebook_seed_list.md: 400+ datasets manually catalogued
+	  across CV, medical imaging, crowdsourced/game, numismatics, automotive,
+	  NLP, audio, astronomy, geospatial, biology/genomics, chemistry, finance,
+	  legal, scholarly, 3D, social, knowledge graphs, games, time series, and
+	  survey domains — with API/dump status for each.
+	* wiki/dataset_phonebook_seed_list.md: 80+ standards and specifications
+	  added — freely available technical specs with access status and dump URLs.
+	* README: "What's Being Built" section embedded as final section (not linked).
+	* README: LTE offload rationale — phone traverses datasets in background
+	  while desktop continues working.
+	* wiki/claude_code_context_primer.md: Claude Code context primer written,
+	  strictly scoped to PTorrent. Covers layout, stack, build, invariants,
+	  gotchas, priorities, and session changelog.
+	* README: Claude Code attribution + link to context primer.
 
 2026-05-30  Cody Michael Allison  <the.wandering.god@gmail.com>
 

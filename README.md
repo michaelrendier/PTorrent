@@ -6,6 +6,8 @@
 **A corpus distribution protocol for on-device knowledge seeding.**  
 Inspired by BitTorrent. Built for Android. Licensed under GNU GPL v3.
 
+*Code compiled and built by [Claude Code](https://claude.ai/code) — see [`wiki/claude_code_context_primer.md`](wiki/claude_code_context_primer.md)*
+
 ---
 
 PTorrent is an open protocol for distributing *knowledge corpus jobs* across
