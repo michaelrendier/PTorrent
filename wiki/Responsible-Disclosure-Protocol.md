@@ -556,7 +556,7 @@ Specifically, we request:
 
 **Contact:**  
 Cody Michael Allison  
-ORCID: https://orcid.org/[ORCID]  
+ORCID: https://orcid.org/0009-0007-7239-6760  
 the.wandering.god@gmail.com  
 PTorrent: https://github.com/michaelrendier/PTorrent  
 
