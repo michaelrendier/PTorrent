@@ -1,5 +1,55 @@
 # PTorrent Changelog
 
+## v4.0 — 2026-06-03
+
+### Responsible Disclosure Open Protocol (RDOP)
+
+PTorrent formally defines an open protocol for responsible disclosure of
+security vulnerabilities discovered during research.
+
+**Chain (ptorrent_chain.py):**
+- +7 transaction types: EVALUATE, CLASSIFY, ACKNOWLEDGE, DISCLOSE, REVOKE,
+  FLAG, NOTIFY — complete security lifecycle on-chain
+- `evaluate()` — Data Transversal result with parallel β-merge semantics
+- `classify()` — security classification with embargo enforcement
+- `acknowledge()` — warning_hash proof of informed consent
+- `disclose()` — embargo lift, classification drop
+- `notify()` — agency notification committed BEFORE send (chain is authoritative)
+- `flag()` / `is_flagged()` — malicious file block, no override
+- `get_classification()` / `is_embargoed()` / `get_evaluations()` / `get_notifications()`
+
+**Disclosure module (skills/disclosure/):**
+- `stix_builder.py` — STIX 2.1 vulnerability/CoA/report/bundle (pure Python)
+- `notifier.py` — NIST, CISA, MITRE, CERT/CC, NCSC, ENISA dispatch
+  - TAXII 2.1 client for CISA AIS machine-readable submission
+  - Structured email with STIX bundle attachment
+  - `pre_check()` — queries NVD + KEV before filing
+
+**Adapters (skills/adapters/):**
+- `nist_nvd_adapter.py` — NVD CVE database query (API key optional)
+- `cisa_kev_adapter.py` — CISA KEV catalog (public domain, cached)
+- Full scientific adapter stack: FITS, HDF5, MRT, VOTable, Fortran binary,
+  COBOL VSAM + EBCDIC, GitHub API, IVOA TAP/ADQL
+
+**Safety (skills/sandbox.py, skills/preflight.py):**
+- Python execution sandbox — blocks subprocess/ctypes/system paths
+- Pre-flight resource checker — storage/RAM/temp/battery/embargo hard gates
+- ThermalMonitor — continuous pause/resume at 48°C/40°C
+- doc/ANDROID-SAFETY.md — VBMeta/build.prop protection guide
+
+**Format specs:**
+- ptorrent-format-v1.md: +evaluation type, +security block, +resources block,
+  +data_model object
+- ptorrent-chain-v1.md: +13 new transaction types documented, v1.2
+
+**Documentation:**
+- wiki/Responsible-Disclosure-Protocol.md — formal RDOP specification
+- wiki/Agency-Interface.md — NIST/CISA/MITRE interface, email templates
+- wiki/Security-Classification.md — classification levels, enforcement procedures
+- README.md — RDOP section with NIST/CISA invitation
+
+---
+
 ## v3.0 — 2026-05-31
 
 ### APK

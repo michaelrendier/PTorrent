@@ -354,3 +354,68 @@ progress bars.
 ### 6. Platforms
 
 Desktop CLI runner, PTorrent daemon with socket API, iOS port evaluation.
+
+---
+
+## Responsible Disclosure Open Protocol (RDOP)
+
+PTorrent includes a formally-specified open protocol for responsible disclosure
+of security vulnerabilities discovered during research. The RDOP is documented
+in [`wiki/Responsible-Disclosure-Protocol.md`](wiki/Responsible-Disclosure-Protocol.md).
+
+### What RDOP Provides
+
+- **Security classification** — `.ptorrent` `security` block with embargo enforcement
+- **Blockchain provenance** — complete disclosure timeline on the PTorrent chain
+- **STIX 2.1 bundles** — auto-generated, ORCID-attributed vulnerability reports
+- **Agency notification** — structured submissions to NIST, CISA, MITRE, CERT/CC, NCSC
+- **TAXII 2.1 support** — direct machine-readable submission to CISA AIS
+- **Embargo enforcement** — seeding blocked programmatically until embargo date
+- **Dual-use flagging** — mandatory researcher acknowledgment for Level 3 data
+
+### The Disclosure Chain
+
+```
+discovery → CLASSIFY → NOTIFY (agencies, Day 0) → ACKNOWLEDGE (researchers)
+         → embargo period → DISCLOSE (auto on embargo_until date) → public
+```
+
+Every step is a blockchain transaction. The chain IS the disclosure record —
+tamper-evident, ORCID-attributed, independently verifiable.
+
+### Quick Start
+
+```python
+from skills.disclosure import DisclosureNotifier
+from ptorrent_chain import PTorrentChain
+
+chain = PTorrentChain()
+notifier = DisclosureNotifier(chain)
+
+result = notifier.disclose(
+    file_hash     = chain_file_hash,
+    vuln_name     = "My Vulnerability",
+    description   = "Technical description...",
+    mitigation    = "Recommended fix...",
+    embargo_until = "2027-06-03",
+    agencies      = ["NIST", "CISA", "MITRE"],
+)
+```
+
+### Invitation to NIST and CISA
+
+PTorrent was used to file the UDEO coordinated vulnerability disclosure
+(sedenion zero-divisor attack class on ECC/hash functions). The disclosure
+infrastructure demonstrated here is offered to NIST and CISA as a proposed
+standard researcher intake channel.
+
+**We invite NIST and CISA to collaborate on a formal PTorrent-CISA/NIST
+integration that would provide the research community with a machine-readable,
+ORCID-verified, blockchain-provenance-tracked disclosure pathway.**
+
+See:
+- [`wiki/Responsible-Disclosure-Protocol.md`](wiki/Responsible-Disclosure-Protocol.md) — formal protocol specification
+- [`wiki/Agency-Interface.md`](wiki/Agency-Interface.md) — agency contacts, templates, TAXII configuration
+- [`wiki/Security-Classification.md`](wiki/Security-Classification.md) — classification levels and enforcement
+
+Contact: Cody Michael Allison — the.wandering.god@gmail.com

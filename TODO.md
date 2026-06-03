@@ -181,3 +181,108 @@ See wiki/dataset_phonebook_seed_list.md for the manual seed catalogue (400+ entr
 - [ ] Desktop runner: ptorrent CLI tool (Python, uses same corpus.py)
 - [ ] PTorrent daemon: long-running desktop service with socket API
 - [ ] iOS: evaluate Swift/Objective-C port of monad.c (PtolC PTOL binary compatible)
+
+---
+
+## 7. Responsible Disclosure Open Protocol (RDOP)
+
+PTorrent implements the RDOP — a formally-specified open protocol for
+responsible disclosure of security vulnerabilities discovered during research.
+Full specification: wiki/Responsible-Disclosure-Protocol.md
+
+### 7.1 Protocol Formalization
+
+- [x] CLASSIFY chain transaction — security classification with embargo enforcement
+- [x] NOTIFY chain transaction — agency notification record (committed before send)
+- [x] ACKNOWLEDGE chain transaction — researcher consent with warning_hash
+- [x] DISCLOSE chain transaction — embargo lift with classification downgrade
+- [x] REVOKE chain transaction — access withdrawal
+- [x] FLAG chain transaction — malicious file block
+- [x] EVALUATE chain transaction — data transversal result with parallel semantics
+- [x] security block in .ptorrent format — classification, level, embargo_until
+- [x] disclosure section in .peval format — chain references in evaluation output
+- [ ] Automatic DISCLOSE on embargo_until date (scheduled chain job)
+- [ ] CNA (CVE Numbering Authority) application — PTorrent as a CNA
+
+### 7.2 Agency Interface
+
+- [x] NIST NVD adapter — CVE database query (check_cve_exists)
+- [x] CISA KEV adapter — Known Exploited Vulnerabilities catalog
+- [x] STIX 2.1 builder — vulnerability/CoA/report/bundle (pure Python)
+- [x] Notifier — NIST, CISA, MITRE, CERT/CC, NCSC, ENISA dispatch
+- [x] TAXII 2.1 client — CISA AIS machine-readable submission
+- [ ] CISA AIS endpoint configuration — contact CISA for researcher TAXII access
+- [ ] NIST NVD structured intake — contact NIST for RDOP-format intake channel
+- [ ] MITRE CNA registration — apply to become CVE Numbering Authority
+- [ ] CERT/CC formal partnership — integrate CERT/CC Vince platform
+- [ ] Bidirectional: receive CISA advisories as ptorrent phonebook entries
+      (CISA publishes advisories as JSON — auto-generate phonebook entries)
+
+### 7.3 APK Disclosure UI
+
+- [ ] Level 3 acknowledgment screen — full-screen interstitial, ORCID entry required
+- [ ] Disclosure status card — shows NOTIFY tx history for classified files
+- [ ] Embargo countdown — days remaining displayed on classified corpus cards
+- [ ] Auto-DISCLOSE notification — APK notifies researcher when embargo date reached
+- [ ] Agency response tracking — record CVE numbers, advisory IDs in chain notes
+
+### 7.4 F-Droid and GNU Compliance
+
+- [ ] Replace Chaquopy with process-separated Python runtime (MCP socket bridge)
+      Chaquopy is proprietary — required for F-Droid inclusion
+      Architecture: SeedService.kt → Unix socket → seed_runner.py (separate process)
+      Python component: embed CPython 3.12 ARM64 as asset, load via JNI
+      Benefit: removes commercial dependency, enables F-Droid distribution
+- [ ] F-Droid metadata file (fastlane/metadata/android/)
+      title, short_description, full_description, changelogs
+      screenshots, feature graphic
+- [ ] F-Droid reproducible build — deterministic APK from source
+- [ ] GNU makefile for desktop components
+- [ ] CERN OHL consideration for any hardware designs distributed via PTorrent
+- [ ] GNU AGPL evaluation — should PTorrent server components be AGPL?
+      (network use provision — AGPL ensures server-side modifications share back)
+
+### 7.5 User Profiles and ORCID
+
+- [ ] UserProfileActivity.kt — ORCID entry, verification, profile storage
+- [ ] UserProfileManager.kt — ORCID API verification, EncryptedSharedPreferences
+- [ ] Seeding gate in SeedService — isProfileComplete() check before any corpus starts
+- [ ] peer_id reform: ORCID:xxxx-xxxx-xxxx-xxxx@device_hash format throughout
+- [ ] GitHub username linking via ORCID public profile
+- [ ] Profile display in ChainActivity — researcher identity per seeder
+
+### 7.6 Blockchain Live Seeds Face
+
+- [ ] ChainActivity.kt — dedicated blockchain state screen
+      Live seeders list with ORCID identity and seeding status
+      Recent transactions timeline (ANNOUNCE/SEED/EVALUATE/NOTIFY/DISCLOSE)
+      Chain health: tip_hash, block count, last commit
+      Per-file seeder count with contact links
+      Anonymous seeder warnings (no-profile peers flagged)
+- [ ] Chain sync — share chain state between devices over LAN/WiFi
+- [ ] Conflict resolution — longest-valid-chain rule for divergent chain states
+
+### 7.7 Security Data Corpus
+
+- [ ] monad_security.bin — train on security vocabulary:
+      NIST NVD CVE descriptions (public, free via NVD API)
+      CISA KEV entries (public, free download)
+      MITRE ATT&CK matrix (public, JSON download)
+      MITRE CWE list (public, XML download)
+      NIST SP 800-series publications (public PDF)
+      CERT/CC vulnerability notes (public)
+      NIST FIPS publications (public)
+- [ ] security.ptorrent — corpus descriptor for monad_security.bin
+- [ ] Sedenion mapping of CVE vocabulary documented in wiki
+
+### 7.8 RDOP Open Standard Outreach
+
+- [ ] Submit RDOP to OASIS Open for consideration as a TC contribution
+      (STIX TC or a new Vulnerability Disclosure TC)
+- [ ] Present RDOP at FIRST (Forum of Incident Response and Security Teams)
+      FIRST annual conference — primary international CSIRT/CERT venue
+- [ ] IEEE S&P / CCS / USENIX Security — workshop paper on RDOP
+- [ ] Contact ENISA about EU-wide RDOP adoption (NIS2 directive context)
+- [ ] Contact NCSC (UK) — their vulnerability reporting team
+- [ ] ISO/IEC 29147 alignment — map RDOP to international standard
+- [ ] security.txt (RFC 9116) — add .well-known/security.txt to PTorrent GitHub
