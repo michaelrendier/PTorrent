@@ -1,8 +1,55 @@
-# PTorrent Android Safety — System Partition Protection
+# PTorrent Android Safety — HAL Boundary and System Partition Protection
 
-**Version:** 1.0  
+**Version:** 2.0  
 **Date:** 2026-06-03  
 **License:** GNU GPL v3
+
+---
+
+## HAL Boundary Policy
+
+PTorrent accesses hardware and OS services exclusively through Android's
+**Hardware Abstraction Layer (HAL)** and official Android APIs. The Python
+engine never touches hardware, credential, or auth paths directly.
+
+This is not just a security best practice — it is the architecture.
+Going through HAL means:
+
+- Credentials go through `EncryptedSharedPreferences` and Android `KeyStore`
+- Biometrics go through `BiometricPrompt`, never raw sensor data
+- Network state goes through `ConnectivityManager`, never `/sys/` or `/proc/`
+- Device identity goes through `Build.*` and `Settings.Secure`, never `/efs/`
+
+**Why this matters when ADB is enabled:**
+
+A phone plugged in with ADB debugging enabled is an open port. Any code with
+filesystem access — a malicious `.ptorrent` file, a compromised skill, or
+a rogue evaluation job — could potentially read:
+
+```
+/data/misc/adb/adb_keys          → grants full device access over USB
+/data/system/password.key         → PIN hash for offline brute-force
+/data/system/pattern.key          → lock pattern hash
+/data/system/locksettings.db      → full lock screen credential store
+/data/misc/keystore/              → Android Keystore key material
+/data/misc/wifi/                  → saved WiFi passwords
+/efs/                             → Samsung IMEI / SIM lock (Samsung devices)
+```
+
+PTorrent's Python sandbox (`skills/sandbox.py`) blocks all of these paths
+at the `builtins.open` level, before any skill code can reach them.
+The block fires regardless of root status, regardless of what the
+`.ptorrent` file requests, and cannot be bypassed by skill code.
+
+**The same policy applies to all future ports:**
+
+| Platform | Auth/credential layer | PTorrent uses |
+|---|---|---|
+| Android | Android HAL / KeyStore | `EncryptedSharedPreferences`, `BiometricPrompt` |
+| iOS | Secure Enclave / Keychain | `SecItemAdd` / `LocalAuthentication` framework |
+| Desktop (Linux) | libsecret / GNOME Keyring | `secret-tool` / `python3-keyring` |
+| Desktop (macOS) | Keychain Services | `keyring` Python library |
+| Desktop (Windows) | DPAPI / Credential Manager | `keyring` Python library |
 
 ---
 
