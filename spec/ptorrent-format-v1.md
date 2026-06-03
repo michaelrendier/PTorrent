@@ -55,7 +55,7 @@ disciplines, for all researchers. See the Dataset Phonebook section below.
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `ptorrent_version` | string | yes | Format version. Currently `"1.0"`. |
-| `type` | string | yes | Job type: `corpus`, `dataset`, `transfer`, `phonebook`. |
+| `type` | string | yes | Job type: `corpus`, `dataset`, `transfer`, `phonebook`, `evaluation`. |
 | `name` | string | yes | Human-readable name. |
 | `bin` | string | yes* | Output checkpoint filename. Required for `corpus` and `transfer` types. |
 | `txt` | string | no | Corpus URL list filename. Optional if `urls` is embedded. |
@@ -72,11 +72,16 @@ disciplines, for all researchers. See the Dataset Phonebook section below.
 | `test` | string | no | Name of test function to run after seeding. |
 | `test_params` | object | no | Parameters passed to the test function. |
 | `output` | string | no | Output filename for dataset jobs. |
-| `output_format` | string | no | Output format: `"json"`, `"csv"`, `"fits"`, `"hdf5"`. |
+| `output_format` | string | no | Output format: `"json"`, `"csv"`, `"fits"`, `"hdf5"`, `"peval"`. |
 | `output_top_n` | int | no | Limit output to top N results. |
 | `checkpoint_every` | int | no | Save checkpoint every N URLs (default 10). |
 | `model_hook` | string | null | Reserved for future model hook integration. |
 | `trackers` | string[] | no | BitTorrent tracker URLs for peer-seeded bin distribution. |
+| `security` | object | no | Security classification. Required for any dual-use, sensitive, or embargoed data. |
+| `resources` | object | no | Resource requirements and warnings. Required for jobs exceeding 1 GB or 1 hour. |
+| `discover` | bool | no | `true` = run auto-probe before execution to detect `data_model` fields. |
+| `data_model` | object | no | Structured description of the dataset geometry (type, dimensions, units, access). |
+| `evaluation` | object | no | Evaluation terms and method. Present when `type` is `"evaluation"`. |
 
 ---
 
@@ -88,6 +93,134 @@ disciplines, for all researchers. See the Dataset Phonebook section below.
 | `dataset` | Fetch structured data from a source API and save to file. |
 | `transfer` | Load `requires_bin` then continue seeding additional corpus text. |
 | `phonebook` | Dataset Phonebook entry — records where a dataset lives, not the data itself. |
+| `evaluation` | Data Transversal — apply evaluation terms (bin) to a structured dataset in situ. Output is a `.peval` file announced to the chain with `EVALUATE` transaction. |
+
+---
+
+## `security` Object
+
+Required whenever `security.level >= 1`. The APK enforces all constraints before
+allowing any seeding to begin.
+
+```json
+{
+  "classification":       "dual-use",
+  "level":                3,
+  "warning":              "Full warning text displayed to researcher before access.",
+  "embargo_until":        "2027-06-03",
+  "requires_credential":  "security_researcher",
+  "disclosure_ref":       "NIST-PRE-DISCLOSURE-2026-AINULINDALE-UDEO",
+  "contact_orcid":        "0000-0001-2345-6789",
+  "acknowledge_required": true
+}
+```
+
+| Field | Description |
+|-------|-------------|
+| `classification` | `"public"` \| `"sensitive"` \| `"restricted"` \| `"dual-use"` |
+| `level` | 0 = public, 1 = sensitive, 2 = restricted, 3 = dual-use |
+| `warning` | Full text of the warning displayed to the researcher |
+| `embargo_until` | ISO date `"YYYY-MM-DD"` — seeding blocked before this date |
+| `requires_credential` | ORCID credential type required for access |
+| `disclosure_ref` | External reference (NIST advisory, CVE, etc.) |
+| `contact_orcid` | ORCID of the responsible researcher (mandatory for level >= 2) |
+| `acknowledge_required` | `true` = researcher must enter ORCID to confirm they read the warning |
+
+The `embargo_until` check is enforced by `preflight.py` and `PreFlightCheck.kt`.
+Seeding before the embargo date is a hard block — no override.
+
+---
+
+## `resources` Object
+
+Required for any job that may exceed 1 GB storage or run longer than 1 hour.
+All fields are checked by `preflight.py` before the job starts.
+
+```json
+{
+  "storage_gb":           12.5,
+  "ram_peak_gb":          3.2,
+  "duration_hours":       8,
+  "thermal_risk":         "high",
+  "battery_drain_pct_hr": 15,
+  "requires_charging":    true,
+  "requires_wifi":        true,
+  "min_free_storage_gb":  15,
+  "min_ram_gb":           4,
+  "warning":              "Human-readable resource warning shown before start.",
+  "safe_to_pause":        true,
+  "checkpoint_every_urls": 5
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `storage_gb` | float | Estimated output storage required |
+| `ram_peak_gb` | float | Peak RAM during evaluation |
+| `duration_hours` | float | Estimated runtime |
+| `thermal_risk` | string | `"low"` \| `"medium"` \| `"high"` |
+| `battery_drain_pct_hr` | float | Estimated battery drain per hour |
+| `requires_charging` | bool | Hard block if not charging |
+| `requires_wifi` | bool | Hard block if not on WiFi |
+| `min_free_storage_gb` | float | Hard block if less free space |
+| `min_ram_gb` | float | Hard block if less RAM available |
+| `warning` | string | Human-readable summary shown before start |
+| `safe_to_pause` | bool | Whether the job can be safely paused mid-run |
+| `checkpoint_every_urls` | int | Override global checkpoint interval |
+
+`preflight.py` enforces all `min_*` and `requires_*` fields as hard stops.
+The job does not start if any check fails. Failure reasons are displayed
+explicitly (field, required value, available value, human message).
+
+---
+
+## `data_model` Object
+
+Describes the geometric structure of the source dataset.
+Auto-populated by Discovery Mode (`"discover": true`).
+Can be written manually for known formats.
+
+```json
+{
+  "type":       "spectral_cube",
+  "dimensions": ["ra", "dec", "wavelength"],
+  "units":      {"flux": "MJy/sr", "wavelength": "micron", "pos": "deg"},
+  "layers":     ["F090W", "F150W", "F200W", "F277W", "F356W", "F444W"],
+  "native_format": "FITS",
+  "wcs":        true,
+  "access": {
+    "mode":    "s3_fits",
+    "bucket":  "stpubdata",
+    "prefix":  "jwst/public/jw02114/"
+  }
+}
+```
+
+Supported `type` values: `spectral_cube`, `image_2d`, `simulation_snapshot`,
+`multiband_catalog`, `rotation_curve`, `time_series`, `spectral_1d`,
+`financial_records`, `code_corpus`, `tap_catalog`, `catalog`.
+
+Supported adapter `mode` values: `fits`, `fits_table`, `hdf5_snapshot`, `hdf5`,
+`votable`, `tap_adql`, `mrt`, `fortran_binary`, `cobol_vsam`, `cobol_fixed`,
+`github_repo`, `github_dataset`, `s3_fits`.
+
+---
+
+## `evaluation` Object
+
+Present when `type` is `"evaluation"`. Specifies the evaluation terms and method.
+
+```json
+{
+  "fn":         "σ_face_spectral",
+  "bin_hash":   "<SHA-256 of requires_bin file>",
+  "σ_table":    {"½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior"},
+  "J_ambient":  "spectral_peak_λ normalized to σ=½ continuum"
+}
+```
+
+The `bin_hash` field is the terms hash in the chain's `EVALUATE` transaction.
+Two evaluations with the same `bin_hash` and same `data_model` are β-mergeable.
 
 ---
 

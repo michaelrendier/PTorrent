@@ -31,13 +31,19 @@ from typing import Optional
 # Transaction types
 # ---------------------------------------------------------------------------
 
-GENESIS  = "GENESIS"   # chain genesis marker
-ANNOUNCE = "ANNOUNCE"  # publish: this file exists at this hash and size
-UPDATE   = "UPDATE"    # new version of a named resource (links prev_hash)
-SEED     = "SEED"      # peer is actively seeding this hash
-UNSEED   = "UNSEED"    # peer has stopped seeding this hash
-RETIRE   = "RETIRE"    # this hash is superseded (always paired with UPDATE)
-MERGE    = "MERGE"     # merge_a + merge_b → file_hash (β-weighted bin merge)
+GENESIS     = "GENESIS"     # chain genesis marker
+ANNOUNCE    = "ANNOUNCE"    # publish: this file exists at this hash and size
+UPDATE      = "UPDATE"      # new version of a named resource (links prev_hash)
+SEED        = "SEED"        # peer is actively seeding this hash
+UNSEED      = "UNSEED"      # peer has stopped seeding this hash
+RETIRE      = "RETIRE"      # this hash is superseded (always paired with UPDATE)
+MERGE       = "MERGE"       # merge_a + merge_b → file_hash (β-weighted bin merge)
+EVALUATE    = "EVALUATE"    # dataset evaluated under terms → .peval result
+CLASSIFY    = "CLASSIFY"    # assign security classification to a file hash
+ACKNOWLEDGE = "ACKNOWLEDGE" # researcher explicitly accepted the security notice
+DISCLOSE    = "DISCLOSE"    # embargo lifted; classification drops to public
+REVOKE      = "REVOKE"      # access withdrawn for a specific peer_id
+FLAG        = "FLAG"        # file flagged as malicious / unsafe — blocks execution
 
 
 # ---------------------------------------------------------------------------
@@ -377,6 +383,194 @@ class PTorrentChain:
             file_hash=result_hash, file_name=file_name, file_size=file_size,
             merge_a=hash_a, merge_b=hash_b, peer_id=peer_id, note=note,
         ))
+
+    # -----------------------------------------------------------------------
+    # Security / evaluation transactions (v1.1)
+    # -----------------------------------------------------------------------
+
+    def evaluate(self, result_file: str, result_hash: str, result_size: int,
+                 dataset_hash: str, terms_hash: str, peer_id: str,
+                 note: str = "") -> "Transaction":
+        """
+        Record a Data Transversal evaluation result.
+
+        :param result_file:  Output .peval filename.
+        :param result_hash:  SHA-256 of the .peval file.
+        :param result_size:  Byte size of .peval.
+        :param dataset_hash: SHA-256 of the source dataset (from its ANNOUNCE tx).
+        :param terms_hash:   SHA-256 of the monad .bin used as evaluation terms.
+        :param peer_id:      ORCID:xxxx-xxxx-xxxx-xxxx@device_hash or plain peer.
+        :param note:         Human-readable annotation.
+
+        Parallel semantics: same dataset_hash + same terms_hash → β-mergeable.
+        Different terms_hash → non-mergeable, both valid, tracked in parallel.
+        """
+        return self._stage(Transaction(
+            type=EVALUATE, timestamp=time.time(),
+            file_hash=result_hash, file_name=result_file, file_size=result_size,
+            merge_a=dataset_hash, merge_b=terms_hash,
+            peer_id=peer_id, note=note,
+        ))
+
+    def classify(self, file_hash: str, classification: str, level: int,
+                 embargo_until: str, contact_orcid: str,
+                 peer_id: str, disclosure_ref: str = "") -> "Transaction":
+        """
+        Assign a security classification to a file hash.
+
+        :param file_hash:      Hash of the file being classified.
+        :param classification: "public" | "sensitive" | "restricted" | "dual-use".
+        :param level:          0-3 numeric level.
+        :param embargo_until:  ISO date string "YYYY-MM-DD" or "" for no embargo.
+        :param contact_orcid:  ORCID of the responsible researcher.
+        :param peer_id:        Classifying peer.
+        :param disclosure_ref: External reference (NIST, CVE, etc.).
+        """
+        note = (f"level={level} class={classification} "
+                f"embargo={embargo_until or 'none'} "
+                f"contact={contact_orcid} ref={disclosure_ref}")
+        return self._stage(Transaction(
+            type=CLASSIFY, timestamp=time.time(),
+            file_hash=file_hash, file_name="",
+            peer_id=peer_id, note=note,
+        ))
+
+    def acknowledge(self, file_hash: str, orcid_id: str,
+                    warning_text: str, peer_id: str) -> "Transaction":
+        """
+        Record that a researcher read and accepted the security notice.
+        warning_hash = SHA-256 of the warning text — proves which version
+        of the warning was acknowledged.
+
+        :param file_hash:     File hash of the classified dataset.
+        :param orcid_id:      Researcher's ORCID (entered manually by researcher).
+        :param warning_text:  Full warning text as displayed.
+        :param peer_id:       Device peer_id.
+        """
+        warning_hash = hashlib.sha256(
+            warning_text.encode("utf-8")
+        ).hexdigest()
+        note = f"orcid={orcid_id} warning_hash={warning_hash}"
+        return self._stage(Transaction(
+            type=ACKNOWLEDGE, timestamp=time.time(),
+            file_hash=file_hash, file_name="",
+            peer_id=peer_id, note=note,
+        ))
+
+    def disclose(self, file_hash: str, prev_classification: str,
+                 new_classification: str, peer_id: str,
+                 disclosure_ref: str = "") -> "Transaction":
+        """
+        Lift an embargo — classification drops (e.g. restricted → public).
+
+        :param file_hash:           Hash of the file being disclosed.
+        :param prev_classification: Previous classification level string.
+        :param new_classification:  New classification after disclosure.
+        :param peer_id:             Disclosing peer (must be original classifier).
+        :param disclosure_ref:      External reference number.
+        """
+        note = (f"prev={prev_classification} new={new_classification} "
+                f"ref={disclosure_ref}")
+        return self._stage(Transaction(
+            type=DISCLOSE, timestamp=time.time(),
+            file_hash=file_hash, file_name="",
+            peer_id=peer_id, note=note,
+        ))
+
+    def revoke(self, file_hash: str, revoked_peer_id: str,
+               reason: str, peer_id: str) -> "Transaction":
+        """
+        Withdraw access to a file from a specific peer.
+
+        :param file_hash:        Hash of the file.
+        :param revoked_peer_id:  The peer being revoked.
+        :param reason:           Reason string.
+        :param peer_id:          Revoking authority's peer_id.
+        """
+        note = f"revoked={revoked_peer_id} reason={reason}"
+        return self._stage(Transaction(
+            type=REVOKE, timestamp=time.time(),
+            file_hash=file_hash, file_name="",
+            peer_id=peer_id, note=note,
+        ))
+
+    def flag(self, file_hash: str, reason: str, detail: str,
+             evidence: str, peer_id: str) -> "Transaction":
+        """
+        Flag a file as malicious or unsafe. Blocks execution on all devices
+        that check the chain before running.
+
+        :param file_hash: Hash of the malicious file.
+        :param reason:    "attempted_system_write" | "attempted_subprocess" |
+                          "resource_exhaustion" | "malicious_payload" | "other"
+        :param detail:    Human-readable description of what was observed.
+        :param evidence:  SHA-256 of the error log / sandbox exception trace.
+        :param peer_id:   Flagging researcher's peer_id (ORCID-attributed).
+        """
+        note = f"reason={reason} evidence={evidence} detail={detail[:200]}"
+        return self._stage(Transaction(
+            type=FLAG, timestamp=time.time(),
+            file_hash=file_hash, file_name="",
+            peer_id=peer_id, note=note,
+        ))
+
+    def is_flagged(self, file_hash: str) -> Optional["Transaction"]:
+        """Return the FLAG transaction if this file has been flagged, else None."""
+        for block in self._chain:
+            for tx in block.transactions:
+                if tx.type == FLAG and tx.file_hash == file_hash:
+                    return tx
+        for tx in self._pending:
+            if tx.type == FLAG and tx.file_hash == file_hash:
+                return tx
+        return None
+
+    def get_classification(self, file_hash: str) -> Optional[dict]:
+        """
+        Return the most recent CLASSIFY transaction for a file, parsed into
+        a dict: classification, level, embargo_until, contact_orcid.
+        Returns None if no classification exists (file is public by default).
+        """
+        latest = None
+        for block in self._chain:
+            for tx in block.transactions:
+                if tx.type == CLASSIFY and tx.file_hash == file_hash:
+                    latest = tx
+        if latest is None:
+            return None
+        # Parse note field
+        parts = dict(p.split("=", 1) for p in latest.note.split()
+                     if "=" in p)
+        return {
+            "classification": parts.get("class", "public"),
+            "level":          int(parts.get("level", 0)),
+            "embargo_until":  parts.get("embargo", ""),
+            "contact_orcid":  parts.get("contact", ""),
+            "ref":            parts.get("ref", ""),
+            "timestamp":      latest.timestamp,
+            "classified_by":  latest.peer_id,
+        }
+
+    def is_embargoed(self, file_hash: str) -> bool:
+        """Return True if this file is under active embargo."""
+        cls = self.get_classification(file_hash)
+        if not cls:
+            return False
+        embargo = cls.get("embargo_until", "")
+        if not embargo:
+            return False
+        import time as _time
+        today = _time.strftime("%Y-%m-%d")
+        return today < embargo
+
+    def get_evaluations(self, dataset_hash: str) -> list["Transaction"]:
+        """Return all EVALUATE transactions for a given dataset hash."""
+        result = []
+        for block in self._chain:
+            for tx in block.transactions:
+                if tx.type == EVALUATE and tx.merge_a == dataset_hash:
+                    result.append(tx)
+        return result
 
     def commit(self) -> Optional[Block]:
         """

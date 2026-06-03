@@ -14,6 +14,11 @@ import os
 import threading
 from typing import Any, Callable, Dict, List, Optional
 
+# Sandbox must be installed before any skill code runs.
+# Blocks: subprocess, ctypes, system path writes. See skills/sandbox.py.
+import skills.sandbox as _sandbox
+_sandbox.install(os.environ.get("PTOL_OUT_DIR", ""))
+
 from monad import Engine
 from skills.corpus import GenericCorpus, parse_corpus_txt
 

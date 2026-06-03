@@ -77,10 +77,35 @@ any mismatch raises `ValueError`.
 | `SEED` | Peer is actively seeding | `file_hash`, `peer_id` |
 | `UNSEED` | Peer has stopped seeding | `file_hash`, `peer_id` |
 | `MERGE` | Two bins merged into one | `file_hash` (result), `merge_a`, `merge_b`, `peer_id` |
+| `EVALUATE` | Dataset evaluated under terms | `file_hash` (result .peval), `dataset_hash`, `terms_hash`, `peer_id` |
+| `CLASSIFY` | Assign security classification | `file_hash`, `classification`, `level`, `embargo_until`, `contact_orcid` |
+| `ACKNOWLEDGE` | Researcher accepted security notice | `file_hash`, `peer_id`, `warning_hash`, `orcid_id` |
+| `DISCLOSE` | Embargo lifted — classification drops | `file_hash`, `prev_classification`, `new_classification`, `peer_id` |
+| `REVOKE` | Access withdrawn for a peer | `file_hash`, `revoked_peer_id`, `reason`, `peer_id` |
+| `FLAG` | File flagged as malicious/unsafe | `file_hash`, `reason`, `detail`, `evidence_hash`, `peer_id` |
 
 `UPDATE` always pairs with `RETIRE` — the `update()` method stages both
 atomically. `RETIRE` is staged first so the ledger always has a clear
 retirement record before the successor is announced.
+
+`EVALUATE` uses parallel semantics: two EVALUATE transactions on the same
+`dataset_hash` with the same `terms_hash` are β-mergeable (compatible
+evaluations). With different `terms_hash` they are non-mergeable — tracked
+in parallel, neither supersedes the other.
+
+`CLASSIFY` sets the security level for a file hash. The APK enforces the
+`embargo_until` date: seeding is blocked until the embargo has passed.
+Level 0 = public. Level 1 = sensitive (ORCID required). Level 2 = restricted
+(institution verified). Level 3 = dual-use (explicit acknowledgment required).
+
+`ACKNOWLEDGE` is the auditable consent record. `warning_hash` = SHA-256 of
+the warning text — proves the researcher read THIS specific warning, not a
+different version. APK requires ORCID entry before committing this transaction.
+
+`FLAG` blocks the file from executing on any device that checks the chain
+before running. The APK checks for FLAG transactions on every ptorrent before
+execution. A flagged file displays the reason and flagging researcher's ORCID.
+There is no "proceed anyway" for a FLAG — the job is dead.
 
 ---
 
@@ -294,3 +319,4 @@ python ptorrent_chain.py summary
 | Version | Date | Notes |
 |---------|------|-------|
 | 1.0 | 2026-06-02 | Initial implementation. 7 transaction types, Merkle tree, PoW difficulty 2, full query API, CLI, Chaquopy-compatible. |
+| 1.1 | 2026-06-03 | +6 transaction types: EVALUATE, CLASSIFY, ACKNOWLEDGE, DISCLOSE, REVOKE, FLAG. Security classification system. Chain of custody for dual-use datasets. ORCID peer_id standard. |
