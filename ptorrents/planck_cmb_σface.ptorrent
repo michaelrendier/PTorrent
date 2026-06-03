@@ -1,0 +1,42 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "evaluation",
+  "name": "Planck 2018 CMB Power Spectrum — Riemann zero acoustic peaks",
+  "requires_bin": "monad_mathematics.bin",
+  "output": "planck_cmb_σface.peval",
+  "primary_tags": ["PLANCK", "CMB", "ACOUSTIC_PEAKS", "RIEMANN_ZEROS", "COSMOLOGY"],
+  "color": "gold",
+  "description": "Planck 2018 CMB TT power spectrum evaluated for correspondence between acoustic peak multipoles and Riemann zero imaginary parts scaled by a single SMMIP coupling constant. Prediction (D5): peak positions l_n = γ_n × λ with λ derived from H_hat_RB geometry, no per-peak fitting. In situ via FITS — ESA Planck Legacy Archive.",
+
+  "data_model": {
+    "type": "spectral_1d",
+    "dimensions": ["multipole_l", "C_l", "sigma_C_l"],
+    "units": { "C_l": "μK²", "multipole_l": "dimensionless" },
+    "native_format": "FITS",
+    "access": {
+      "mode": "fits",
+      "endpoint": "https://pla.esac.esa.int/pla/aio/",
+      "auth": "none"
+    }
+  },
+
+  "source": {
+    "mode": "fits",
+    "url": "https://pla.esac.esa.int/pla/aio/product-action?COSMOLOGY.FILE_ID=COM_PowerSpect_CMB-TT-full_R3.01.fits",
+    "value_col": "C_l"
+  },
+
+  "evaluation": {
+    "fn": "σ_face_cmb_peaks",
+    "bin_hash": "",
+    "σ_table": { "½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior" },
+    "J_ambient": "C_l peak positions vs γ_n (Riemann zero imaginary parts)",
+    "prediction": "l_n = γ_n × λ_SMMIP with λ derived a priori from H_hat_RB. One free parameter total (vs 6 in ΛCDM). χ²/dof comparison: SMMIP vs ΛCDM on all acoustic peaks. Paper D5."
+  },
+
+  "resources": {
+    "storage_gb": 0.1,
+    "requires_wifi": true,
+    "warning": "Small file — CMB power spectrum only, not full sky maps."
+  }
+}

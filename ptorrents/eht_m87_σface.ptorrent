@@ -1,0 +1,43 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "evaluation",
+  "name": "EHT M87* + SgrA* — Event Horizon σ=∞ confirmation",
+  "requires_bin": "monad_physics.bin",
+  "output": "eht_blackhole_σface.peval",
+  "primary_tags": ["EHT", "M87", "SGRA", "BLACK_HOLE", "SIGMA_INF", "EVENT_HORIZON"],
+  "color": "red",
+  "description": "Event Horizon Telescope VLBI data for M87* and SgrA* evaluated against the Ainulindale σ-face table. The event horizon is the incompressible/compressible boundary (wiki/33). Interior = σ=∞ = time stops = Fermat-forbidden zone. The photon ring radius maps to d*. In situ via EHT public data archive.",
+
+  "data_model": {
+    "type": "spectral_cube",
+    "dimensions": ["u", "v", "frequency", "visibility_real", "visibility_imag"],
+    "units": { "u": "λ", "v": "λ", "frequency": "GHz" },
+    "native_format": "FITS",
+    "access": {
+      "mode": "fits",
+      "endpoint": "https://eventhorizontelescope.org/for-astronomers/data",
+      "auth": "none"
+    }
+  },
+
+  "source": {
+    "mode": "fits",
+    "url": "https://zenodo.org/record/3836989",
+    "value_col": "visibility_amplitude"
+  },
+
+  "evaluation": {
+    "fn": "σ_face_black_hole",
+    "bin_hash": "",
+    "σ_table": { "½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior" },
+    "J_ambient": "Brightness temperature T_b(r) → σ-face gradient across shadow boundary",
+    "prediction": "The photon ring at r = 3M maps to the σ=2→σ=∞ transition. The shadow interior is the Fermat-forbidden zone (∇·u ≠ 0, compressible regime). The ring itself is the incompressible/compressible boundary. The photon ring radius / total shadow radius should equal d* = 0.24600. Paper: D-P §5."
+  },
+
+  "resources": {
+    "storage_gb": 1.5,
+    "requires_wifi": true,
+    "requires_charging": true,
+    "warning": "EHT UVFITS visibility data. Imaging pipeline required for full reconstruction."
+  }
+}

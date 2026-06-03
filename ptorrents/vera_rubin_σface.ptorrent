@@ -1,0 +1,48 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "evaluation",
+  "name": "Vera Rubin LSST — σ-face map of 40 billion objects",
+  "requires_bin": "monad_physics.bin",
+  "output": "vera_rubin_σface.peval",
+  "primary_tags": ["VERA_RUBIN", "LSST", "MULTIBAND", "SIGMA_FACE", "DARK_MATTER"],
+  "color": "blue",
+  "description": "Vera Rubin LSST ugrizy 6-band photometry for ~40B objects evaluated against the Ainulindale σ-face table. 6 bands = 6 spectral layers = σ-face gradient. u→g→r→i→z→y = increasing λ = increasing σ. The σ-face map of the observable universe at 40B-object resolution. In situ via Rubin Science Platform TAP. 60 PB never moves.",
+
+  "data_model": {
+    "type": "multiband_catalog",
+    "dimensions": ["ra", "dec", "u", "g", "r", "i", "z", "y"],
+    "units": { "flux": "nJy", "mag": "AB mag", "pos": "deg" },
+    "layers": ["u", "g", "r", "i", "z", "y"],
+    "native_format": "Parquet",
+    "access": {
+      "mode": "tap_adql",
+      "endpoint": "https://data.lsst.cloud/api/tap",
+      "auth": "oauth2",
+      "docs_url": "https://rsp.lsst.io/"
+    }
+  },
+
+  "source": {
+    "mode": "tap_adql",
+    "endpoint": "https://data.lsst.cloud/api/tap",
+    "query": "SELECT objectId, ra, dec, u_psfFlux, g_psfFlux, r_psfFlux, i_psfFlux, z_psfFlux, y_psfFlux FROM dp02_dc2_catalogs.Object WHERE detect_isPrimary = 1",
+    "max_rows": 1000000,
+    "format": "votable",
+    "value_col": "r_psfFlux"
+  },
+
+  "evaluation": {
+    "fn": "σ_face_multiband",
+    "bin_hash": "",
+    "σ_table": { "½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior" },
+    "J_ambient": "s16_energy(u,g,r,i,z,y fluxes → 16-sector sedenion) → σ-face assignment per object",
+    "prediction": "u-band dominant → σ=½ (short λ, causal). y-band dominant → σ=2 (long λ, gravity). σ-face distribution of 40B objects = σ-face map of observable universe. J_ratio = (blue flux)/(red flux) → buoyancy of each galaxy/star in the Ainulindale field. Paper D-P §7."
+  },
+
+  "resources": {
+    "storage_gb": 0.5,
+    "requires_wifi": true,
+    "requires_charging": false,
+    "warning": "In situ — 60 PB Vera Rubin survey never moves. TAP returns evaluated subset only. Auth: Rubin Science Platform account required (free for researchers)."
+  }
+}

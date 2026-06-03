@@ -1,0 +1,54 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "evaluation",
+  "name": "JWST NIRSpec IFU — Hypercomplex Spectral Relativity σ-face map",
+  "requires_bin": "monad_physics.bin",
+  "output": "jwst_nirspec_σface.peval",
+  "primary_tags": ["JWST", "NIRSPEC", "SPECTRAL_CUBE", "HSR", "SIGMA_FACE"],
+  "color": "cyan",
+  "description": "JWST NIRSpec integral field unit spectral cubes evaluated against the Ainulindale σ-face table. Each (RA, Dec, λ) voxel receives a σ-face assignment. Short λ (F090W) → σ=½ (causality). Long λ (F444W) → σ=2 (gravity). The HSR σ-face map of a galaxy — the full sedenion structure behind the visible image. In situ via MAST S3.",
+
+  "data_model": {
+    "type": "spectral_cube",
+    "dimensions": ["ra", "dec", "wavelength"],
+    "units": { "flux": "MJy/sr", "wavelength": "micron", "pos": "deg" },
+    "layers": ["F070W", "F090W", "F115W", "F150W", "F200W", "F277W", "F356W", "F444W"],
+    "native_format": "FITS",
+    "wcs": true,
+    "access": {
+      "mode": "s3_fits",
+      "bucket": "stpubdata",
+      "prefix": "jwst/public/",
+      "auth": "none",
+      "region": "us-east-1"
+    }
+  },
+
+  "source": {
+    "mode": "s3_fits",
+    "bucket": "stpubdata",
+    "key": "jwst/public/jw02114/",
+    "value_col": "flux"
+  },
+
+  "subset": {
+    "note": "Set target field via program_id. Stephan's Quintet: jw02114. SMACS 0723: jw02736."
+  },
+
+  "evaluation": {
+    "fn": "σ_face_spectral",
+    "bin_hash": "",
+    "σ_table": { "½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior" },
+    "J_ambient": "spectral peak λ normalized to σ=½ continuum — short λ = causality, long λ = gravity",
+    "prediction": "Star-forming regions → σ=½ (causal, ordered). AGN → σ→∞ (gravitational attractor). IGM filaments → σ=1 (Yang-Mills, mass assembly). The visible JWST image = 2D projection of this 16D sedenion structure. Paper D-P §6."
+  },
+
+  "resources": {
+    "storage_gb": 2.5,
+    "min_free_storage_gb": 4.0,
+    "requires_wifi": true,
+    "requires_charging": true,
+    "thermal_risk": "medium",
+    "warning": "JWST spectral cubes via S3 range requests. WiFi + charger required. In situ — raw data stays on AWS."
+  }
+}

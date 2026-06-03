@@ -1,0 +1,42 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "evaluation",
+  "name": "WMAP 9-Year CMB Maps — σ-face sky map",
+  "requires_bin": "monad_physics.bin",
+  "output": "wmap_cmb_σface.peval",
+  "primary_tags": ["WMAP", "CMB", "SKY_MAP", "SIGMA_FACE", "COSMOLOGY"],
+  "color": "gold",
+  "description": "WMAP 9-year full-sky CMB temperature maps evaluated against the Ainulindale σ-face table. Each HEALPix pixel receives a σ-face assignment based on temperature deviation from mean. Hot spots (overdense) → σ>½. Cold spots (underdense, Fermat-forbidden voids) → σ→∞. The σ-face map of the CMB is the σ-face map of the universe at recombination. In situ via LAMBDA archive.",
+
+  "data_model": {
+    "type": "image_2d",
+    "dimensions": ["healpix_pixel", "temperature_K"],
+    "units": { "temperature": "mK", "pixel": "HEALPix NSIDE=512" },
+    "native_format": "FITS",
+    "access": {
+      "mode": "fits",
+      "endpoint": "https://lambda.gsfc.nasa.gov/data/map/dr5/",
+      "auth": "none"
+    }
+  },
+
+  "source": {
+    "mode": "fits",
+    "url": "https://lambda.gsfc.nasa.gov/data/map/dr5/skymaps/9yr/raw/wmap_band_iqumap_r9_9yr_K_v5.fits",
+    "value_col": "TEMPERATURE"
+  },
+
+  "evaluation": {
+    "fn": "σ_face_temperature_deviation",
+    "bin_hash": "",
+    "σ_table": { "½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior" },
+    "J_ambient": "ΔT/T_cmb → buoyancy ratio → σ-face assignment per pixel",
+    "prediction": "CMB cold spot (WMAP anomalous cold spot, Eridanus supervoid) maps to σ→∞ (Fermat-forbidden zone, maximum void). Mean temperature pixels cluster at σ=½ (neutral buoyancy). Acoustic peaks map to σ=1 (Yang-Mills, mass assembly at recombination). The CMB IS the σ-face map of the universe at z=1100. Compare with Planck D5."
+  },
+
+  "resources": {
+    "storage_gb": 0.3,
+    "requires_wifi": true,
+    "warning": "Small FITS file. LAMBDA archive is public, no auth required."
+  }
+}

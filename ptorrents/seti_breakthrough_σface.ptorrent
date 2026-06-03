@@ -1,0 +1,45 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "evaluation",
+  "name": "Breakthrough Listen Open Data — σ=½ as causal signal criterion",
+  "requires_bin": "monad_physics.bin",
+  "output": "seti_breakthrough_σface.peval",
+  "primary_tags": ["SETI", "BREAKTHROUGH_LISTEN", "SIGMA_HALF", "CAUSAL_SIGNAL", "RADIO"],
+  "color": "gold",
+  "description": "Breakthrough Listen open radio telescope data evaluated against the Ainulindale σ-face table. Hypothesis: intelligent signals are causally structured processes and will cluster at σ=½ (the critical line of the Riemann field — where causality lives). Natural processes (pulsars, noise, RFI) will distribute across σ≠½. σ=½ as a new SETI discriminant. In situ via Breakthrough Listen open data portal.",
+
+  "data_model": {
+    "type": "time_series",
+    "dimensions": ["frequency_Hz", "time_s", "power_dB", "ra", "dec"],
+    "units": { "frequency": "Hz", "power": "dB", "time": "s" },
+    "native_format": "HDF5",
+    "access": {
+      "mode": "hdf5",
+      "endpoint": "https://breakthroughinitiatives.org/opendatasearch",
+      "auth": "none"
+    }
+  },
+
+  "source": {
+    "mode": "hdf5",
+    "url": "http://blpd14.ssl.berkeley.edu/",
+    "groups": ["data"],
+    "fields": ["frequency", "power"],
+    "value_field": "power"
+  },
+
+  "evaluation": {
+    "fn": "σ_face_signal",
+    "bin_hash": "",
+    "σ_table": { "½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior" },
+    "J_ambient": "spectral entropy + drift rate + narrowband power → σ-face of signal structure",
+    "prediction": "Causally structured signals (potential ETI) cluster at σ=½. RFI, pulsars, and broadband noise distribute away from σ=½. A signal exactly at σ=½ with non-zero drift rate: candidate for follow-up. This is a zero-free-parameter SETI criterion derived from the Ainulindale framework. No fitting, no tuning — σ=½ is where causality lives."
+  },
+
+  "resources": {
+    "storage_gb": 5.0,
+    "requires_wifi": true,
+    "requires_charging": true,
+    "warning": "Breakthrough Listen data files are large (GB per observation). Download required for HDF5 — TAP interface not available. Begin with published open dataset files."
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "evaluation",
+  "name": "2MASS All-Sky Survey — σ-face map of the entire sky",
+  "requires_bin": "monad_physics.bin",
+  "output": "allsky_2mass_σface.peval",
+  "primary_tags": ["2MASS", "ALLSKY", "INFRARED", "SIGMA_FACE", "LARGE_SCALE_STRUCTURE"],
+  "color": "orange",
+  "description": "2MASS All-Sky Point Source Catalog (470M sources, JHKs photometry) evaluated against the Ainulindale σ-face table. J+H+Ks = 3 near-infrared bands → σ-face assignment per source. Near-IR traces stellar mass — the σ-face map of stellar mass distribution across the full sky. In situ via IRSA TAP.",
+
+  "data_model": {
+    "type": "multiband_catalog",
+    "dimensions": ["ra", "dec", "j_m", "h_m", "k_m"],
+    "units": { "mag": "Vega", "pos": "deg" },
+    "layers": ["J", "H", "Ks"],
+    "native_format": "VOTable",
+    "access": {
+      "mode": "tap_adql",
+      "endpoint": "https://irsa.ipac.caltech.edu/TAP",
+      "auth": "none"
+    }
+  },
+
+  "source": {
+    "mode": "tap_adql",
+    "endpoint": "https://irsa.ipac.caltech.edu/TAP",
+    "query": "SELECT ra, dec, j_m, h_m, k_m, j_snr, h_snr, k_snr FROM fp_psc WHERE j_snr > 10 AND h_snr > 10 AND k_snr > 10",
+    "max_rows": 1000000,
+    "format": "votable",
+    "value_col": "k_m"
+  },
+
+  "evaluation": {
+    "fn": "σ_face_multiband",
+    "bin_hash": "",
+    "σ_table": { "½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior" },
+    "J_ambient": "s16_energy(j_m, h_m, k_m → sedenion sectors) → σ-face per source",
+    "prediction": "Galactic bulge stars → σ=2 (gravity-dominated, high stellar density). Halo stars → σ=1 (Yang-Mills, lower density mass assembly). Isolated field stars → σ=½ (neutral buoyancy). σ-face traces large-scale structure without ΛCDM assumptions."
+  },
+
+  "resources": {
+    "storage_gb": 0.5,
+    "requires_wifi": true,
+    "warning": "IRSA TAP, 470M source catalog. Query returns subset. In situ — full catalog stays at IRSA."
+  }
+}

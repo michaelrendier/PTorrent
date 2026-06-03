@@ -1,0 +1,44 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "evaluation",
+  "name": "DESI DR1 BAO — Ainulindale spectral residue transversal",
+  "requires_bin": "monad_physics.bin",
+  "output": "desi_dr1_bao_σface.peval",
+  "primary_tags": ["DESI", "BAO", "COSMOLOGY", "SPECTRAL_RESIDUE", "OMEGA_ZS"],
+  "color": "orange",
+  "description": "DESI DR1 BAO measurements evaluated for spectral residue after ΛCDM accounting. Prediction (D15 Noether-Wiles): residual clusters at d*=0.24600 and OMEGA_ZS=0.56714. These are the Ainulindale constants embedded in the cosmological observational record. In situ via FITS streaming.",
+
+  "data_model": {
+    "type": "catalog",
+    "dimensions": ["redshift", "D_M", "D_H", "r_drag", "sigma_DM", "sigma_DH"],
+    "units": { "D_M": "Mpc/h", "D_H": "Mpc/h", "r_drag": "Mpc/h" },
+    "native_format": "FITS",
+    "access": {
+      "mode": "fits",
+      "endpoint": "https://data.desi.lbl.gov/public/dr1/spectro/redux/",
+      "auth": "none"
+    }
+  },
+
+  "source": {
+    "mode": "fits",
+    "url": "https://data.desi.lbl.gov/public/dr1/survey/catalogs/EDR/LSS/iron/LSScats/",
+    "value_col": "D_M"
+  },
+
+  "evaluation": {
+    "fn": "σ_face_bao_residual",
+    "bin_hash": "",
+    "σ_table": { "½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior" },
+    "J_ambient": "D_M(z)/r_drag normalized — residual after ΛCDM subtraction",
+    "prediction": "Residual = D_M_obs - D_M_ΛCDM clusters at d*=0.24600 (spectral ground state) and/or OMEGA_ZS=0.56714 (Lambert W VEV). These constants are not fitted — they are predicted from H_hat_RB geometry. Paper: D15 Noether-Wiles + D2 BAO convergence."
+  },
+
+  "resources": {
+    "storage_gb": 4.0,
+    "min_free_storage_gb": 6.0,
+    "requires_wifi": true,
+    "requires_charging": true,
+    "warning": "4 GB DESI BAO chain files. Charger + WiFi required."
+  }
+}

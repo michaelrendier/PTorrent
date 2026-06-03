@@ -1,0 +1,50 @@
+{
+  "ptorrent_version": "1.0",
+  "type": "evaluation",
+  "name": "Gaia DR3 — Ainulindale σ-face in situ transversal",
+  "requires_bin": "monad_physics.bin",
+  "output": "gaia_dr3_σface.peval",
+  "primary_tags": ["GAIA", "STELLAR_KINEMATICS", "SIGMA_FACE", "MILKY_WAY"],
+  "color": "cyan",
+  "description": "1.5 billion Milky Way stars evaluated against the Ainulindale σ-face table. Parallax + proper motion + photometry → sedenion energy → σ-face assignment per star. Produces the σ-face map of the Milky Way. In situ via IVOA TAP — data never moves.",
+
+  "data_model": {
+    "type": "catalog",
+    "dimensions": ["ra", "dec", "parallax", "pmra", "pmdec", "phot_g_mean_mag", "bp_rp"],
+    "units": { "parallax": "mas", "pmra": "mas/yr", "pmdec": "mas/yr", "mag": "mag" },
+    "native_format": "VOTable",
+    "access": {
+      "mode": "tap_adql",
+      "endpoint": "https://gea.esac.esa.int/tap-server/tap",
+      "auth": "none"
+    }
+  },
+
+  "source": {
+    "mode": "tap_adql",
+    "endpoint": "https://gea.esac.esa.int/tap-server/tap",
+    "query": "SELECT source_id, ra, dec, parallax, pmra, pmdec, phot_g_mean_mag, bp_rp, ruwe FROM gaiadr3.gaia_source WHERE parallax > 0 AND ruwe < 1.4 AND phot_g_mean_mag < 18",
+    "max_rows": 1000000,
+    "format": "votable",
+    "value_col": "phot_g_mean_mag"
+  },
+
+  "subset": {
+    "note": "Remove query TOP limit for full survey. Start with 1M for validation."
+  },
+
+  "evaluation": {
+    "fn": "σ_face_s16",
+    "bin_hash": "",
+    "σ_table": { "½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior" },
+    "J_ambient": "s16_energy(parallax, pmra, pmdec, phot_g_mean_mag, bp_rp, ruwe → 256-bit)",
+    "prediction": "Outer halo stars cluster at σ=2 (gravity-dominated). Disk stars at σ=1 (mass assembly). σ=½ stars are in stable causality-intact orbits. d* = 0.246 marks bulge/disk boundary."
+  },
+
+  "resources": {
+    "storage_gb": 0.5,
+    "requires_wifi": true,
+    "requires_charging": false,
+    "warning": "In situ — 1.5B objects never downloaded. Query returns evaluated subset only."
+  }
+}
