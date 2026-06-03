@@ -12,8 +12,8 @@ android {
         applicationId "com.ptolemy.seeder"
         minSdk 26
         targetSdk 35
-        versionCode 5
-        versionName "3.0"
+        versionCode 6
+        versionName "4.0.0"
 
         ndk {
             abiFilters "arm64-v8a", "x86_64"
@@ -27,6 +27,8 @@ android {
 
     // monad.py and skills/ are symlinked into src/main/python/
     // — single clean srcDir, no Gradle task ordering conflicts
+    // Build output on ext4 (home) — exFAT source drive can't create symlinks
+    buildDir = "/home/rendier/ptolemy_build/PTorrentSeeder"
 
     buildTypes {
         release {
