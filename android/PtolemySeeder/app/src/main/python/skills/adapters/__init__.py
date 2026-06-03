@@ -63,6 +63,10 @@ _MODE_MAP: Dict[str, str] = {
     "github_repo":      "github_adapter",
     "github_dataset":   "github_adapter",
     "s3_fits":          "fits_adapter",
+    "nist_nvd":         "nist_nvd_adapter",
+    "nist_nvd_cpe":     "nist_nvd_adapter",
+    "cisa_kev":         "cisa_kev_adapter",
+    "cisa_kev_check":   "cisa_kev_adapter",
     "file_list":        None,   # handled by corpus.py
 }
 

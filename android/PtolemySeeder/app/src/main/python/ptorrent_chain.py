@@ -44,6 +44,7 @@ ACKNOWLEDGE = "ACKNOWLEDGE" # researcher explicitly accepted the security notice
 DISCLOSE    = "DISCLOSE"    # embargo lifted; classification drops to public
 REVOKE      = "REVOKE"      # access withdrawn for a specific peer_id
 FLAG        = "FLAG"        # file flagged as malicious / unsafe — blocks execution
+NOTIFY      = "NOTIFY"     # responsible disclosure notification sent to agency
 
 
 # ---------------------------------------------------------------------------
@@ -513,6 +514,38 @@ class PTorrentChain:
             file_hash=file_hash, file_name="",
             peer_id=peer_id, note=note,
         ))
+
+    def notify(self, file_hash: str, agency: str, report_hash: str,
+               method: str, peer_id: str,
+               reference: str = "") -> "Transaction":
+        """
+        Record that a responsible disclosure notification was sent to an agency.
+        ALWAYS committed to chain BEFORE the notification is sent — the chain
+        record is authoritative regardless of delivery success.
+
+        :param file_hash:    Hash of the classified/vulnerable file.
+        :param agency:       "NIST" | "CISA" | "MITRE" | "CERTCC" | "NCSC" | "ENISA"
+        :param report_hash:  SHA-256 of the STIX bundle / disclosure report.
+        :param method:       "email" | "stix_taxii" | "web_portal" | "manual_required"
+        :param peer_id:      Notifying researcher's ORCID peer_id.
+        :param reference:    Agency reference number once assigned (optional).
+        """
+        note = (f"agency={agency} method={method} "
+                f"report={report_hash} ref={reference or 'pending'}")
+        return self._stage(Transaction(
+            type=NOTIFY, timestamp=time.time(),
+            file_hash=file_hash, file_name="",
+            peer_id=peer_id, note=note,
+        ))
+
+    def get_notifications(self, file_hash: str) -> list["Transaction"]:
+        """Return all NOTIFY transactions for a file hash."""
+        result = []
+        for block in self._chain:
+            for tx in block.transactions:
+                if tx.type == NOTIFY and tx.file_hash == file_hash:
+                    result.append(tx)
+        return result
 
     def is_flagged(self, file_hash: str) -> Optional["Transaction"]:
         """Return the FLAG transaction if this file has been flagged, else None."""

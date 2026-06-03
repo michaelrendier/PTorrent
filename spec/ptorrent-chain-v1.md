@@ -83,6 +83,7 @@ any mismatch raises `ValueError`.
 | `DISCLOSE` | Embargo lifted — classification drops | `file_hash`, `prev_classification`, `new_classification`, `peer_id` |
 | `REVOKE` | Access withdrawn for a peer | `file_hash`, `revoked_peer_id`, `reason`, `peer_id` |
 | `FLAG` | File flagged as malicious/unsafe | `file_hash`, `reason`, `detail`, `evidence_hash`, `peer_id` |
+| `NOTIFY` | Responsible disclosure sent to agency | `file_hash`, `agency`, `report_hash`, `method`, `reference`, `peer_id` |
 
 `UPDATE` always pairs with `RETIRE` — the `update()` method stages both
 atomically. `RETIRE` is staged first so the ledger always has a clear
@@ -320,3 +321,4 @@ python ptorrent_chain.py summary
 |---------|------|-------|
 | 1.0 | 2026-06-02 | Initial implementation. 7 transaction types, Merkle tree, PoW difficulty 2, full query API, CLI, Chaquopy-compatible. |
 | 1.1 | 2026-06-03 | +6 transaction types: EVALUATE, CLASSIFY, ACKNOWLEDGE, DISCLOSE, REVOKE, FLAG. Security classification system. Chain of custody for dual-use datasets. ORCID peer_id standard. |
+| 1.2 | 2026-06-03 | +NOTIFY transaction. NIST/CISA/MITRE/CERTCC/NCSC/ENISA notification infrastructure. STIX 2.1 bundle generation. TAXII 2.1 submission. Full responsible disclosure workflow on-chain. |
