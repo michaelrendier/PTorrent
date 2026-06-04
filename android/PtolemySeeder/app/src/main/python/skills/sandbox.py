@@ -66,6 +66,15 @@ _BLOCKED_WRITE_PREFIXES = (
     "/odm",
 )
 
+_ALLOWED_READ_PREFIXES = (
+    # App's own private storage — Chaquopy stdlib .so files, checkpoints,
+    # internal databases. Must be checked before _BLOCKED_READ_PREFIXES so
+    # the broad /data/data/ block does not catch our own package directory.
+    "/data/data/com.ptolemy.seeder",
+    "/data/user/0/com.ptolemy.seeder",
+    "/data/user_de/0/com.ptolemy.seeder",
+)
+
 _BLOCKED_READ_PREFIXES = (
     # Kernel / hardware interfaces — go through HAL
     "/proc/sys",
@@ -147,7 +156,8 @@ def _safe_open(file, mode="r", *args, **kwargs):
                 )
 
     if reading:
-        if any(path.startswith(p) for p in _BLOCKED_READ_PREFIXES):
+        if (not any(path.startswith(p) for p in _ALLOWED_READ_PREFIXES)
+                and any(path.startswith(p) for p in _BLOCKED_READ_PREFIXES)):
             _log.error("SANDBOX HAL BLOCK read: %s", path)
             raise PermissionError(
                 f"PTorrent sandbox: HAL boundary violation — direct read blocked: {path}\n"
