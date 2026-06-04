@@ -173,6 +173,14 @@ See wiki/dataset_phonebook_seed_list.md for the manual seed catalogue (400+ entr
 - [ ] API credentials: EncryptedSharedPreferences for GitHub/ADS tokens
 - [ ] Inbox watcher: FileObserver on /sdcard/Ptolemy/ptorrents/ for MTP-dropped files
 - [ ] Progress bar: gradient fill (red→cyan→blue) via ClipDrawable + LinearGradient
+- [ ] Torrent list: add vertical ScrollView/RecyclerView so job list scrolls independently
+      of the rest of the UI — currently truncates when job count exceeds screen height
+- [ ] Status section: separate panel below the torrent list, with its own scrollbar,
+      showing per-job live status (bytes fetched, URL count, errors, ETA)
+      — decoupled from the job list so both scroll independently
+- [ ] File location: tap any completed job to open its output .bin in Android Files
+      (ACTION_VIEW with FileProvider URI); show the /sdcard/PTorrent/bins/ path
+      inline in the status panel so the user always knows where the data landed
 
 ---
 
