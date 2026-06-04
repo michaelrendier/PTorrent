@@ -178,6 +178,9 @@ See wiki/dataset_phonebook_seed_list.md for the manual seed catalogue (400+ entr
 - [ ] Status section: separate panel below the torrent list, with its own scrollbar,
       showing per-job live status (bytes fetched, URL count, errors, ETA)
       — decoupled from the job list so both scroll independently
+- [ ] Status section: completions list is foldable (ExpandableListView or animated
+      visibility toggle), collapsed by default — tap header to expand full list of
+      finished jobs with their output paths and byte counts
 - [ ] File location: tap any completed job to open its output .bin in Android Files
       (ACTION_VIEW with FileProvider URI); show the /sdcard/PTorrent/bins/ path
       inline in the status panel so the user always knows where the data landed
