@@ -12,6 +12,9 @@
     <color name="ptol_dim">#445555</color>
     <color name="ptol_btn">#0a1a1a</color>
 
+    <!-- Adaptive icon background -->
+    <color name="ic_launcher_background">#050d0d</color>
+
     <!-- Legacy aliases — keep for XML layouts referencing old names -->
     <color name="bg_dark">#050d0d</color>
     <color name="card_bg">#0d2020</color>

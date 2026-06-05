@@ -78,20 +78,25 @@ class SeedService : LifecycleService() {
         const val ACTION_MCP_STOP  = "com.ptolemy.seeder.MCP_STOP"
     }
 
-    private val handler      = Handler(Looper.getMainLooper())
-    private val globalPaused = AtomicBoolean(false)
-    private val prevStudied  = ConcurrentHashMap<String, Int>()
+    private val handler       = Handler(Looper.getMainLooper())
+    private val globalPaused  = AtomicBoolean(false)
+    private val globalStopping = AtomicBoolean(false)
+    private val prevStudied   = ConcurrentHashMap<String, Int>()
     private var fileObserver: FileObserver? = null
+    private var wakeLock: android.os.PowerManager.WakeLock? = null
 
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+        wakeLock = (getSystemService(POWER_SERVICE) as android.os.PowerManager)
+            .newWakeLock(android.os.PowerManager.PARTIAL_WAKE_LOCK, "PTorrent:seed")
+            .also { it.acquire() }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
         when (intent?.action) {
-            ACTION_STOP   -> { stopSelf(); return START_NOT_STICKY }
+            ACTION_STOP   -> { globalStopping.set(true); globalPaused.set(true); saveCheckpointsSync(); stopSelf(); return START_NOT_STICKY }
             ACTION_PAUSE  -> {
                 globalPaused.set(true)
                 updateNotification()
@@ -131,8 +136,42 @@ class SeedService : LifecycleService() {
     }
 
     override fun onDestroy() {
+        globalStopping.set(true)
+        globalPaused.set(true)
         fileObserver?.stopWatching()
+        saveCheckpointsSync()
+        stopForeground(STOP_FOREGROUND_REMOVE)
+        wakeLock?.let { if (it.isHeld) it.release() }
         super.onDestroy()
+    }
+
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        saveCheckpointsSync()
+        super.onTaskRemoved(rootIntent)
+    }
+
+    private fun saveCheckpointsSync() {
+        val states = SeedLiveData.corpora.value ?: return
+        val dir    = extDir()
+        val ts     = java.time.Instant.now().toString()
+        for ((name, state) in states) {
+            if (state.idx == 0 && state.status == "WAITING") continue
+            val key = name.lowercase().replace(Regex("[^a-z0-9]"), "_")
+            try {
+                java.io.File(dir, "ckpt_$key.json").writeText(
+                    org.json.JSONObject().apply {
+                        put("name",      name)
+                        put("start_idx", state.idx)
+                        put("studied",   state.studied)
+                        put("skipped",   state.skipped)
+                        put("total",     state.total)
+                        put("last_tag",  state.tag)
+                        put("status",    if (state.status == "RUNNING") "PAUSED" else state.status)
+                        put("saved_at",  ts)
+                    }.toString(2)
+                )
+            } catch (_: Exception) {}
+        }
     }
 
     // ── asset extraction ───────────────────────────────────────────────────
@@ -318,8 +357,11 @@ class SeedService : LifecycleService() {
                     @Suppress("UNUSED_PARAMETER") url: String,
                     idx: Int, total: Int, studied: Int, skipped: Int
                 ) {
+                    // stop immediately if service is shutting down
+                    if (globalStopping.get()) return
                     // blocks Python thread when paused — resumes at next URL boundary
-                    while (globalPaused.get()) Thread.sleep(200)
+                    while (globalPaused.get() && !globalStopping.get()) Thread.sleep(200)
+                    if (globalStopping.get()) return
 
                     val color = meta.find { it.name == name }?.color ?: "gold"
                     val state = CorpusState(
