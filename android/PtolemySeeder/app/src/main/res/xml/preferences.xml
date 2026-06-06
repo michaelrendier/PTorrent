@@ -129,28 +129,48 @@
 
     </PreferenceCategory>
 
-    <!-- ── API Credentials ─────────────────────────────────────────────── -->
-    <PreferenceCategory app:title="API Credentials">
+    <!-- ── API Keys ─────────────────────────────────────────────────────── -->
+    <PreferenceCategory app:title="API Keys">
 
-        <EditTextPreference
-            app:key="github_token"
-            app:title="GitHub Token (APK Traversal)"
-            app:summary="PTOL_SEED_TOKEN — stored encrypted" />
+        <Preference
+            app:key="key_anthropic"
+            app:title="Anthropic"
+            app:summary="not set" />
 
-        <EditTextPreference
-            app:key="ads_api_key"
-            app:title="NASA ADS Key"
-            app:summary="Stored encrypted" />
+        <Preference
+            app:key="key_openai"
+            app:title="OpenAI / Local"
+            app:summary="not set" />
+
+        <Preference
+            app:key="key_nist_nvd"
+            app:title="NIST NVD"
+            app:summary="not set" />
+
+        <Preference
+            app:key="key_github"
+            app:title="GitHub"
+            app:summary="not set" />
+
+        <Preference
+            app:key="key_smtp_pass"
+            app:title="SMTP Password"
+            app:summary="not set" />
+
+        <Preference
+            app:key="key_add_custom"
+            app:title="+ Add Custom Key"
+            app:summary="Label + value — stored encrypted" />
+
+    </PreferenceCategory>
+
+    <!-- ── Identity ──────────────────────────────────────────────────────── -->
+    <PreferenceCategory app:title="Identity">
 
         <EditTextPreference
             app:key="orcid_id"
             app:title="ORCID ID"
             app:defaultValue="0009-0007-7239-6760" />
-
-        <Preference
-            app:key="qualcomm_stub"
-            app:title="Qualcomm Developer Key"
-            app:summary="Coming soon" />
 
     </PreferenceCategory>
 
@@ -160,7 +180,7 @@
         <Preference
             app:key="version"
             app:title="PTorrent APK"
-            app:summary="Version 3.0 — Ptolemy Holcus Engine v1.218" />
+            app:summary="Version 5.0 — Ptolemy Holcus Engine v1.218" />
 
         <Preference
             app:key="adb_forward"

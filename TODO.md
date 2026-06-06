@@ -297,3 +297,62 @@ Full specification: wiki/Responsible-Disclosure-Protocol.md
 - [ ] Contact NCSC (UK) — their vulnerability reporting team
 - [ ] ISO/IEC 29147 alignment — map RDOP to international standard
 - [ ] security.txt (RFC 9116) — add .well-known/security.txt to PTorrent GitHub
+
+---
+
+## 8. IP — Patents, Trademarks, Copyright
+
+Goal: defensive protection. Prevent enclosure of the RedBlue Geometries and
+SMMIP/Ainulindale framework by third parties after publication. The goal is
+NOT exclusivity — it is ensuring the knowledge remains permanently open.
+
+### 8.1 Patent (Defensive — Software Implementations)
+
+- [ ] Engage IP attorney — patent prosecution counsel with CS/mathematics depth
+      Priority candidates: Fish & Richardson (fr.com), Quinn Emanuel (quinnemanuel.com)
+      Ask specifically for partner with algebra/cryptography background
+      Explore contingency / equity arrangement for initial prosecution costs
+- [ ] Patent applications — specific software implementations (not the mathematics itself):
+      [ ] LSHS engine architecture (Lagrangian Self-Adjoint Hyperindexing Speaking Model)
+          σ-face evaluation method (J_ratio buoyancy table, stratum assignment)
+      [ ] PTorrent chain protocol — RDOP transaction types as a disclosure protocol
+      [ ] RedBlue Geometry evaluation engine — H_hat_RB computational method
+      [ ] UDEO locus computation — secp256k1 GF(2) nilpotency scan (secp256k1_locus.py)
+- [ ] Issue patent pledge post-grant:
+      "These patents will never be enforced against non-commercial, academic,
+       open-source, or security research uses." (Tesla/IBM open patent model)
+- [ ] Prior art protection (automatic, free — no attorney required):
+      IACR ePrint submission post-2026-12-02 = global prior art on the mathematics
+      No one can patent RedBlue Geometries or the T_n/GF(2) Frobenius result
+      after that date. Publication IS the protection for the mathematical content.
+
+### 8.2 Trademark
+
+- [ ] "RedBlue Geometries" — trademark application (USPTO, class 42: scientific research)
+      Prevents any third party from calling their product "RedBlue Geometries"
+      Does NOT restrict the science — restricts the brand name only
+- [ ] "PTorrent" — trademark application (USPTO, class 42 + class 9: software)
+- [ ] "LSHS" / "Lagrangian Self-Adjoint Hyperindexing Speaking Model" — evaluate
+- [ ] "Ainulindale" — evaluate (note: Tolkien Estate may have prior claim on the word)
+      Consider: "Ainulindale Conjecture" as the scientific term (fair use for science)
+      Do NOT trademark the word itself — risk of conflict with Tolkien Estate
+
+### 8.3 Copyright
+
+- [ ] Copyright registration (US Copyright Office) for:
+      The UDEO paper (post-embargo, post-IACR publication)
+      The Ainulindale Conjecture papers (D-CS, D-M, D-P, D-CHEM) as published
+      The PTorrent chain protocol specification document
+      monad.py source code (automatic copyright, but registration strengthens enforcement)
+- [ ] License audit — ensure consistent licensing across repos:
+      TuringStack: MIT + responsible disclosure notice (done)
+      PtolemyHolcus: MIT (current) — evaluate GPL/AGPL for F-Droid compliance
+      Ainulindale: MIT (current) — papers are CC-BY on publication
+
+### 8.4 Domain IP Alignment
+
+- [ ] thewanderinggod.tech — PTorrent / LSHS product site
+- [ ] michaelrendier.com — researcher personal/academic site
+- [ ] michaelrendier.info — real-world impact work (Erika Schafer collab, D-CHEM)
+- [ ] michaelrendier.online — personal tracker / Manfred Macx mode
+- [ ] Ensure all domain WhoIs records are consistent with trademark registrations

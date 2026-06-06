@@ -45,7 +45,11 @@ _DELAY_KEY = 0.7 # seconds with API key (50/30s limit)
 
 
 def _get_api_key() -> Optional[str]:
-    return os.environ.get("PTOL_NIST_API_KEY")
+    try:
+        from skills.ptorrent_keys import keys
+        return keys.get('nist_nvd')
+    except Exception:
+        return os.environ.get("PTOL_NIST_API_KEY")
 
 
 def _nvd_get(params: dict) -> dict:

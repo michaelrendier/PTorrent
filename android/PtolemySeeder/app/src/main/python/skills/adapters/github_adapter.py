@@ -58,6 +58,13 @@ def _get(url: str, pat: Optional[str] = None,
 
 
 def _get_pat(source: dict) -> Optional[str]:
+    try:
+        from skills.ptorrent_keys import keys
+        stored = keys.get('github')
+        if stored:
+            return stored
+    except Exception:
+        pass
     return (source.get("pat")
             or os.environ.get("PTOL_GITHUB_PAT")
             or os.environ.get("PTOL_SEED_TOKEN"))
