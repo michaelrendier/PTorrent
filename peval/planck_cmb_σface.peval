@@ -1,0 +1,82 @@
+{
+  "terms": {
+    "framework": "Ainulindale",
+    "version": "v1.218",
+    "bin_name": "monad_mathematics.bin",
+    "dataset_name": "Planck 2018 CMB TT Power Spectrum",
+    "evaluator": "Cody Michael Allison",
+    "orcid": "0009-0007-7239-6760",
+    "date": "2026-06-08",
+    "σ_table": {
+      "½": "causality",
+      "1": "Yang-Mills",
+      "2": "gravity",
+      "∞": "BH interior"
+    },
+    "d_star": 0.246,
+    "omega_zs": 0.56714
+  },
+  "summary": {
+    "n_multipoles": 2507,
+    "l_range": [
+      2,
+      2508
+    ],
+    "n_peaks_found": 8,
+    "peak_l_positions": [
+      6,
+      120,
+      188,
+      292,
+      557,
+      811,
+      1127,
+      1398
+    ],
+    "peak_Cl_values": [
+      950.9168945234494,
+      3666.1464739095222,
+      6157.120668714966,
+      4448.047225040749,
+      2622.975285656123,
+      2579.2561482353085,
+      1257.7248250497805,
+      837.7015343438959
+    ],
+    "riemann_zeros_used": 8,
+    "lambda_fit": 20.8333527619127,
+    "lambda_closest_constant": "2π",
+    "lambda_closest_value": 6.283185307179586,
+    "lambda_gap": 14.550167454733113,
+    "predicted_l_from_lambda_fit": [
+      294.47371507043533,
+      437.9595675694396,
+      521.0600188451334,
+      633.852177067527,
+      686.1477562926912,
+      783.0461085549135,
+      852.4741077456528,
+      902.6482018025445
+    ],
+    "residuals_pct": [
+      -4807.895251173923,
+      -264.9663063078664,
+      -177.15958449209225,
+      -117.07266337929008,
+      -23.18631172220667,
+      3.4468423483460504,
+      24.358996650785024,
+      35.43288971369496
+    ],
+    "chi2_dof": 3319079.1075417246,
+    "σ_face_distribution": {
+      "½": 921,
+      "1": 842,
+      "2": 56,
+      "∞": 688
+    },
+    "d_star_predicted": 0.246,
+    "omega_zs_predicted": 0.56714
+  },
+  "interpretation": "D5 prediction: l_n = γ_n × λ_SMMIP with single coupling constant. Best-fit λ = 20.8334. Closest Ainulindale constant: 2π = 6.2832 (gap 14.5502). χ²/dof = 3319079.11. Residuals stay in the data — no re-parameterization."
+}

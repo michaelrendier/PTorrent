@@ -1,0 +1,41 @@
+{
+  "terms": {
+    "framework": "Ainulindale",
+    "version": "v1.218",
+    "bin_name": "monad_physics.bin",
+    "dataset_name": "WMAP 9-Year CMB Maps",
+    "evaluator": "Cody Michael Allison",
+    "orcid": "0009-0007-7239-6760",
+    "date": "2026-06-08",
+    "σ_table": {
+      "½": "causality",
+      "1": "Yang-Mills",
+      "2": "gravity",
+      "∞": "BH interior"
+    },
+    "d_star": 0.246,
+    "omega_zs": 0.56714
+  },
+  "summary": {
+    "n_pixels": 9105664,
+    "T_mean_mK": 0.07374844366329229,
+    "T_std_mK": 0.17230210781107375,
+    "n_extreme_cold_3sigma": 7048,
+    "n_extreme_hot_3sigma": 253106,
+    "σ_face_distribution": {
+      "½": 2048256,
+      "1": 2380542,
+      "2": 115566,
+      "∞": 4561300
+    },
+    "σ_face_fractions": {
+      "½": 0.2249,
+      "1": 0.2614,
+      "2": 0.0127,
+      "∞": 0.5009
+    },
+    "d_star_predicted": 0.246,
+    "omega_zs_predicted": 0.56714
+  },
+  "interpretation": "σ=½ (causality) dominates mean-temperature CMB pixels. Extreme cold pixels (7048) map to σ=∞ (Fermat-forbidden voids). Hot spots (253106) map to σ=1 (Yang-Mills, mass assembly at recombination). σ-face distribution of the CMB = σ-face of the universe at z=1100."
+}

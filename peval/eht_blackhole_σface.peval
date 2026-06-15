@@ -1,0 +1,25 @@
+{
+  "terms": {
+    "framework": "Ainulindale",
+    "version": "v1.218",
+    "bin_name": "monad_physics.bin",
+    "dataset_name": "EHT M87* 2017 — Zenodo 3836989",
+    "evaluator": "Cody Michael Allison",
+    "orcid": "0009-0007-7239-6760",
+    "date": "2026-06-08",
+    "σ_table": {
+      "½": "causality",
+      "1": "Yang-Mills",
+      "2": "gravity",
+      "∞": "BH interior"
+    },
+    "d_star": 0.246,
+    "omega_zs": 0.56714
+  },
+  "status": "NETWORK_OFFLINE",
+  "summary": {
+    "prediction": "Shadow interior σ=∞ (Fermat-forbidden). Photon ring / shadow boundary ratio = d*=0.246 (D-P §5).",
+    "d_star_predicted": 0.246,
+    "omega_zs_predicted": 0.56714
+  }
+}

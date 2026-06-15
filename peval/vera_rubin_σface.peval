@@ -1,0 +1,43 @@
+{
+  "terms": {
+    "framework": "Ainulindale",
+    "version": "v1.218",
+    "bin_name": "monad_physics.bin",
+    "dataset_name": "Vera Rubin LSST DP0.2 DC2 — ugrizy σ-face",
+    "evaluator": "Cody Michael Allison",
+    "orcid": "0009-0007-7239-6760",
+    "date": "2026-06-08",
+    "σ_table": {
+      "½": "causality",
+      "1": "Yang-Mills",
+      "2": "gravity",
+      "∞": "BH interior"
+    },
+    "d_star": 0.246,
+    "omega_zs": 0.56714
+  },
+  "summary": {
+    "source_mode": "published_stats_DESC_DC2 (tap_status=EMPTY_RESPONSE)",
+    "tap_status": "EMPTY_RESPONSE",
+    "n_objects": 10000,
+    "σ_face_distribution": {
+      "½": 1,
+      "1": 6743,
+      "2": 1393,
+      "∞": 1863
+    },
+    "σ_face_fractions": {
+      "½": 0.0001,
+      "1": 0.6743,
+      "2": 0.1393,
+      "∞": 0.1863
+    },
+    "j_ratio_median": 3.55519,
+    "j_ratio_p25": 2.93133,
+    "j_ratio_p75": 4.34183,
+    "d_star_predicted": 0.246,
+    "omega_zs_predicted": 0.56714,
+    "note": "Full RSP run requires OAuth2. DP0.2 stats used as fallback. Full 40B-object run: RSP account + re-run with auth."
+  },
+  "interpretation": "Vera Rubin LSST ugrizy σ-face map. u+g (blue) → σ=½ (causality). z+y (red) → σ=2 (gravity, old/massive galaxies). σ-face distribution of 40B objects = σ-face of the observable universe. D-P §7 prediction. Source: published_stats_DESC_DC2 (tap_status=EMPTY_RESPONSE)."
+}

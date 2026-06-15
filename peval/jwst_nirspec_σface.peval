@@ -1,0 +1,25 @@
+{
+  "terms": {
+    "framework": "Ainulindale",
+    "version": "v1.218",
+    "bin_name": "monad_physics.bin",
+    "dataset_name": "JWST NIRSpec IFU — jw02114 Stephan's Quintet",
+    "evaluator": "Cody Michael Allison",
+    "orcid": "0009-0007-7239-6760",
+    "date": "2026-06-08",
+    "σ_table": {
+      "½": "causality",
+      "1": "Yang-Mills",
+      "2": "gravity",
+      "∞": "BH interior"
+    },
+    "d_star": 0.246,
+    "omega_zs": 0.56714
+  },
+  "status": "NETWORK_OFFLINE",
+  "summary": {
+    "prediction": "Star-forming → σ=½; AGN → σ=∞; IGM filaments → σ=1. Short λ (0.9μm) = causality; long λ (4.4μm) = gravity.",
+    "d_star_predicted": 0.246,
+    "omega_zs_predicted": 0.56714
+  }
+}

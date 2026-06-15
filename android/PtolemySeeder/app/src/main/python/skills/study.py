@@ -48,7 +48,7 @@ NS_SIGMA_S = 2   # off-line |σ−0.5| > 0.10 — condensed, upper 𝕆, permane
 
 # ── Engine constants (duplicated to avoid circular import) ────────────────────
 GAP        = 0.000707   # Yang-Mills mass gap; compactification radius
-OMEGA_ZS   = 0.56714    # Lambert W(1); BAO spectral gap; idle RPM
+OMEGA_ZS   = 0.5671432904097838    # Lambert W(1); BAO spectral gap; idle RPM
 
 # ── Condensation thresholds ───────────────────────────────────────────────────
 PHASE_THRESH    = 144    # Fibonacci — fire_count for natural condensation

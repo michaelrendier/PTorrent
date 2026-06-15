@@ -1,0 +1,41 @@
+{
+  "terms": {
+    "framework": "Ainulindale",
+    "version": "v1.218",
+    "bin_name": "monad_physics.bin",
+    "dataset_name": "2MASS All-Sky Point Source Catalog — 100K source TAP sample",
+    "evaluator": "Cody Michael Allison",
+    "orcid": "0009-0007-7239-6760",
+    "date": "2026-06-08",
+    "σ_table": {
+      "½": "causality",
+      "1": "Yang-Mills",
+      "2": "gravity",
+      "∞": "BH interior"
+    },
+    "d_star": 0.246,
+    "omega_zs": 0.56714
+  },
+  "summary": {
+    "n_sources": 100000,
+    "median_j_mag": 13.0950003,
+    "median_k_mag": 12.4350004,
+    "median_j_k_colour": 0.6449995000000008,
+    "median_j_ratio": 0.0015290455220314204,
+    "σ_face_distribution": {
+      "½": 487,
+      "1": 86,
+      "2": 1,
+      "∞": 99426
+    },
+    "σ_face_fractions": {
+      "½": 0.0049,
+      "1": 0.0009,
+      "2": 0.0,
+      "∞": 0.9943
+    },
+    "d_star_predicted": 0.246,
+    "omega_zs_predicted": 0.56714
+  },
+  "interpretation": "2MASS JHKs σ-face map. K-band dominant sources (σ=2): gravity-dominated, high stellar mass (bulge, giants). J-band dominant (σ=½): blue, high-T, causally ordered main-sequence stars. σ=1 (Yang-Mills): intermediate mass assembly zone — the disk. σ-face traces large-scale structure without ΛCDM. In situ — 470M 2MASS sources never downloaded."
+}

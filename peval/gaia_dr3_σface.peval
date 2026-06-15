@@ -1,0 +1,41 @@
+{
+  "terms": {
+    "framework": "Ainulindale",
+    "version": "v1.218",
+    "bin_name": "monad_physics.bin",
+    "dataset_name": "Gaia DR3 — 100K star TAP sample",
+    "evaluator": "Cody Michael Allison",
+    "orcid": "0009-0007-7239-6760",
+    "date": "2026-06-08",
+    "σ_table": {
+      "½": "causality",
+      "1": "Yang-Mills",
+      "2": "gravity",
+      "∞": "BH interior"
+    },
+    "d_star": 0.246,
+    "omega_zs": 0.56714
+  },
+  "summary": {
+    "n_stars": 100000,
+    "n_d_star_transition_hits": 3240,
+    "median_parallax_mas": 0.5123260370002318,
+    "median_dist_kpc": 1.9518820590403596,
+    "median_pmag_masyr": 3.5818223968719884,
+    "σ_face_distribution": {
+      "½": 22371,
+      "1": 7557,
+      "2": 333,
+      "∞": 69739
+    },
+    "σ_face_fractions": {
+      "½": 0.2237,
+      "1": 0.0756,
+      "2": 0.0033,
+      "∞": 0.6974
+    },
+    "d_star_predicted": 0.246,
+    "omega_zs_predicted": 0.56714
+  },
+  "interpretation": "Gaia DR3 σ-face map of the Milky Way (100K star TAP sample). Outer halo stars (high dist, low PM) → σ=2 (gravity-dominated). Disk stars (moderate PM, moderate dist) → σ=1 (Yang-Mills, mass assembly). σ=½ stars: stable causality-intact orbits. In situ — 1.5B Gaia sources never downloaded; evaluated subset only."
+}

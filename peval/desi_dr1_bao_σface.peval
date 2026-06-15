@@ -1,0 +1,117 @@
+{
+  "terms": {
+    "framework": "Ainulindale",
+    "version": "v1.218",
+    "bin_name": "monad_physics.bin",
+    "dataset_name": "DESI DR1 BAO consensus (arXiv:2404.03002)",
+    "evaluator": "Cody Michael Allison",
+    "orcid": "0009-0007-7239-6760",
+    "date": "2026-06-08",
+    "σ_table": {
+      "½": "causality",
+      "1": "Yang-Mills",
+      "2": "gravity",
+      "∞": "BH interior"
+    },
+    "d_star": 0.246,
+    "omega_zs": 0.56714
+  },
+  "summary": {
+    "data_source": "published_arXiv:2404.03002_Table1 (DESI server reachable)",
+    "n_tracers": 7,
+    "tracers": [
+      "BGS",
+      "LRG1",
+      "LRG2",
+      "LRG3+ELG1",
+      "ELG2",
+      "QSO",
+      "Lya"
+    ],
+    "z_range": [
+      0.295,
+      2.33
+    ],
+    "DM_or_DV_rd_obs": [
+      7.93,
+      13.62,
+      16.85,
+      21.71,
+      27.79,
+      30.21,
+      39.71
+    ],
+    "DM_or_DV_rd_lcdm": [
+      8.024961339026227,
+      13.450393105086041,
+      17.642872938718632,
+      21.862063467768447,
+      27.961346020922687,
+      30.302211089687326,
+      39.126163163559916
+    ],
+    "DM_resid_frac": [
+      -0.011833,
+      0.01261,
+      -0.04494,
+      -0.006956,
+      -0.006128,
+      -0.003043,
+      0.014922
+    ],
+    "DH_rd_obs": [
+      null,
+      20.98,
+      20.08,
+      17.88,
+      13.82,
+      12.6,
+      8.52
+    ],
+    "DH_rd_lcdm": [
+      25.767404871183146,
+      22.688497406601492,
+      20.14012034906771,
+      17.598211523696143,
+      14.09763406642128,
+      12.837444876905753,
+      8.62580187853647
+    ],
+    "DH_resid_frac": [
+      null,
+      -0.075302,
+      -0.002985,
+      0.016012,
+      -0.019694,
+      -0.018496,
+      -0.012266
+    ],
+    "J_bao": [
+      0.9881667543288439,
+      1.0126098095117997,
+      0.955059873668386,
+      0.9930444137630176,
+      0.9938720396080191,
+      0.9969569517744299,
+      1.0149219036377133
+    ],
+    "σ_face_distribution": {
+      "½": 5,
+      "1": 2,
+      "2": 0,
+      "∞": 0
+    },
+    "n_resid_near_d_star_0246": 0,
+    "n_resid_near_omega_zs_0567": 0,
+    "chi2_dof_DM": 1.291,
+    "chi2_dof_DH": 1.581,
+    "lcdm_params": {
+      "H0": 67.66,
+      "Om": 0.3111,
+      "rd_Mpc": 147.21
+    },
+    "d_star_predicted": 0.246,
+    "omega_zs_predicted": 0.56714
+  },
+  "interpretation": "D15 Noether-Wiles: BAO residuals after ΛCDM should cluster at d*=0.246 and Ω_ZS=0.56714. Observed: 0/13 residuals within 0.05 of d*, 0/13 within 0.05 of Ω_ZS. DESI DR1 χ²/dof(DM)=1.29 vs flat ΛCDM. DH/rd tension: observed consistently below ΛCDM (evolving dark energy). Failed predictions stay in the data."
+}

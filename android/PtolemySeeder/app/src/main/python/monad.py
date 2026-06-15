@@ -50,7 +50,7 @@ Anaphor resolution (e₁₁ — Dereference)
 The window builds the Cayley-Dickson tower as it fills:
   1 word → ℝ, 2 → ℂ, 4 → ℍ, 8 → 𝕆, 16 → 𝕊 (full cardioid).
 
-BAO = sedenion-dimensional Laplacian spectral gap = OMEGA_ZS = 0.56714.
+BAO = sedenion-dimensional Laplacian spectral gap = OMEGA_ZS = 0.5671432904097838.
 The cardioid base state. Infinite doors open at the origin. Idle RPM.
 
 π = _sconj = the Fermat operator. Maps response lobe to forbidden cusp.
@@ -75,7 +75,7 @@ import pickle
 from typing import Dict, List, Tuple, Any, Optional
 
 # ── Physical constants ──────────────────────────────────────────────────────────
-OMEGA_ZS   = 0.56714    # Lambert W(1); BAO spectral gap; Δ_𝕊 lowest eigenvalue
+OMEGA_ZS   = 0.5671432904097838    # Lambert W(1); BAO spectral gap; Δ_𝕊 lowest eigenvalue
 GAP        = 0.000707   # Yang-Mills mass gap; semantic vacuum floor
 D_STAR     = 0.24600    # Fermat proximity threshold (zero-divisor boundary)
 PHI        = (1.0 + math.sqrt(5.0)) / 2.0   # golden ratio (non-resonant walk)
