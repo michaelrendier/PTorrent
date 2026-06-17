@@ -109,13 +109,30 @@ def run_one(
 ) -> Dict[str, Any]:
     """Seed a single corpus entry (blocking). Used for PTorrent inbox additions.
 
-    :param entry: corpus_list.json-style dict.
+    Dispatches by ptorrent type:
+      corpus, transfer → GenericCorpus seeder
+      evaluation       → EvaluationRunner (in-situ σ-face)
+      phonebook        → no-op (description only, nothing to run)
+      dataset          → corpus seeder (source-based, future: dedicated handler)
+
+    :param entry: corpus_list.json-style dict (or parsed .ptorrent).
     :param files_dir: App external files directory.
     :param on_progress: Progress callback.
     :param check_interval: Network retry interval seconds.
     :returns: Seed result dict.
     :rtype: dict
     """
+    job_type = entry.get('type', 'corpus')
+
+    if job_type == 'phonebook':
+        # Phonebook entries describe where data lives — nothing to run.
+        return {'complete': True, 'type': 'phonebook',
+                'name': entry.get('name', ''), 'skipped': True}
+
+    if job_type == 'evaluation':
+        return _run_evaluation(entry, files_dir, on_progress)
+
+    # corpus, transfer, dataset — all use the corpus seeder path
     try:
         corpus = _build_corpus(entry, files_dir)
     except Exception as e:
@@ -124,6 +141,31 @@ def run_one(
     name = entry.get('name', entry.get('bin', 'ptorrent'))
     _seed_one(corpus, name, on_progress, check_interval, results)
     return results.get(name, {})
+
+
+def _run_evaluation(
+    entry: Dict[str, Any],
+    files_dir: str,
+    on_progress: Callable,
+) -> Dict[str, Any]:
+    """Run an evaluation-type PTorrent job in situ.
+
+    The evaluator traverses the remote dataset via its adapter.
+    Data does not materialise here. Only the .peval result is written locally.
+
+    :param entry: Parsed .ptorrent dict with type='evaluation'.
+    :param files_dir: App external files directory for .peval output.
+    :param on_progress: Progress callback.
+    :returns: Evaluation result dict.
+    :rtype: dict
+    """
+    from skills.evaluator import EvaluationRunner
+    try:
+        runner = EvaluationRunner(entry, files_dir, on_progress=on_progress)
+        return runner.run()
+    except Exception as e:
+        return {'complete': False, 'type': 'evaluation',
+                'name': entry.get('name', ''), 'error': str(e)}
 
 
 def _seed_one(
