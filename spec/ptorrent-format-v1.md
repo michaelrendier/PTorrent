@@ -206,21 +206,131 @@ Supported adapter `mode` values: `fits`, `fits_table`, `hdf5_snapshot`, `hdf5`,
 
 ---
 
-## `evaluation` Object
+## `evaluation` Object — Researcher-Defined σ-Face Methodology
 
-Present when `type` is `"evaluation"`. Specifies the evaluation terms and method.
+Present when `type` is `"evaluation"`. The researcher defines how to view their
+dataset through the Ainulindale σ-face lens. The computation travels to the data;
+the data never moves here.
+
+The most important field is `methodology`: your plain-language statement of what
+you are measuring and why. The `j_expr` is the machine-executable form of that
+choice. Together they make every ptorrent self-describing — anyone reading the
+file can understand what the evaluation does without looking at external code.
+
+---
+
+### J-Ratio Extraction — Priority Order
+
+The evaluator extracts a **J-ratio** (dimensionless buoyancy ratio) from each row.
+It tries each method in sequence and uses the first that succeeds:
+
+| Priority | Field | Description |
+|----------|-------|-------------|
+| 1 | `j_col` | A single column that is already the J-ratio |
+| 2 | `j_num_col` / `j_den_col` | Two columns: J = numerator / denominator |
+| 3 | `j_expr` | Researcher-defined arithmetic expression over column names |
+| 4 | `fn` | Named built-in function (complex logic: sedenion energy, spectral entropy) |
+| 5 | *(fallback)* | Adapter's primary `value_col` measurement used as J directly |
+
+`j_expr` is the recommended method for any evaluation expressible as a ratio or
+simple arithmetic. It is portable, auditable, and lives entirely in the ptorrent file.
+
+---
+
+### `j_expr` Expression Syntax
+
+A safe arithmetic expression over dataset column names. Column values from the
+current row are bound by name as variables.
+
+**Allowed operations:** `+  -  *  /  **` (power)  
+**Allowed functions:** `sqrt  abs  max  min  log  log10  exp`  
+**Allowed constants:** `pi  e`
+
+```
+"D_M / r_drag"
+"sqrt(pmra ** 2 + pmdec ** 2) / max(parallax, 0.001)"
+"10 ** (power_dB / 10)"
+"abs(C_l) / sigma_C_l"
+"10 ** ((k_m - j_m) / 2.5)"
+```
+
+Declare the columns used in `j_expr_cols`. For TAP sources, this is used to
+request only the needed columns — minimum data movement.
+
+---
+
+### σ-Face Assignment
+
+Given a J-ratio, the σ-face is assigned using two constants:
+`d* = 0.246` (spectral ground state), `Ω_ZS = 0.5671432904097838` (Lambert W(1)).
+
+| J range | σ-face | Semantic |
+|---------|--------|----------|
+| J < d* | ∞ | BH interior — compressible limit |
+| d* ≤ J < 1 | ½ | Causality — Riemann critical line |
+| 1 ≤ J < 1/d* | 1 | Yang-Mills — mass assembly |
+| 1/d* ≤ J < 1/d* + Ω_ZS | 2 | Gravity — force regime |
+| J ≥ 1/d* + Ω_ZS | ∞ | BH interior — force extreme |
+
+These thresholds are fixed constants — not fit parameters. Do not adjust them.
+
+---
+
+### `evaluation` Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `methodology` | string | **recommended** | Your statement: what you are measuring and why. Human-readable. Shown in ptorrent status. |
+| `j_expr` | string | recommended | Arithmetic expression for J using column names from the row. |
+| `j_expr_cols` | string[] | recommended | Columns needed by `j_expr`. Used for TAP minimum-column selection. |
+| `j_col` | string | no | Column name that is already the J-ratio (use instead of `j_expr` when one column suffices). |
+| `j_num_col` | string | no | Numerator column for J = num/den. |
+| `j_den_col` | string | no | Denominator column for J = num/den. |
+| `fn` | string | no | Named built-in handler for datasets that require complex logic. |
+| `prediction` | string | recommended | Testable prediction: what σ-face distribution you expect and why. |
+| `J_ambient` | string | no | One-line physical description of the J-ratio. |
+| `σ_table` | object | no | σ-face semantic labels. Use the canonical table below. |
+| `bin_hash` | string | no | SHA-256 of `requires_bin` for chain reproducibility. |
+
+### Canonical σ-Table (do not modify)
 
 ```json
-{
-  "fn":         "σ_face_spectral",
-  "bin_hash":   "<SHA-256 of requires_bin file>",
-  "σ_table":    {"½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior"},
-  "J_ambient":  "spectral_peak_λ normalized to σ=½ continuum"
+"σ_table": { "½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior" }
+```
+
+---
+
+### Minimum Viable `evaluation` Block
+
+```json
+"evaluation": {
+  "j_expr":      "column_a / column_b",
+  "j_expr_cols": ["column_a", "column_b"],
+  "methodology": "I am measuring [column_a] normalized to [column_b]. I expect to find σ=½ where [physical condition].",
+  "prediction":  "What σ-face distribution I expect to find and why."
+}
+```
+
+### Complete Example — BAO Distance Ratio
+
+```json
+"evaluation": {
+  "methodology": "I am measuring angular diameter distance D_M normalized to the BAO sound horizon r_drag. I am looking for the Ainulindale constants d*=0.246 and Ω_ZS=0.5671 in the residual after ΛCDM accounting. These are not fitted — they are predicted from H_hat_RB geometry.",
+  "j_expr":      "D_M / r_drag",
+  "j_expr_cols": ["D_M", "r_drag"],
+  "prediction":  "Residual clusters at d*=0.24600 and/or Ω_ZS=0.56714. Paper: D15 Noether-Wiles.",
+  "fn":          "σ_face_bao_residual",
+  "bin_hash":    "",
+  "σ_table":     { "½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior" },
+  "J_ambient":   "D_M(z)/r_drag normalized — residual after ΛCDM subtraction"
 }
 ```
 
 The `bin_hash` field is the terms hash in the chain's `EVALUATE` transaction.
 Two evaluations with the same `bin_hash` and same `data_model` are β-mergeable.
+
+See `spec/evaluation.ptorrent.template` for a skeleton evaluation ptorrent
+with all fields annotated.
 
 ---
 
@@ -492,3 +602,4 @@ and `*.ptorrent` via `file://`. Tapping in any file manager opens the Seeder.
 |---------|------|---------|
 | 1.0 | 2026-05-30 | Initial format. Corpus, dataset, transfer types. Embedded URL list. FileObserver delivery. |
 | 1.0.1 | 2026-06-02 | Added `phonebook` type and `phonebook` object. Added `trackers` field. Clarified PTorrent as accessible crawler for non-coders. |
+| 1.1 | 2026-06-16 | Expanded `evaluation` type. Added `j_expr` / `j_expr_cols` / `methodology` fields. J-ratio priority order documented. Researcher-defined portable evaluation methodology. Skeleton template at `spec/evaluation.ptorrent.template`. |

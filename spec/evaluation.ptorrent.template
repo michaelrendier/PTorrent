@@ -1,0 +1,104 @@
+{
+  "_comment": "evaluation.ptorrent.template — Skeleton for researcher-defined σ-face evaluation ptorrents.",
+  "_comment_2": "Replace every PLACEHOLDER value. Remove _comment fields before use.",
+  "_comment_3": "This file documents the evaluation type. For other types see ptorrent-format-v1.md.",
+
+  "ptorrent_version": "1.0",
+  "type": "evaluation",
+
+  "name": "DATASET NAME — σ-face evaluation of WHAT",
+  "_name_note": "Human-readable. Shown in the APK card and ptorrent status.",
+
+  "requires_bin": "monad_physics.bin",
+  "_requires_bin_note": "The bin file whose σ-face terms are applied. Usually monad_physics.bin or monad_mathematics.bin.",
+
+  "output": "dataset_name_σface.peval",
+  "_output_note": "Output filename. Convention: <dataset>_σface.peval",
+
+  "primary_tags": ["DATASET_NAME", "DOMAIN", "SIGMA_FACE"],
+  "_tags_note": "Domain tags. Shown in APK. Used for display grouping.",
+
+  "color": "cyan",
+  "_color_note": "Card accent color. See Color Table in ptorrent-format-v1.md. cyan=astrophysics, gold=math, orange=math/cosmology, blue=meaning, red=Fermat.",
+
+  "description": "One sentence: what dataset, what σ-face question, why.",
+
+  "data_model": {
+    "_note": "Describes the geometry of the source dataset. Fill in what you know. Leave unknown fields out.",
+    "type": "catalog",
+    "_type_note": "Options: catalog, spectral_cube, image_2d, spectral_1d, multiband_catalog, time_series, rotation_curve, simulation_snapshot.",
+    "dimensions": ["col_a", "col_b", "col_c"],
+    "_dimensions_note": "Column names that define the data geometry.",
+    "units": { "col_a": "unit_a", "col_b": "unit_b" },
+    "native_format": "FITS",
+    "_native_format_note": "Source file format: FITS, VOTable, HDF5, Parquet, CSV, MRT.",
+    "access": {
+      "mode": "tap_adql",
+      "_mode_note": "Adapter mode. Options: tap_adql, fits, fits_table, s3_fits, hdf5, votable, rest.",
+      "endpoint": "https://TAP_SERVICE_URL/tap",
+      "auth": "none",
+      "_auth_note": "Options: none, api_key, oauth2, institutional."
+    }
+  },
+
+  "source": {
+    "_note": "Runtime access parameters. The evaluator uses this to reach the data.",
+    "mode": "tap_adql",
+    "endpoint": "https://TAP_SERVICE_URL/tap",
+
+    "_tap_query_note": "For tap_adql: write a SELECT query. Include only columns needed for j_expr. The evaluator will add j_expr_cols automatically for TAP sources.",
+    "query": "SELECT col_a, col_b, col_c FROM schema.table WHERE condition LIMIT 1000000",
+
+    "_fits_url_note": "For fits/fits_table: provide the URL directly.",
+    "_fits_url": "https://archive.example.org/data/dataset.fits",
+
+    "max_rows": 1000000,
+    "_max_rows_note": "Safety cap. Remove or increase for full-survey evaluation.",
+
+    "format": "votable",
+    "_format_note": "For TAP: votable or csv. For fits: fits.",
+
+    "value_col": "col_a",
+    "_value_col_note": "Fallback column if j_expr is not defined or fails. Used as J directly."
+  },
+
+  "evaluation": {
+    "_note": "THIS IS YOUR METHODOLOGY. You define how to look at the data.",
+
+    "methodology": "I am measuring [WHAT] normalized to [REFERENCE]. I am looking for [WHAT σ-FACE STRUCTURE] because [WHY — physical/mathematical reason]. [What would confirmation mean?]",
+    "_methodology_note": "Required. Plain language. This is shown in ptorrent status. Write it so another researcher understands your view of the data without reading the code.",
+
+    "j_expr": "col_a / col_b",
+    "_j_expr_note": "Arithmetic expression using column names as variables. Allowed: + - * / ** sqrt abs max min log log10 exp pi e. This IS your methodology in executable form.",
+
+    "j_expr_cols": ["col_a", "col_b"],
+    "_j_expr_cols_note": "Columns needed by j_expr. For TAP sources, only these columns are requested — minimum data movement.",
+
+    "_j_col_note": "Alternative to j_expr when a single column is already the J-ratio: use j_col instead.",
+    "_j_num_den_note": "Alternative: use j_num_col + j_den_col for a simple two-column ratio without an expression.",
+
+    "prediction": "What σ-face distribution do I expect to find? What would confirm the Ainulindale conjecture? What would falsify it? What specific values (d*=0.246, Ω_ZS=0.5671) am I looking for, and in what columns?",
+    "_prediction_note": "Testable prediction. Written before evaluation. Failed predictions stay in the data.",
+
+    "σ_table": { "½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior" },
+    "_σtable_note": "Canonical σ-face semantic table. Do not modify these values.",
+
+    "J_ambient": "col_a / col_b — one-line physical description of what this ratio measures",
+    "_J_ambient_note": "Optional. One-line physical summary of the J-ratio for display.",
+
+    "fn": "",
+    "_fn_note": "Optional. Named built-in function for complex logic that cannot be expressed as j_expr (sedenion energy, spectral entropy, multi-column coherence). Leave empty string or omit if j_expr is sufficient.",
+
+    "bin_hash": "",
+    "_bin_hash_note": "Leave empty. Populated automatically when the chain records the EVALUATE transaction."
+  },
+
+  "resources": {
+    "_note": "Required if storage > 1 GB or runtime > 1 hour.",
+    "storage_gb": 0.5,
+    "_storage_note": "Estimated local storage for .peval output only. Source data never stored.",
+    "requires_wifi": true,
+    "requires_charging": false,
+    "warning": "One-line warning shown before evaluation starts. Mention data volume and estimated time."
+  }
+}
