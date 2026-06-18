@@ -1,0 +1,123 @@
+{
+  "ptorrent_version": "2.0",
+  "type": "evaluation",
+  "name": "Bullet Cluster — BEC Interference Model",
+  "requires_bin": "monad_physics.bin",
+  "output": "bullet_cluster_bec.peval",
+  "primary_tags": ["BULLET_CLUSTER", "BEC", "LENSING", "XRAY", "DARK_MATTER", "INTERFERENCE"],
+  "color": "cyan",
+  "description": "Ainulindale BEC interference model evaluation of the Bullet Cluster (1E 0657-56). Framework prediction: the lensing mass offsets are constructive interference peaks of the BEC spacetime medium — NOT collisionless dark matter halos. J = κ_lensing / I_xray. Wing regions (BEC peaks) → σ=1. Gas center → σ=½. Fringe test: look for alternating σ=1/σ=½ bands at the boundary between the two lensing peaks — the interference fringe pattern. CDM predicts smooth σ=1 blobs with no fringe substructure.",
+
+  "sources": [
+    {
+      "name": "clowe2006_lensing",
+      "role": "numerator",
+      "description": "Weak lensing convergence κ map. Clowe et al. 2006 (ApJL 648 L109). Deposited at CDS J/ApJL/648/L109. κ ≈ 0.05 outskirts, 0.25 gas center, 0.35 wing peaks.",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT RAJ2000, DEJ2000, kappa, e_kappa FROM \"J/ApJL/648/L109/table1\" WHERE kappa IS NOT NULL",
+      "auth": "none"
+    },
+    {
+      "name": "chandra_xray",
+      "role": "denominator",
+      "description": "Chandra ACIS-I X-ray surface brightness map. ObsID 3184 + 5356 (0.5-2 keV). Marks the ICM gas (stopped at collision center). Used as denominator: where gas is high, J should be low (in CDM model); BEC model predicts J peaks in WING regions between gas centers.",
+      "mode": "fits",
+      "url": "https://cxc.cfa.harvard.edu/cda/Contrib/ABELL520/1E0657/",
+      "value_col": "COUNTS",
+      "auth": "none"
+    },
+    {
+      "name": "bradac2006_lensing",
+      "role": "strong_lensing",
+      "description": "Strong lensing arc positions. Bradač et al. 2006 (ApJ 652 937). Strong lensing arcs pinpoint the two mass concentration peaks. These should coincide with BEC constructive interference maxima.",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT RAJ2000, DEJ2000, zphot, Magr FROM \"J/ApJ/652/937/table1\" WHERE RAJ2000 IS NOT NULL",
+      "auth": "none"
+    },
+    {
+      "name": "markevitch2004_xray",
+      "role": "bow_shock",
+      "description": "Chandra X-ray bow shock temperature map. Markevitch et al. 2004 (ApJL 606 819). Shock front at ~4.5 Mpc/h from center. In BEC model: the bow shock is the leading edge of the interference pattern propagating through the medium.",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT RAJ2000, DEJ2000, kT, e_kT, kappa FROM \"J/ApJL/606/L819/table1\" WHERE kT IS NOT NULL",
+      "auth": "none"
+    }
+  ],
+
+  "evaluation": {
+    "fn": "σ_face_bec_bullet",
+    "sx_peak": 1e-12,
+    "σ_table": {
+      "½": "causality — gas center (lensing ≈ baryonic)",
+      "1": "Yang-Mills — BEC constructive interference peak (dark matter region)",
+      "2": "gravity — far wing, lensing >> gas",
+      "∞": "below causal floor (κ < D_STAR)"
+    },
+    "J_ambient": "κ_lensing / I_xray_normalized — lensing-to-gas offset ratio",
+    "prediction": "BEC interference model: σ-face map shows ALTERNATING σ=1 / σ=½ fringe bands at the boundary between the two lensing peaks (RA offset ~2 arcmin from center). CDM null prediction: smooth σ=1 blob, no alternation. Fringe wavelength predicted by BEC interference: λ_fringe ≈ 1.5 arcmin at z=0.296. Paper: D-P Gravity Engine section. Fermi-LAT null detection of DM annihilation supports BEC (no particles to annihilate).",
+    "fringe_test": "If fringe substructure found: σ-face alternates across boundary → BEC confirmed. If no fringe: σ-face monotone across boundary → CDM not excluded by this test."
+  },
+
+  "chain_of_custody": {
+    "note": "Provided automatically by PTorrent blockchain (ptorrent_chain.py). Each traversal writes EVALUATE transaction with ptorrent SHA256, data source URL, timestamp, and ORCID if provided. No additional chain-of-custody code needed here."
+  },
+
+  "fringe_test_protocol": {
+    "description": "Interference fringe test — the key discriminant between BEC and CDM",
+    "step_1": "Produce σ-face map across Bullet Cluster field (RA 104.6, Dec -55.9, radius 15 arcmin)",
+    "step_2": "Extract σ-face profile along axis connecting the two lensing peak centers",
+    "step_3": "Apply 1D FFT to σ-face profile. BEC → periodic signal at λ_fringe. CDM → flat/noise.",
+    "step_4": "Compare to X-ray profile along same axis. Anticorrelation predicted: σ=1 where gas is low.",
+    "step_5": "Collect rows where σ-face='1' and spatial separation from gas center > 1 arcmin → fringe candidates",
+    "download_threshold": "Any row where σ-face='1' AND source_role='numerator' AND row.kappa > 0.3 is downloaded individually to bullet_cluster_bec_fringes/"
+  },
+
+  "resources": {
+    "storage_gb": 0.5,
+    "min_free_storage_gb": 2.0,
+    "requires_wifi": true,
+    "requires_charging": false,
+    "warning": "Chandra FITS files: ~300 MB. CDS TAP queries: streaming, low bandwidth. Total < 0.5 GB."
+  },
+
+  "datasets_available": {
+    "note": "Complete dataset inventory for future .ptorrent additions",
+    "xray": [
+      "Chandra ObsID 3184, 5356 — ACIS-I, 0.5-2 keV, 500 ks combined",
+      "XMM-Newton ObsID 0112980201 — EPIC-MOS, temperature map",
+      "eROSITA all-sky — 1E 0657-56 region, public DR1"
+    ],
+    "lensing": [
+      "Clowe 2006 (ApJL 648 L109) — weak lensing κ map, HST ACS + Subaru SuprimeCam",
+      "Bradač 2006 (ApJ 652 937) — combined weak+strong lensing mass map",
+      "Paraficz 2016 (A&A 594 A121) — Hubble Frontier Fields strong lensing",
+      "Harvey 2015 (Science 347 1462) — stellar vs gas offset (400 cluster sample)"
+    ],
+    "optical": [
+      "HST ACS F606W + F814W — galaxy catalog, morphologies, photometric redshifts",
+      "Subaru SuprimeCam — wide-field photometry, source catalog for weak lensing",
+      "2MASS — infrared stellar catalog in field",
+      "Magellan IMACS — spectroscopic redshifts for cluster members"
+    ],
+    "radio": [
+      "VLA 1.4 GHz — radio relic (Liang 2000, ApJ 544 686)",
+      "ATCA 2.1 GHz — spectral index map of relic",
+      "MeerKAT — 1.28 GHz, recent deep imaging (Knowles 2022, MNRAS 512 3536)",
+      "ALMA Band 3 — Sunyaev-Zel'dovich decrement"
+    ],
+    "sz": [
+      "Planck SZ — y-parameter map (Compton y), pressure integral along LoS",
+      "ACT — 148 GHz, 218 GHz SZ maps (Marriage 2011, ApJ 737 61)",
+      "SPT — 95/150/220 GHz SZ (Williamson 2011, ApJ 738 139)"
+    ],
+    "gamma_and_neutrino": [
+      "Fermi-LAT — 10 years, 100 MeV-500 GeV. NULL detection at Bullet Cluster position (Ackermann 2015, JCAP 09 008). This is KEY: CDM annihilation signal expected but ABSENT.",
+      "IceCube — neutrino search at Bullet Cluster position, null result",
+      "H.E.S.S. — TeV gamma, null (Abramowski 2012, ApJ 750 123)"
+    ],
+    "fermi_lat_note": "Fermi-LAT null detection is the STRONGEST observational support for BEC model. If the lensing offset were CDM particles, self-annihilation gamma rays should be detected. They are not. BEC interference peaks have no particle content — they are field intensity peaks. Nothing to annihilate."
+  }
+}

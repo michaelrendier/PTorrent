@@ -4,6 +4,68 @@ Each release is a foundational inclusion — full version increment.
 
 ---
 
+## v8.0 — 2026-06-17
+
+### In-Situ σ-Face Evaluator
+
+PTorrent can now evaluate Ainulindale σ-face predictions directly against
+live scientific datasets — without downloading them. The computation travels
+to the data.
+
+**Evaluator (skills/evaluator.py):**
+- `EvaluationRunner` — traverses remote datasets via registered adapters
+  (TAP/ADQL, FITS, HDF5, etc.), computes σ-face per row from the ptorrent's
+  evaluation spec, writes a `.peval` result. Dataset is never materialised.
+- J-ratio extraction priority: `j_col` → `j_num_col/j_den_col` → `j_expr`
+  → named `fn` → adapter `value`
+- `j_expr` — portable arithmetic expression (researcher-defined, lives in the
+  ptorrent file). Evaluated with restricted namespace: `+−×÷**`, `sqrt`, `abs`,
+  `max`, `min`, `log`, `log10`, `exp`, `pi`, `e`. No external code required.
+- `j_expr_cols` — declare needed columns for TAP minimum-column selection
+- 11 named evaluation functions for known dataset types:
+  `σ_face_bao_residual` (DESI/WMAP/Planck BAO), `σ_face_rotation_curve`
+  (SPARC/Vera Rubin), `σ_face_spectral` (JWST/EHT), `σ_face_cmb_residual`,
+  `σ_face_photometric` (2MASS/Gaia), `σ_face_s16` (Gaia DR3 astrometry),
+  `σ_face_multiband` (2MASS J/K, Vera Rubin u/y), `σ_face_black_hole` (EHT),
+  `σ_face_cmb_peaks` (Planck S/N per multipole), `σ_face_temperature_deviation`
+  (WMAP), `σ_face_signal` (SETI), `σ_face_bec_bullet` (Bullet Cluster BEC)
+- Multi-source evaluation: v2 ptorrent format (`sources` array). Each source
+  streamed independently; face tallies merged into one `.peval` with
+  per-source breakdown.
+- `σ-face assignment`: J < D* → ∞; D* ≤ J < 1 → ½; 1 ≤ J < 1/D* → 1;
+  1/D* ≤ J < 1/D* + Ω_ZS → 2; J ≥ 1/D* + Ω_ZS → ∞
+
+**seed_runner.py:**
+- Dispatch by ptorrent type: `evaluation` → EvaluationRunner (new);
+  `phonebook` → no-op (index only); `corpus/transfer/dataset` → unchanged
+
+**Evaluation ptorrents (ptorrents/):**
+- `gaia_dr3_σface.ptorrent` — kinematic energy proxy from DR3 proper motions
+- `desi_dr1_bao_σface.ptorrent` — BAO D_M/r_drag ratio
+- `planck_cmb_σface.ptorrent` — S/N per multipole (C_l / σ_C_l)
+- `eht_m87_σface.ptorrent` — visibility amplitude (ring structure)
+- `jwst_nirspec_σface.ptorrent` — peak flux / continuum spectral ratio
+- `vera_rubin_σface.ptorrent` — rotation curve + u/y multiband
+- `seti_breakthrough_σface.ptorrent` — signal power / drift-rate coherence
+- `wmap_cmb_σface.ptorrent` — ΔT pixel deviation
+- `allsky_2mass_σface.ptorrent` — J/K magnitude ratio
+- `bullet_cluster_bec.ptorrent` — BEC interference fringe test; four-source
+  (Clowe 2006 lensing κ, Chandra X-ray, Bradač strong lensing, Markevitch
+  bow shock); CDM null vs BEC fringe-band discriminant
+
+**Results (peval/):**
+- 9 `.peval` result files: Gaia, DESI, Planck, EHT, JWST, Vera Rubin, SETI,
+  WMAP, 2MASS — first in-situ Ainulindale evaluation run, 2026-06-14
+- `sparc_σface.peval` — first SPARC rotation curve result, 2026-06-14
+
+**Spec:**
+- `spec/ptorrent-format-v1.md` → v1.1: evaluation object fully documented:
+  j_expr syntax + restricted namespace, j_expr_cols, methodology field,
+  σ-face assignment table, J-ratio priority order, minimum viable block,
+  complete annotated example
+
+---
+
 ## v7.0 — 2026-06-03
 
 ### Responsible Disclosure Open Protocol (RDOP)

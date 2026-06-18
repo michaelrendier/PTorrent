@@ -428,6 +428,65 @@ def _named_fn(fn_name: str, row: dict, raw: dict, ev_spec: dict) -> Optional[flo
             except (TypeError, ValueError):
                 pass
 
+    elif fn_name == "σ_face_bec_bullet":
+        # Bullet Cluster — BEC interference model.
+        #
+        # Framework prediction: "dark matter halos" are constructive interference
+        # peaks of the BEC spacetime medium after two resonation chambers
+        # (galaxy clusters) pass through each other. The lensing traces the
+        # interference pattern, NOT particle halos.
+        #
+        # J = M_lensing / M_baryonic at each spatial position:
+        #   Wing region (BEC constructive peak):  J >> 1  → σ=1 (mass assembly)
+        #   Center (gas, destructive region):      J ≈ 1   → σ=½ (causality)
+        #   Outskirts (below causal floor):        J < D_STAR → σ=∞
+        #
+        # Fringe test: σ-face map should show alternating σ=1/σ=½ bands at
+        # the boundary between the two constructive peaks — the interference
+        # fringe pattern. CDM predicts smooth σ=1 blob, no alternation.
+        #
+        # Two-source (κ + S_X): J = κ / S_X_normalized
+        # Single-source (κ only): J = κ / D_STAR  (normalize to causal floor)
+        kappa = (raw.get("kappa") or raw.get("convergence") or
+                 raw.get("KAPPA") or raw.get("kap"))
+        s_x   = (raw.get("surface_brightness") or raw.get("S_X") or
+                 raw.get("sx") or raw.get("flux_x") or raw.get("SX"))
+
+        if kappa is not None and s_x is not None:
+            try:
+                kv, sv = float(kappa), float(s_x)
+                # Normalize S_X: Chandra typical peak ~1e-12 erg/cm²/s/arcsec²
+                # Scale so S_X_normalized ≈ 1 at peak gas emission
+                sv_norm = sv / ev_spec.get("sx_peak", 1e-12)
+                if sv_norm > 0.0 and kv > 0.0:
+                    return kv / (sv_norm * D_STAR)
+            except (TypeError, ValueError):
+                pass
+
+        # Single-source: κ normalized to D_STAR causal floor.
+        # Typical κ values from Clowe 2006:
+        #   outskirts (κ ~ 0.05): J ≈ 0.20 → σ=∞  (below causal floor)
+        #   gas center (κ ~ 0.25): J ≈ 1.02 → σ=1  (mass assembly)
+        #   wing peaks (κ ~ 0.35): J ≈ 1.42 → σ=1  (BEC constructive peak)
+        #   fringe valleys expected ~ 0.12–0.18: J ≈ 0.49–0.73 → σ=½ (causality)
+        if kappa is not None:
+            try:
+                kv = float(kappa)
+                if kv > 0.0:
+                    return kv / D_STAR
+            except (TypeError, ValueError):
+                pass
+
+        # FITS image pixel: row['value'] = pixel flux (κ map or X-ray)
+        v = row.get("value")
+        if v is not None:
+            try:
+                pv = float(v)
+                if pv > 0.0:
+                    return pv / D_STAR
+            except (TypeError, ValueError):
+                pass
+
     return None
 
 
@@ -466,6 +525,7 @@ def _prep_source(source: dict, ev_spec: dict) -> dict:
         "σ_face_cmb_peaks":              ["C_l", "sigma_C_l"],
         "σ_face_temperature_deviation":  ["temperature_K"],
         "σ_face_signal":                 ["power_dB", "frequency_Hz", "drift_rate"],
+        "σ_face_bec_bullet":             ["kappa", "convergence", "surface_brightness", "S_X", "flux_x"],
     }
     if fn in _FN_COLS:
         needed.extend(_FN_COLS[fn])
@@ -553,69 +613,40 @@ class EvaluationRunner:
         self.max_rows    = max_rows
 
     def run(self) -> dict:
-        """Execute the evaluation. Returns result dict."""
+        """Execute the evaluation. Returns result dict.
+
+        Supports both v1 (single 'source' block) and v2 ('sources' array).
+        Multi-source: streams each source independently; merges face tallies
+        into one .peval with per-source breakdown.
+        """
         entry    = self.entry
         name     = entry.get("name", "unnamed")
         ev_spec  = entry.get("evaluation", {})
-        dm       = entry.get("data_model", {})
-        source   = dict(dm.get("access", {}))
         bin_name = entry.get("requires_bin", entry.get("bin", ""))
         out_name = entry.get("output", name.replace(" ", "_") + ".peval")
         out_path = os.path.join(self.files_dir, out_name)
 
-        # Merge source-level fields from ptorrent source block
-        source_block = entry.get("source", {})
-        for k, v in source_block.items():
+        # v2 format: 'sources' array
+        sources_list = entry.get("sources")
+        if sources_list and isinstance(sources_list, list):
+            return self._run_multi_source(
+                name, ev_spec, sources_list, bin_name, out_path
+            )
+
+        # v1 format: single 'source' block or data_model.access
+        dm     = entry.get("data_model", {})
+        source = dict(dm.get("access", {}))
+        for k, v in entry.get("source", {}).items():
             if k not in source:
                 source[k] = v
 
-        # Determine adapter mode
         mode = source.get("mode") or dm.get("native_format", "").lower()
         if not mode:
             return {"complete": False, "error": "no adapter mode in data_model.access"}
 
-        # Prep source: request only needed columns
-        source = _prep_source(source, ev_spec)
-
-        # Inject max_rows limit
-        source.setdefault("max_rows", self.max_rows)
-
-        # Load adapter
-        from skills.adapters import get_adapter
-        try:
-            adapter = get_adapter(source)
-        except ValueError as e:
-            return {"complete": False, "error": str(e)}
-
-        t0     = time.time()
-        faces  = []
-        errors = []
-        count  = 0
-
-        try:
-            for row in adapter.stream_rows(source):
-                j = _j_ratio_from_row(row, ev_spec)
-                if j is None:
-                    errors.append(f"row {count}: j_ratio=None, raw_keys={list(row.get('raw', {}).keys())[:6]}")
-                    count += 1
-                    continue
-
-                faces.append(sigma_face(j))
-                count += 1
-
-                if count % 500 == 0:
-                    self.on_progress(
-                        name, "EVALUATE", source.get("endpoint", ""),
-                        count, self.max_rows, count, len(errors)
-                    )
-
-                if count >= self.max_rows:
-                    break
-
-        except Exception as e:
-            errors.append(f"stream error: {e}")
-
-        elapsed = time.time() - t0
+        faces, errors, count, elapsed, dataset_id = self._stream_source(
+            source, ev_spec, name
+        )
 
         if not faces:
             return {
@@ -625,16 +656,130 @@ class EvaluationRunner:
             }
 
         result = _write_peval(
-            name     = name,
-            dataset  = source.get("endpoint", source.get("url", "unknown")),
-            bin_name = bin_name,
-            faces    = faces,
-            ev_spec  = ev_spec,
+            name      = name,
+            dataset   = dataset_id,
+            bin_name  = bin_name,
+            faces     = faces,
+            ev_spec   = ev_spec,
             row_count = count,
-            errors   = errors,
-            out_path = out_path,
-            elapsed  = elapsed,
+            errors    = errors,
+            out_path  = out_path,
+            elapsed   = elapsed,
         )
-        result["complete"] = True
+        result["complete"]   = True
         result["peval_path"] = out_path
         return result
+
+    def _run_multi_source(
+        self,
+        name:      str,
+        ev_spec:   dict,
+        sources:   list,
+        bin_name:  str,
+        out_path:  str,
+    ) -> dict:
+        """v2 multi-source evaluation. Streams each source; merges into one .peval."""
+        all_faces    = []
+        per_source   = []
+        total_errors = []
+        t0           = time.time()
+
+        for src_block in sources:
+            src_name = src_block.get("name", src_block.get("role", "unnamed_source"))
+            source   = dict(src_block)
+
+            mode = source.get("mode")
+            if not mode:
+                total_errors.append(f"{src_name}: no mode specified, skipped")
+                continue
+
+            faces, errors, count, elapsed, dataset_id = self._stream_source(
+                source, ev_spec, f"{name}/{src_name}"
+            )
+
+            per_source.append({
+                "source_name": src_name,
+                "role":        source.get("role", ""),
+                "dataset":     dataset_id,
+                "rows":        count,
+                "faces":       faces,
+                "elapsed_s":   round(elapsed, 3),
+                "errors":      errors[:3],
+            })
+            all_faces.extend(faces)
+            total_errors.extend(errors[:3])
+
+        elapsed_total = time.time() - t0
+
+        if not all_faces:
+            return {
+                "complete": False,
+                "error": f"no rows yielded j_ratio across {len(sources)} sources",
+                "per_source": per_source,
+                "errors": total_errors[:10],
+            }
+
+        result = _write_peval(
+            name      = name,
+            dataset   = f"{len(sources)}_sources",
+            bin_name  = bin_name,
+            faces     = all_faces,
+            ev_spec   = ev_spec,
+            row_count = sum(s["rows"] for s in per_source),
+            errors    = total_errors,
+            out_path  = out_path,
+            elapsed   = elapsed_total,
+        )
+
+        # Annotate peval with per-source breakdown
+        result["per_source"]   = per_source
+        result["complete"]     = True
+        result["peval_path"]   = out_path
+        return result
+
+    def _stream_source(
+        self,
+        source:  dict,
+        ev_spec: dict,
+        label:   str,
+    ):
+        """Stream one source. Returns (faces, errors, count, elapsed, dataset_id)."""
+        source   = _prep_source(dict(source), ev_spec)
+        source.setdefault("max_rows", self.max_rows)
+
+        from skills.adapters import get_adapter
+        try:
+            adapter = get_adapter(source)
+        except ValueError as e:
+            return [], [str(e)], 0, 0.0, source.get("endpoint", source.get("url", "unknown"))
+
+        dataset_id = source.get("endpoint", source.get("url", "unknown"))
+        t0     = time.time()
+        faces  = []
+        errors = []
+        count  = 0
+
+        try:
+            for row in adapter.stream_rows(source):
+                j = _j_ratio_from_row(row, ev_spec)
+                if j is None:
+                    errors.append(f"row {count}: j_ratio=None, keys={list(row.get('raw', {}).keys())[:6]}")
+                    count += 1
+                    continue
+
+                faces.append(sigma_face(j))
+                count += 1
+
+                if count % 500 == 0:
+                    self.on_progress(
+                        label, "EVALUATE", dataset_id,
+                        count, self.max_rows, count, len(errors)
+                    )
+
+                if count >= self.max_rows:
+                    break
+
+        except Exception as e:
+            errors.append(f"stream error: {e}")
+
+        return faces, errors, count, time.time() - t0, dataset_id
