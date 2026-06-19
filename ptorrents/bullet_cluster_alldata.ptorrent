@@ -1,0 +1,416 @@
+{
+  "ptorrent_version": "2.0",
+  "type": "dataset",
+  "name": "Bullet Cluster — All-Telescope Dataset + σ-Face Evaluation",
+  "requires_bin": "monad_physics.bin",
+  "output": "bullet_cluster_alldata.peval",
+  "primary_tags": [
+    "BULLET_CLUSTER", "1E0657-558", "DARK_MATTER", "BEC", "LAMBDA_CDM",
+    "XRAY", "LENSING", "RADIO", "SZ", "GAMMA_NULL", "OPTICAL", "MULTIWAVELENGTH"
+  ],
+  "color": "cyan",
+  "description": "All-telescope dataset traversal of the Bullet Cluster (1E 0657-558). Every instrument that resolved this cluster. Per-instrument σ-face evaluation. J = signal / ambient per waveband. BEC prediction: lensing peaks → σ=1 (Yang-Mills), gas peaks → σ=½ (causality), gamma nulls confirm no CDM annihilation. Gravity is not a stuff — it is a shape with inside and outside. The halo IS the shape. Nothing to detect.",
+
+  "field_centre": {
+    "ra_deg": 104.6098,
+    "dec_deg": -55.9446,
+    "radius_arcmin": 20.0,
+    "note": "1E 0657-558 / Bullet Cluster. RA 6h 58m 27.8s, Dec -55° 56' 41\" (J2000). Radius covers both lensing peaks + radio relic + bow shock."
+  },
+
+  "sources": [
+
+    {
+      "name": "chandra_acis_main",
+      "telescope": "Chandra",
+      "instrument": "ACIS-I",
+      "waveband": "xray_soft",
+      "role": "gas_tracer_primary",
+      "description": "Chandra ACIS-I ObsIDs 3184 + 5356 combined, 0.5-2 keV, ~500 ks. The definitive X-ray gas map of the collision. The 'Bullet' subcluster bow shock is visible at ~0.7 Mpc east of centre. Gas stopped here. Mass (lensing) passed through. This is the dataset that defines the Bullet Cluster observation.",
+      "mode": "tap_adql",
+      "endpoint": "https://heasarc.gsfc.nasa.gov/xamin/vo/tap",
+      "query": "SELECT name, ra, dec, exposure, obsid, instrument, grating, target_name FROM chanmaster WHERE ra BETWEEN 103.8 AND 105.4 AND dec BETWEEN -56.7 AND -55.2 AND instrument LIKE 'ACIS%'",
+      "j_expr": "exposure / 100000.0",
+      "j_expr_cols": ["exposure"],
+      "auth": "none",
+      "citation": "Markevitch et al. 2004 ApJL 606 L819; Clowe et al. 2006 ApJL 648 L109"
+    },
+
+    {
+      "name": "chandra_acis_deep",
+      "telescope": "Chandra",
+      "instrument": "ACIS-I",
+      "waveband": "xray_soft",
+      "role": "gas_tracer_deep",
+      "description": "Additional Chandra ObsIDs 4970, 5361 — deeper follow-up observations. Temperature map, hardness ratio, bow shock velocity measurement. Mach number M~3 from bow shock geometry.",
+      "mode": "tap_adql",
+      "endpoint": "https://heasarc.gsfc.nasa.gov/xamin/vo/tap",
+      "query": "SELECT name, ra, dec, exposure, obsid, instrument FROM chanmaster WHERE ra BETWEEN 103.8 AND 105.4 AND dec BETWEEN -56.7 AND -55.2 AND obsid IN (4970, 5361)",
+      "j_expr": "exposure / 100000.0",
+      "j_expr_cols": ["exposure"],
+      "auth": "none",
+      "citation": "Markevitch 2006 ESA SP-604 723"
+    },
+
+    {
+      "name": "xmm_newton_epic",
+      "telescope": "XMM-Newton",
+      "instrument": "EPIC-MOS + PN",
+      "waveband": "xray_soft",
+      "role": "gas_tracer_independent",
+      "description": "XMM-Newton ObsID 0112980201. Independent temperature and abundance map. Cross-validates Chandra bow shock geometry. Lower resolution but higher collecting area — better entropy map at large radii.",
+      "mode": "tap_adql",
+      "endpoint": "https://nxsa.esac.esa.int/nxsa-sl/tap",
+      "query": "SELECT target_name, ra, dec, duration, obs_id, instrument FROM v_public_observations WHERE ra BETWEEN 103.8 AND 105.4 AND dec BETWEEN -56.7 AND -55.2",
+      "j_expr": "duration / 50000.0",
+      "j_expr_cols": ["duration"],
+      "auth": "none",
+      "citation": "Zhang et al. 2006 A&A 457 45"
+    },
+
+    {
+      "name": "erosita_dr1",
+      "telescope": "eROSITA",
+      "instrument": "eROSITA (TM1-7)",
+      "waveband": "xray_soft",
+      "role": "gas_tracer_allsky",
+      "description": "eROSITA DR1 all-sky survey coverage of the Bullet Cluster field (0.2-2.3 keV). Lower depth than Chandra but uniform all-sky calibration. Cross-check for extended emission boundary. eROSITA-DE public DR1.",
+      "mode": "fits",
+      "url": "https://erosita.mpe.mpg.de/dr1/erodat/product_mosaics/",
+      "value_col": "COUNTS",
+      "j_expr": "COUNTS / BACKSCAL",
+      "j_expr_cols": ["COUNTS", "BACKSCAL"],
+      "auth": "none",
+      "note": "Download region cutout: RA=104.6, Dec=-55.9, radius=0.5 deg. Product: eRASS:4 source catalog filtered by field.",
+      "citation": "Merloni et al. 2024 A&A 682 A34"
+    },
+
+    {
+      "name": "clowe2006_weak_lensing",
+      "telescope": "HST ACS + Subaru SuprimeCam",
+      "instrument": "ACS/WFC + SuprimeCam",
+      "waveband": "optical_lensing",
+      "role": "mass_map_primary",
+      "description": "Weak gravitational lensing convergence κ map. THE foundational lensing paper for the Bullet Cluster. κ ≈ 0.05 outskirts, κ ≈ 0.25 gas centre, κ ≈ 0.35 at lensing wing peaks. The two κ peaks are OFFSET from the X-ray gas peak. In Lambda-CDM: dark matter halos. In SMMIP: constructive BEC interference peaks. The test: is there fringe substructure between the two κ peaks? BEC predicts alternating σ=1/σ=½ fringes. CDM predicts smooth σ=1 blobs.",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT RAJ2000, DEJ2000, kappa, e_kappa FROM \"J/ApJL/648/L109/table1\" WHERE kappa IS NOT NULL ORDER BY kappa DESC",
+      "j_expr": "kappa / 0.05",
+      "j_expr_cols": ["kappa"],
+      "auth": "none",
+      "citation": "Clowe et al. 2006 ApJL 648 L109 (DOI: 10.1086/508162)",
+      "key_prediction": "Lensing peaks at κ > 0.30 → J = κ/0.05 ≥ 6 → σ=2 (gravity). Gas centre at κ ≈ 0.15-0.25 → J = 3-5 → σ=1/2. Offset confirmed. BEC fringe test: extract σ-face profile along line connecting two κ peaks."
+    },
+
+    {
+      "name": "bradac2006_strong_weak_lensing",
+      "telescope": "HST ACS + VLT FORS2",
+      "instrument": "ACS/WFC + FORS2",
+      "waveband": "optical_lensing",
+      "role": "mass_map_strong_lensing",
+      "description": "Combined weak + strong lensing mass map. Strong lensing arcs pin the mass peaks to within arcseconds. The two mass concentration centres are at ~400 kpc separation (physical). In BEC model: two constructive interference maxima from the collision of two BEC cavities. The lensing arcs are the Einstein rings of the BEC interference peaks.",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT RAJ2000, DEJ2000, zphot, Magr FROM \"J/ApJ/652/937/table1\" WHERE RAJ2000 IS NOT NULL",
+      "j_expr": "1.0 / max(e_kappa, 0.001)",
+      "j_expr_cols": ["e_kappa"],
+      "auth": "none",
+      "citation": "Bradač et al. 2006 ApJ 652 937 (DOI: 10.1086/507936)"
+    },
+
+    {
+      "name": "paraficz2016_hff_lensing",
+      "telescope": "HST",
+      "instrument": "ACS + WFC3",
+      "waveband": "optical_lensing",
+      "role": "mass_map_hff",
+      "description": "Hubble Frontier Fields strong lensing model of the Bullet Cluster. Full HFF depth (HST program 13386). Highest resolution mass map of the two peaks. Lensing model includes 30+ multiple image systems. Peak mass positions confirmed to sub-arcsecond precision.",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT RAJ2000, DEJ2000, Mag, e_Mag, zphot FROM \"J/A+A/594/A121/table1\" WHERE RAJ2000 IS NOT NULL",
+      "j_expr": "Mag / 25.0",
+      "j_expr_cols": ["Mag"],
+      "auth": "none",
+      "citation": "Paraficz et al. 2016 A&A 594 A121"
+    },
+
+    {
+      "name": "harvey2015_stellar_gas_offset",
+      "telescope": "HST (400-cluster sample)",
+      "instrument": "ACS/WFC",
+      "waveband": "optical_lensing",
+      "role": "stellar_dark_matter_offset_400sample",
+      "description": "Statistical measurement of the offset between stars and dark matter in 400 cluster collisions including the Bullet Cluster. Stellar mass found to track the dark matter — not the gas. CDM interpretation: stars and DM both collisionless. BEC interpretation: stars are leaves on the water (galaxy-scale resonant modes). The bowl (halo) naturally carries the leaves because the bowl IS the medium the leaves float in. Stars track the mode because they are IN the mode.",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT Name, RAJ2000, DEJ2000, z, DM_offset, e_DM_offset, Star_offset, e_Star_offset FROM \"J/Sci/347/1462/table1\" WHERE Name IS NOT NULL",
+      "j_expr": "DM_offset / max(Star_offset, 0.001)",
+      "j_expr_cols": ["DM_offset", "Star_offset"],
+      "auth": "none",
+      "citation": "Harvey et al. 2015 Science 347 1462 (DOI: 10.1126/science.1261381)"
+    },
+
+    {
+      "name": "hst_acs_optical_catalog",
+      "telescope": "HST",
+      "instrument": "ACS/WFC F606W + F814W",
+      "waveband": "optical",
+      "role": "galaxy_catalog",
+      "description": "HST ACS photometric catalog of galaxies in the Bullet Cluster field. Morphologies, photometric redshifts, magnitude distribution. Cluster membership selection. Source catalog for weak lensing shape measurement. Member galaxies = leaves on the water.",
+      "mode": "tap_adql",
+      "endpoint": "https://mast.stsci.edu/tap/sync",
+      "query": "SELECT s_ra, s_dec, t_exptime, obs_collection, filters, calib_level FROM ivoa.obscore WHERE s_ra BETWEEN 103.8 AND 105.4 AND s_dec BETWEEN -56.7 AND -55.2 AND obs_collection='HST' AND calib_level=2",
+      "j_expr": "t_exptime / 1000.0",
+      "j_expr_cols": ["t_exptime"],
+      "auth": "none",
+      "citation": "Clowe et al. 2006; Bradač et al. 2006 (shared ACS imaging)"
+    },
+
+    {
+      "name": "vla_14ghz_radio_relic",
+      "telescope": "VLA",
+      "instrument": "VLA L-band 1.4 GHz",
+      "waveband": "radio",
+      "role": "radio_relic_primary",
+      "description": "VLA 1.4 GHz detection of the radio relic 'the Bullet' — a diffuse radio structure at the bow shock front. Synchrotron radiation from electrons accelerated at the Mach~3 shock. In BEC model: the bow shock is the leading edge of the BEC interference wavefront propagating through the medium. The radio relic IS the electromagnetic signature of the medium boundary. Spectral index α ~ -1.0 (steep, aged electrons).",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT RAJ2000, DEJ2000, S1.4, e_S1.4, alpha FROM \"J/ApJ/544/686/table1\" WHERE S1.4 IS NOT NULL",
+      "j_expr": "S1.4 / 0.5",
+      "j_expr_cols": ["S1.4"],
+      "auth": "none",
+      "citation": "Liang et al. 2000 ApJ 544 686 (DOI: 10.1086/317203)"
+    },
+
+    {
+      "name": "meerkat_1ghz_deep",
+      "telescope": "MeerKAT",
+      "instrument": "MeerKAT L-band 1.28 GHz",
+      "waveband": "radio",
+      "role": "radio_relic_deep",
+      "description": "MeerKAT 1.28 GHz deep imaging of the Bullet Cluster. Highest sensitivity radio map. Extended relic structure resolved. Point source subtracted. In BEC model: the diffuse emission maps the wavefront boundary of the two colliding medium cavities. The relic traces the outer boundary of the BEC interference region — the 'edge' of the shape.",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT RAJ2000, DEJ2000, Sint, e_Sint, alpha, SpIndex FROM \"J/MNRAS/512/3536/tableb1\" WHERE Sint IS NOT NULL",
+      "j_expr": "Sint / 0.1",
+      "j_expr_cols": ["Sint"],
+      "auth": "none",
+      "citation": "Knowles et al. 2022 MNRAS 512 3536 (DOI: 10.1093/mnras/stac580)"
+    },
+
+    {
+      "name": "planck_sz_ymap",
+      "telescope": "Planck",
+      "instrument": "HFI 100-857 GHz",
+      "waveband": "submm_sz",
+      "role": "sz_pressure_map",
+      "description": "Planck all-sky SZ Compton y-parameter map at the Bullet Cluster position. Compton y = ∫ (kT_e/m_e c²) n_e dl — traces the integrated electron pressure along the line of sight. Co-located with X-ray gas peak (both trace pressure). Should be at σ=½ (causality) — gas is the baryonic, causal component. In BEC model: gas occupies the σ=½ region (the | crossing) while the BEC interference peaks (σ=1) contain no gas.",
+      "mode": "fits",
+      "url": "https://pla.esac.esa.int/pla/aio/product-action?MAP.MAP_ID=COM_CompMap_Compton-SZmap_2048_R2.00.fits",
+      "value_col": "FULL",
+      "j_expr": "FULL / 3e-4",
+      "j_expr_cols": ["FULL"],
+      "auth": "none",
+      "note": "Extract HEALPix pixels within 20 arcmin of RA=104.6, Dec=-55.9 from Planck SZ y-map FITS file.",
+      "citation": "Planck Collaboration 2016 A&A 594 A22"
+    },
+
+    {
+      "name": "act_sz_148ghz",
+      "telescope": "ACT",
+      "instrument": "ACT 148 + 218 GHz",
+      "waveband": "mm_sz",
+      "role": "sz_cluster_catalog",
+      "description": "Atacama Cosmology Telescope SZ cluster detection. The Bullet Cluster is a high-significance ACT detection. Temperature decrement at 148 GHz, increment at 218 GHz (SZ spectral signature). Higher angular resolution than Planck (~1 arcmin). Tests BEC prediction: SZ (pressure = gas) should trace X-ray, not lensing mass.",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT Name, RAJ2000, DEJ2000, SNR, M500, z FROM \"J/ApJ/737/61/table1\" WHERE RAJ2000 BETWEEN 103.8 AND 105.4 AND DEJ2000 BETWEEN -56.7 AND -55.2",
+      "j_expr": "SNR / 5.0",
+      "j_expr_cols": ["SNR"],
+      "auth": "none",
+      "citation": "Marriage et al. 2011 ApJ 737 61 (DOI: 10.1088/0004-637X/737/2/61)"
+    },
+
+    {
+      "name": "spt_sz_multifreq",
+      "telescope": "SPT",
+      "instrument": "SPT 95 + 150 + 220 GHz",
+      "waveband": "mm_sz",
+      "role": "sz_multifreq",
+      "description": "South Pole Telescope multi-frequency SZ measurement of the Bullet Cluster. Three-frequency coverage allows spectral decomposition of thermal SZ, kinematic SZ, and CMB contamination. Kinematic SZ = bulk gas velocity component = measurement of the collision velocity in the plane of the sky.",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT Name, RAJ2000, DEJ2000, xi, M500c, z FROM \"J/ApJ/738/139/table1\" WHERE RAJ2000 BETWEEN 103.8 AND 105.4 AND DEJ2000 BETWEEN -56.7 AND -55.2",
+      "j_expr": "xi / 5.0",
+      "j_expr_cols": ["xi"],
+      "auth": "none",
+      "citation": "Williamson et al. 2011 ApJ 738 139 (DOI: 10.1088/0004-637X/738/2/139)"
+    },
+
+    {
+      "name": "fermi_lat_null_10yr",
+      "telescope": "Fermi-LAT",
+      "instrument": "LAT 100 MeV - 500 GeV",
+      "waveband": "gamma_null",
+      "role": "cdm_annihilation_null_PRIMARY",
+      "description": "Fermi-LAT 10-year search for dark matter self-annihilation at the Bullet Cluster. NULL RESULT. This is THE most important data point for distinguishing BEC from CDM. CDM WIMPs should annihilate in the dense halo cores: χχ → γγ, bb̄, W+W−. The resulting gamma-ray flux is proportional to the DM density squared. In the BEC model: the 'halo' is a resonant wave mode — there are NO particles in it. Nothing to annihilate. The null result IS the BEC prediction. This null is not a failure — it is a confirmation.",
+      "mode": "tap_adql",
+      "endpoint": "https://heasarc.gsfc.nasa.gov/xamin/vo/tap",
+      "query": "SELECT name, ra, dec, flux_100_300000, pivot_energy, flux_unc, assoc_prob FROM fermilpsc WHERE ra BETWEEN 103.8 AND 105.4 AND dec BETWEEN -56.7 AND -55.2",
+      "j_expr": "flux_100_300000 / 1e-11",
+      "j_expr_cols": ["flux_100_300000"],
+      "note": "Expected: NO source detected at Bullet Cluster position. If this query returns rows: those are background AGN/pulsars, not DM annihilation. Evaluate upper limit vs CDM prediction separately using Ackermann 2015 Table 3.",
+      "auth": "none",
+      "citation": "Ackermann et al. 2015 JCAP 09 008 (DOI: 10.1088/1475-7516/2015/09/008)",
+      "key_result": "Upper limit on <σv> is 10-100× below CDM thermal relic cross-section. The WIMP is not there. The BEC has no particle content. The null IS the prediction."
+    },
+
+    {
+      "name": "hess_tev_null",
+      "telescope": "H.E.S.S.",
+      "instrument": "H.E.S.S. IACT array",
+      "waveband": "tev_gamma_null",
+      "role": "cdm_annihilation_null_highE",
+      "description": "H.E.S.S. TeV gamma-ray search at the Bullet Cluster. NULL RESULT at 100 GeV - 10 TeV. Constrains heavy WIMP candidates (mass > 100 GeV). Combined with Fermi-LAT, the full WIMP mass range 1 GeV - 10 TeV is excluded or severely constrained. In BEC model: exactly as expected. The 'halo' is geometry. No particles. Nothing radiates at TeV energies.",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT Name, RAJ2000, DEJ2000, TS, Flux, e_Flux FROM \"J/ApJ/750/123/table1\" WHERE RAJ2000 BETWEEN 103.8 AND 105.4 AND DEJ2000 BETWEEN -56.7 AND -55.2",
+      "j_expr": "TS / 25.0",
+      "j_expr_cols": ["TS"],
+      "auth": "none",
+      "citation": "Abramowski et al. 2012 ApJ 750 123 (DOI: 10.1088/0004-637X/750/2/123)"
+    },
+
+    {
+      "name": "markevitch2004_bowshock",
+      "telescope": "Chandra",
+      "instrument": "ACIS-I temperature map",
+      "waveband": "xray_spectral",
+      "role": "bowshock_mach_number",
+      "description": "Chandra X-ray spectral mapping of the Bullet Cluster bow shock. Temperature map shows shocked gas at T~15 keV ahead of the 'bullet' subcluster, T~8 keV in the main cluster. Mach number M = 3.0±0.4 from Rankine-Hugoniot conditions. In BEC model: this is the wavefront of the BEC interference pattern. The Mach cone geometry defines the angle of the BEC wave propagation through the medium.",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT RAJ2000, DEJ2000, kT, e_kT, kappa FROM \"J/ApJL/606/L819/table1\" WHERE kT IS NOT NULL",
+      "j_expr": "kT / 8.0",
+      "j_expr_cols": ["kT"],
+      "auth": "none",
+      "citation": "Markevitch et al. 2004 ApJL 606 L819 (DOI: 10.1086/420542)"
+    },
+
+    {
+      "name": "twomass_infrared",
+      "telescope": "2MASS",
+      "instrument": "2MASS J + H + Ks",
+      "waveband": "nearir",
+      "role": "stellar_mass_tracer",
+      "description": "2MASS infrared catalog of stellar sources in the Bullet Cluster field. Near-infrared is the best tracer of stellar mass (minimizes dust, maximizes M/L ratio stability). Stellar mass distribution traces the 'leaves' — the visible matter in the bowl. Combined with lensing: stellar mass tracks DM offset (Harvey 2015). In BEC model: stars are leaves on the water. Of course they track the bowl — they are IN the medium.",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT RAJ2000, DEJ2000, Jmag, Hmag, Kmag, e_Jmag FROM \"II/246/out\" WHERE RAJ2000 BETWEEN 103.8 AND 105.4 AND DEJ2000 BETWEEN -56.7 AND -55.2 AND Kmag < 17.0",
+      "j_expr": "10 ** ((Jmag - Kmag) / 2.5)",
+      "j_expr_cols": ["Jmag", "Kmag"],
+      "auth": "none",
+      "citation": "Skrutskie et al. 2006 AJ 131 1163 (2MASS all-sky survey)"
+    },
+
+    {
+      "name": "magellan_imacs_spectroscopic",
+      "telescope": "Magellan",
+      "instrument": "IMACS",
+      "waveband": "optical_spectroscopic",
+      "role": "cluster_membership_kinematics",
+      "description": "Magellan IMACS spectroscopic redshift survey of the Bullet Cluster field. ~100 confirmed cluster member galaxies at z~0.296. Velocity dispersion σ_v ~ 1200 km/s. Two distinct velocity components (the two sub-clusters). Collision velocity ~3500 km/s in the plane of the sky (from X-ray bow shock). Spectroscopic confirmation that we are observing a genuine collision event, not a projection. In BEC model: the two velocity components are the two BEC cavities whose interference we observe.",
+      "mode": "tap_adql",
+      "endpoint": "https://tapvizier.cds.unistra.fr/TAPVizieR/tap",
+      "query": "SELECT RAJ2000, DEJ2000, z, e_z, Vmag FROM \"J/ApJ/604/596/table1\" WHERE RAJ2000 BETWEEN 103.8 AND 105.4 AND DEJ2000 BETWEEN -56.7 AND -55.2",
+      "j_expr": "abs(z - 0.296) / 0.005",
+      "j_expr_cols": ["z"],
+      "auth": "none",
+      "citation": "Clowe et al. 2004 ApJ 604 596"
+    },
+
+    {
+      "name": "alma_sz_decrement",
+      "telescope": "ALMA",
+      "instrument": "ALMA Band 3 (~100 GHz)",
+      "waveband": "mm_sz_highres",
+      "role": "sz_highres",
+      "description": "ALMA Band 3 interferometric SZ observation of the Bullet Cluster. Highest angular resolution SZ map (~5 arcsec). Resolves the SZ decrement structure at sub-arcminute scales. Tests whether the gas pressure distribution (SZ) tracks the X-ray morphology in detail. In BEC model: SZ = gas pressure = σ=½ component. Should be confined to the collision region, not the lensing peaks.",
+      "mode": "tap_adql",
+      "endpoint": "https://almascience.eso.org/tap",
+      "query": "SELECT target_name, s_ra, s_dec, t_exptime, band_list, obs_collection FROM ivoa.obscore WHERE s_ra BETWEEN 103.8 AND 105.4 AND s_dec BETWEEN -56.7 AND -55.2 AND band_list LIKE '%3%'",
+      "j_expr": "t_exptime / 3600.0",
+      "j_expr_cols": ["t_exptime"],
+      "auth": "none",
+      "citation": "ALMA Science Archive — search 1E0657-558"
+    },
+
+    {
+      "name": "nustar_hard_xray",
+      "telescope": "NuSTAR",
+      "instrument": "NuSTAR FPMA + FPMB",
+      "waveband": "xray_hard",
+      "role": "hard_xray_nonthermal",
+      "description": "NuSTAR hard X-ray (3-79 keV) observation of the Bullet Cluster. Hard X-ray excess above thermal emission could indicate non-thermal electron population accelerated at the bow shock. Tests particle acceleration mechanism. In BEC model: non-thermal emission traces the BEC wavefront shock boundary — the shape's edge. Also constrains the temperature of the hottest shocked gas directly.",
+      "mode": "tap_adql",
+      "endpoint": "https://heasarc.gsfc.nasa.gov/xamin/vo/tap",
+      "query": "SELECT name, ra, dec, exposure, obsid, instrument FROM numaster WHERE ra BETWEEN 103.8 AND 105.4 AND dec BETWEEN -56.7 AND -55.2",
+      "j_expr": "exposure / 50000.0",
+      "j_expr_cols": ["exposure"],
+      "auth": "none",
+      "citation": "NuSTAR GO proposals — check HEASARC for public obsids"
+    }
+
+  ],
+
+  "evaluation": {
+    "fn": "σ_face_bullet_alldata_dispatch",
+    "methodology": "I am measuring the ratio of signal to ambient background per waveband across all telescopes that resolved the Bullet Cluster. X-ray: J = counts / background → σ=½ expected at gas peak (baryonic causality). Lensing: J = κ / κ_ambient → σ=1 expected at mass peaks (Yang-Mills, BEC interference). Radio/SZ: J = flux / rms → σ=½ expected co-located with gas. Gamma null: J = flux_UL / CDM_predicted → J < 1 expected everywhere (no particles to annihilate). The shape has inside and outside. Gas is inside (causality, σ=½). The lensing peaks are the shape itself (σ=1). They are not stuffed with particles — they ARE the geometry.",
+
+    "prediction": "SMMIP BEC interference model predictions (zero free parameters): (1) Lensing peaks → J = κ/κ_ambient > 1/d* = 4.07 → σ=1 (Yang-Mills). (2) Gas peak (X-ray, SZ) → J ≈ 1 → σ=½ (causality). (3) Gamma null (Fermi, HESS) → J < d* → σ=∞ (below causal floor, no particle content). (4) BEC fringe test: σ-face profile between the two lensing peaks shows ALTERNATING σ=1/σ=½ fringes at λ_fringe ≈ 1.5 arcmin. CDM predicts monotone σ=1 blob, no alternation. (5) Stellar mass (2MASS, HST) → σ=½ (leaves on the water — stellar matter in causality regime, not in the shape itself).",
+
+    "σ_table": { "½": "causality", "1": "Yang-Mills", "2": "gravity", "∞": "BH interior" },
+
+    "J_ambient": "Per-waveband signal / ambient: κ/κ_bg (lensing), counts/bg (X-ray), flux/rms (radio), y/y_bg (SZ), UL/CDM_predicted (gamma null)",
+
+    "fringe_test": {
+      "description": "The BEC interference fringe test — the sharpest discriminant between BEC and CDM",
+      "step_1": "Produce σ-face map from lensing κ data (Clowe 2006) across Bullet Cluster field",
+      "step_2": "Extract 1D σ-face profile along axis connecting the two κ peak centres",
+      "step_3": "FFT the profile. BEC → periodic signal at λ ≈ 1.5 arcmin. CDM → flat/noise.",
+      "step_4": "Anticorrelation test: σ-face vs X-ray surface brightness along same axis. BEC → anticorrelated (κ peaks where gas is absent). CDM → no preferred correlation.",
+      "step_5": "Flag rows: σ-face='1' AND source_role='mass_map_primary' AND kappa > 0.30 → fringe candidates → copy to peval fringe section"
+    },
+
+    "bin_hash": ""
+  },
+
+  "chain_of_custody": {
+    "note": "Provided automatically by PTorrent blockchain (ptorrent_chain.py). Each source traversal writes EVALUATE transaction with ptorrent SHA256, source URL, timestamp, and ORCID if provided."
+  },
+
+  "companion_ptorrent": {
+    "file": "bullet_cluster_bec.ptorrent",
+    "relation": "The companion BEC ptorrent runs the σ-face evaluation on the primary Clowe/Chandra sources. This alldata ptorrent adds every other telescope. The two .peval outputs are β-mergeable via the chain (same bin_hash, same field_centre)."
+  },
+
+  "gravity_is_a_shape": {
+    "note": "Core physics statement for this paper. Gravity is not a stuff — it is a shape with inside and outside. Inside = compressed BEC medium (ZD region, σ→0, gravitational well interior). Outside = diffuse BEC medium (CD region, σ→1, intergalactic). The 'shape' = the L_(I|O) boundary = the curvature of the spacetime medium. The halo IS the shape. The lensing mass IS the shape. There is nothing inside the lensing peak — only geometry. This is why detection experiments find nothing: you cannot step outside the bowl to measure it. You ARE in the bowl."
+  },
+
+  "resources": {
+    "storage_gb": 8.5,
+    "ram_peak_gb": 2.0,
+    "duration_hours": 4.0,
+    "thermal_risk": "medium",
+    "battery_drain_pct_hr": 12,
+    "requires_charging": true,
+    "requires_wifi": true,
+    "min_free_storage_gb": 12.0,
+    "min_ram_gb": 3.0,
+    "safe_to_pause": true,
+    "checkpoint_every_urls": 3,
+    "warning": "Multi-telescope traversal: ~8.5 GB. Chandra FITS ~300 MB, Planck y-map ~800 MB, ALMA archive query. Charger + WiFi required. Pausable at any source boundary.",
+    "source_order_note": "Sources are evaluated in order. Gamma nulls (Fermi, HESS) are small TAP queries — fast. FITS sources (Planck, eROSITA) are large — run last. Chandra ObsIDs are metadata-only queries — fast."
+  }
+}

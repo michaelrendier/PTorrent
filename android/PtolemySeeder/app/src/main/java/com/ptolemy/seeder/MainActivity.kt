@@ -131,6 +131,7 @@ class MainActivity : AppCompatActivity() {
 
         outerLayout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
+            layoutParams = android.widget.FrameLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
             // top padding set dynamically by inset listener after layout
             setPadding(dp(12), dp(32), dp(12), dp(24))
         }

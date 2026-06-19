@@ -139,10 +139,22 @@ class SeedService : LifecycleService() {
         globalStopping.set(true)
         globalPaused.set(true)
         fileObserver?.stopWatching()
-        saveCheckpointsSync()
+        stopForeground(STOP_FOREGROUND_REMOVE)         // release foreground status first
+        wakeLock?.let { if (it.isHeld) it.release() } // then wake lock
+        saveCheckpointsSync()                          // then blocking I/O — no timeout risk
+        super.onDestroy()
+    }
+
+    // Android 14+ kills dataSync services after 6 hours — handle gracefully so
+    // START_STICKY can restart us and resume from checkpoints.
+    override fun onTimeout(startId: Int) {
+        globalStopping.set(true)
+        globalPaused.set(true)
+        fileObserver?.stopWatching()
         stopForeground(STOP_FOREGROUND_REMOVE)
         wakeLock?.let { if (it.isHeld) it.release() }
-        super.onDestroy()
+        saveCheckpointsSync()
+        stopSelf(startId)
     }
 
     override fun onTaskRemoved(rootIntent: Intent?) {
@@ -267,6 +279,13 @@ class SeedService : LifecycleService() {
 
     private fun startInboxWatcher() {
         val inbox  = File(extDir(), "inbox").also { it.mkdirs() }
+
+        // Process any .ptorrent files already in inbox at startup — FileObserver
+        // only fires for files arriving AFTER it starts watching, so files that
+        // were queued while the service was dead would otherwise be missed forever.
+        inbox.listFiles { f -> f.name.endsWith(".ptorrent") }
+            ?.forEach { f -> handleInboxFile(f.name) }
+
         val events = FileObserver.CLOSE_WRITE or FileObserver.MOVED_TO
         fileObserver = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             object : FileObserver(inbox, events) {
