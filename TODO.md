@@ -356,3 +356,68 @@ NOT exclusivity — it is ensuring the knowledge remains permanently open.
 - [ ] michaelrendier.info — real-world impact work (Erika Schafer collab, D-CHEM)
 - [ ] michaelrendier.online — personal tracker / Manfred Macx mode
 - [ ] Ensure all domain WhoIs records are consistent with trademark registrations
+
+---
+
+## 9. σ-face Evaluation Suite — Bug Fixes
+
+*From 2026-06-08 evaluation run. 10 datasets evaluated: 6 complete, 4 offline/broken.*
+
+### 9.1 Code Fixes in evaluate_σface.py
+
+- [ ] eval_planck(): add `mask = ells >= 50` before `scipy.signal.find_peaks`
+      Bug: l<50 Sachs-Wolfe plateau has local max near l≈6, misidentified as acoustic peak.
+      Current result: λ_fit = 20.83, inconclusive. After fix: test D5 prediction l_n = γ_n × λ.
+
+- [ ] eval_2mass(): use magnitude-based color ratio, not raw flux ratio
+      Bug: raw K/J flux ratio systematically < 0.246 for normal stars → 99.4% σ=∞ (wrong).
+      Fix: `J_ratio = 10**((row['j_m'] - row['k_m']) / 2.5)`
+      Expected result after fix: most stars σ=1 (Yang-Mills), hot O/B stars σ=½.
+
+### 9.2 Offline Dataset Access Paths
+
+- [ ] EHT M87* — Zenodo record 3836989 returning 404
+      TODO: Find current EHT Data Release 1 archive location.
+      Check: https://eventhorizontelescope.org/for-astronomers/data
+      Update eval_eht() URL in evaluate_σface.py.
+
+- [ ] JWST NIRSpec — MAST S3 key format unknown
+      Stephan's Quintet: program ID jw02114, NIRSpec IFU s3d products.
+      Candidate prefix: s3://stpubdata/jwst/public/jw02114001001/
+      TODO: Confirm key prefix via MAST Portal with auth, then update eval_jwst().
+
+- [ ] Breakthrough Listen — all known URLs broken
+      blpd14.ssl.berkeley.edu: SSL hostname mismatch; GCS seti-public: 403 Forbidden.
+      TODO: Find current BL open data access via breakthroughinitiatives.org.
+      Update eval_seti() in evaluate_σface.py.
+
+- [ ] Vera Rubin LSST — RSP OAuth2 required for live 40B-object TAP
+      Current peval uses published DR2 statistics as fallback.
+      TODO: Obtain RSP account at data.lsst.cloud for full TAP run.
+      The .ptorrent spec is correct; only auth credential is missing.
+
+---
+
+## 10. .ptorrent Format Spec v1.1
+
+*Issues found during 2026-06-08 evaluation run. J_ratio formula portability, retry policy, fallback URLs.*
+
+- [ ] Add `j_ratio_formula` field to .ptorrent evaluation section
+      J_ratio formula should be declarative in the spec, not buried in evaluate_σface.py.
+      Portable: any evaluator reads the formula from the spec, not hard-codes it.
+
+- [ ] Add `fallback_urls: []` field for mirror access paths
+      Planck IRSA/Lambda mirrors and EHT fallback URLs belong in the spec, not the evaluator.
+
+- [ ] Add `retry_policy: {on_network_offline: true}` field
+      NETWORK_OFFLINE peval files currently have no retry mechanism in the spec.
+
+- [ ] Add `peval_version: "1.0"` field to all peval output files
+      Schema version needed for future compatibility tracking.
+
+- [ ] Add `data_mode: "live_query" | "published_constants"` field
+      DESI BAO used hardcoded published values — spec should distinguish access modes explicitly.
+
+- [ ] Write `PTorrent/spec/ptorrent-format-v1.1.md` documenting all new fields
+
+- [ ] Update all 10 existing .ptorrent files in ptorrents/ to v1.1 format
