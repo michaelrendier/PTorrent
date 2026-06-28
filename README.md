@@ -258,10 +258,10 @@ Running it requires only `requests`. Set `NCBI_API_KEY` for higher rate limits.
 
 | Project | Description |
 |---------|-------------|
-| [PtolemyHolcus](https://github.com/michaelrendier/PtolemyHolcus) | Ptolemy LSHS desktop engine — the primary consumer of PTorrent bin files |
+| [VAPMIP](https://github.com/michaelrendier/VAPMIP) | Ptolemy LSHS engine (formerly PtolemyHolcus) — the primary consumer of PTorrent bin files |
 | [Ainulindale](https://github.com/michaelrendier/Ainulindale) | Ainulindale Conjecture research — the mathematical framework |
 | [ArdaQuenta](https://github.com/michaelrendier/ArdaQuenta) | Standalone engine implementation |
-| [ValaQuenta](https://github.com/michaelrendier/ValaQuenta) | Physics and cosmology modules |
+| [ValaQuenta](https://github.com/michaelrendier/ValaQuenta) | Derivation engine — mathematics, physics, cosmology, sedenion operators |
 
 ---
 
