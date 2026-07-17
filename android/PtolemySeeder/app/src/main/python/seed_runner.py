@@ -11,6 +11,7 @@ Called from SeedService.kt via Chaquopy.
 
 import json
 import os
+import re
 import threading
 from typing import Any, Callable, Dict, List, Optional
 
@@ -32,7 +33,11 @@ def _build_corpus(entry: Dict[str, Any], files_dir: str) -> GenericCorpus:
     :rtype: GenericCorpus
     """
     txt_path = os.path.join(files_dir, entry['txt']) if entry.get('txt') else None
-    bin_path = os.path.join(files_dir, entry['bin'])
+    raw_bin  = entry.get('bin') or entry.get('requires_bin') or ''
+    if not raw_bin:
+        name_slug = re.sub(r'[^a-z0-9]+', '_', entry.get('name', 'corpus').lower()).strip('_')[:32]
+        raw_bin   = f'monad_{name_slug}.bin'
+    bin_path = os.path.join(files_dir, raw_bin)
     primary_tags = set(entry.get('primary_tags', []))
 
     if txt_path is None or not os.path.exists(txt_path):
@@ -78,13 +83,25 @@ def run_all(
     threads = []
 
     for entry in corpus_list:
+        job_type = entry.get('type', 'corpus')
+        # phonebook and bare dataset entries have nothing to run.
+        if job_type in ('dataset', 'phonebook'):
+            continue
+        name = entry.get('name', entry.get('bin', '?'))
+        if job_type == 'evaluation':
+            t = threading.Thread(
+                target=_run_evaluation_thread,
+                args=(entry, files_dir, on_progress, results),
+                daemon=True,
+                name=f'eval-{name[:16]}',
+            )
+            threads.append(t)
+            continue
         try:
             corpus = _build_corpus(entry, files_dir)
         except Exception as e:
-            name = entry.get('name', entry.get('bin', '?'))
             results[name] = {'complete': False, 'error': f'build failed: {e}'}
             continue
-        name = entry.get('name', entry['bin'])
         t = threading.Thread(
             target=_seed_one,
             args=(corpus, name, on_progress, check_interval, results),
@@ -141,6 +158,17 @@ def run_one(
     name = entry.get('name', entry.get('bin', 'ptorrent'))
     _seed_one(corpus, name, on_progress, check_interval, results)
     return results.get(name, {})
+
+
+def _run_evaluation_thread(
+    entry: Dict[str, Any],
+    files_dir: str,
+    on_progress: Callable,
+    results: Dict[str, Any],
+) -> None:
+    """Thread target for evaluation-type PTorrent jobs in run_all()."""
+    name = entry.get('name', 'evaluation')
+    results[name] = _run_evaluation(entry, files_dir, on_progress)
 
 
 def _run_evaluation(

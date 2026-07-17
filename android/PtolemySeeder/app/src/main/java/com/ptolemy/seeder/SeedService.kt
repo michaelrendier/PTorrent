@@ -304,18 +304,45 @@ class SeedService : LifecycleService() {
         if (filename?.endsWith(".ptorrent") != true) return
         val file = File(File(extDir(), "inbox"), filename)
         try {
-            val obj      = JSONObject(file.readText())
+            val rawText  = file.readText()
+            android.util.Log.d("PTorrent", "inbox: parsing $filename (${rawText.length} bytes)")
+            val obj      = JSONObject(rawText)
             val listFile = File(extDir(), "corpus_list.json")
             val arr      = JSONArray(listFile.readText())
             val newName  = obj.optString("name", "")
+            android.util.Log.d("PTorrent", "inbox: name='$newName' corpus has ${arr.length()} entries")
             // deduplicate
             var exists = false
             for (i in 0 until arr.length()) {
                 if (arr.getJSONObject(i).optString("name") == newName) { exists = true; break }
             }
             if (!exists && newName.isNotEmpty()) {
-                arr.put(obj)
+                val reqBin  = obj.optString("requires_bin", "")
+                val binName = if (reqBin.isNotEmpty()) reqBin else
+                    "monad_" + newName.lowercase()
+                        .replace(Regex("[^a-z0-9]+"), "_").trim('_').take(32) + ".bin"
+                val isEval  = obj.has("evaluation") && obj.has("sources")
+                val entry = if (isEval) {
+                    // Evaluation ptorrent — preserve full structure (sources + evaluation)
+                    // so seed_runner can dispatch to EvaluationRunner without re-reading the file.
+                    JSONObject(obj.toString()).apply {
+                        put("type", "evaluation")
+                        put("bin",  binName)
+                    }
+                } else {
+                    // Corpus seeder — compact form is enough.
+                    JSONObject().apply {
+                        put("name",  newName)
+                        put("bin",   binName)
+                        put("color", obj.optString("color", "gold"))
+                        put("type",  obj.optString("type",  "ptorrent"))
+                        obj.optString("txt").takeIf { it.isNotEmpty() }?.let { put("txt", it) }
+                        obj.optJSONArray("primary_tags")?.let { put("primary_tags", it) }
+                    }
+                }
+                arr.put(entry)
                 listFile.writeText(arr.toString(2))
+                android.util.Log.i("PTorrent", "inbox: added '$newName' to corpus_list.json")
                 // pre-populate url list from embedded urls array
                 val urls = obj.optJSONArray("urls")?.let { a ->
                     (0 until a.length()).mapNotNull { i ->
@@ -327,9 +354,14 @@ class SeedService : LifecycleService() {
                     }
                 } ?: emptyList()
                 if (urls.isNotEmpty()) handler.post { SeedLiveData.setUrlList(newName, urls) }
+            } else {
+                android.util.Log.i("PTorrent", "inbox: '$newName' already in corpus, skipping")
             }
             file.delete()
-        } catch (_: Exception) {}
+            android.util.Log.d("PTorrent", "inbox: deleted $filename")
+        } catch (e: Throwable) {
+            android.util.Log.e("PTorrent", "inbox: handleInboxFile($filename) failed", e)
+        }
     }
 
     // ── corpus manifest ────────────────────────────────────────────────────

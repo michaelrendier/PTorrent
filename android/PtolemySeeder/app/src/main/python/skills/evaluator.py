@@ -428,7 +428,7 @@ def _named_fn(fn_name: str, row: dict, raw: dict, ev_spec: dict) -> Optional[flo
             except (TypeError, ValueError):
                 pass
 
-    elif fn_name == "σ_face_bec_bullet":
+    elif fn_name in ("σ_face_bec_bullet", "σ_face_bullet_alldata_dispatch"):
         # Bullet Cluster — BEC interference model.
         #
         # Framework prediction: "dark matter halos" are constructive interference
@@ -693,8 +693,15 @@ class EvaluationRunner:
                 total_errors.append(f"{src_name}: no mode specified, skipped")
                 continue
 
+            # Per-source j_expr / fn override the top-level evaluation spec.
+            src_ev_spec = dict(ev_spec)
+            for key in ('j_expr', 'j_expr_cols', 'j_col', 'j_num_col', 'j_den_col',
+                        'fn', 'sx_peak', 'j_ambient'):
+                if key in src_block:
+                    src_ev_spec[key] = src_block[key]
+
             faces, errors, count, elapsed, dataset_id = self._stream_source(
-                source, ev_spec, f"{name}/{src_name}"
+                source, src_ev_spec, f"{name}/{src_name}"
             )
 
             per_source.append({
