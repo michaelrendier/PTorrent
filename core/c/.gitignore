@@ -1,0 +1,13 @@
+# Build artifacts — the core is source; binaries are per-platform by definition.
+*.o
+*.a
+*.so
+*.so.*
+*.dll
+*.dylib
+*.lib
+tests/test_json
+tests/test_jexpr
+tests/test_sigma
+tests/test_ptfile
+tests/test_corpus
