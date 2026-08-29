@@ -421,3 +421,37 @@ NOT exclusivity — it is ensuring the knowledge remains permanently open.
 - [ ] Write `PTorrent/spec/ptorrent-format-v1.1.md` documenting all new fields
 
 - [ ] Update all 10 existing .ptorrent files in ptorrents/ to v1.1 format
+
+---
+
+## 11. Seed access hardening (2026-08-26, Cody)
+
+*Raised alongside a security audit of VAPMIP's daemon (real command-injection
+bug found and fixed same session, PtolC/search.c). Two separate, real gaps
+in the seed-access path — neither is the `security.level`/`classification`
+gating, which already exists and works; both are about the download/access
+step itself.*
+
+- [ ] **Password-protected seeds, human-vetted access.** Beyond the existing
+      `requires_credential`/`acknowledge_required` fields (which gate on
+      possessing an ORCID credential type), add a real human-in-the-loop
+      step: a requester has to actually reach the researcher (Cody, or
+      whoever seeded the file) and get a yes before the password/seed
+      unlocks. Cody: *"any researcher can verify if there is good enough
+      reason to let someone have access."* Not an automated policy check —
+      a real conversation gate, for content where that matters.
+
+- [ ] **Virus-scan-before-download, report-don't-block.** Scan a seed's
+      file against a well-known scanning service (e.g. VirusTotal) before
+      handing it to a downloader, and show the result — but do NOT block
+      the download on a positive hit. Cody: *"regular old data doesn't use
+      obfuscation or direct exploits...failed virus scan shouldn't block
+      download — some of this is computer, internet and cloud security
+      engineers...they want data like that."* The goal is informed consent
+      for the downloader (a security researcher legitimately wants the
+      flagged sample), not gatekeeping — the scan result is a label
+      attached to the file, not a gate on it. Distinct from the
+      `security.level` dual-use classification already in the spec: this
+      is about the bytes themselves (does curl/download-time scanning
+      catch an actual RAT/malware payload), not about who's allowed to see
+      classified research content.
