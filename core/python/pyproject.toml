@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ptorrent-core"
+version = "1.0.0.dev0"
+description = "PTorrent core — robots-compliant api-first crawler, in-situ σ-face evaluator, dataset phonebook, ORCID access gate, and a hash-linked chain of custody."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "LGPL-3.0-or-later" }
+authors = [{ name = "Cody Michael Allison", email = "the.wandering.god@gmail.com" }]
+dependencies = []                      # stdlib only
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.setuptools.packages.find]
+include = ["ptorrent_core*"]

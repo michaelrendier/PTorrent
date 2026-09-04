@@ -1,0 +1,331 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/michaelrendier/PTorrent/core/schema/v1.json",
+  "title": "PTorrent Core surface API — v1",
+  "description": "Co-equal contract: every method here has an identical-semantics Python binding on ptorrent_core.Engine. Transport-neutral (in-process call, or JSON-RPC 2.0 method of the same name over ptorrentd).",
+  "x-contract-version": "1.0.0-dev",
+
+  "$defs": {
+    "JobType":   { "enum": ["corpus", "dataset", "transfer", "phonebook", "evaluation"] },
+    "JobStatus": { "enum": ["QUEUED", "PREFLIGHT", "RUNNING", "PAUSED", "DONE", "ERROR", "BLOCKED"] },
+    "ItemStatus":{ "enum": ["PENDING", "ACTIVE", "OK", "OK_UNCHANGED", "SKIPPED", "MALFORMED", "ROBOTS_DENIED", "DEFERRED", "ERROR"] },
+    "ResolvedVia": { "enum": ["declared_api", "known_api", "sitemap", "feed", "html", "none"] },
+    "TLP":       { "enum": ["CLEAR", "GREEN", "AMBER", "AMBER+STRICT", "RED"] },
+    "IdentityState": { "enum": ["ANONYMOUS", "CLAIMED", "VERIFIED"] },
+    "SigmaFace": { "enum": ["undefined", "half", "one", "two", "inf"] },
+    "CustodyTxType": {
+      "enum": ["GENESIS", "ACQUIRE", "ANNOUNCE", "UPDATE", "RETIRE", "SEED", "UNSEED",
+               "SEED_LISTED", "SEED_UNLISTED", "MERGE", "EVALUATE", "PHONEBOOK_ADD",
+               "PHONEBOOK_VERIFY", "CLASSIFY", "ACKNOWLEDGE", "DISCLOSE", "REVOKE",
+               "FLAG", "NOTIFY", "REQUEST", "GRANT", "DENY", "VOTE", "VOTE_ADDRESSED",
+               "VOTE_DISPUTED"]
+    },
+
+    "Marking": {
+      "type": "object",
+      "properties": {
+        "tlp": { "$ref": "#/$defs/TLP" },
+        "level": { "type": "integer", "minimum": 0, "maximum": 3 },
+        "labels_hash": { "type": "string", "description": "sha256 of the durable label subset (excludes epss, scan)" }
+      },
+      "required": ["tlp", "level", "labels_hash"]
+    },
+
+    "SecurityLabels": {
+      "type": "object",
+      "description": "Normalised superset of the external warning-label standards. epss is advisory (not in labels_hash); scan is report-don't-block.",
+      "properties": {
+        "tlp":  { "$ref": "#/$defs/TLP" },
+        "iep":  { "type": "object" },
+        "cwe":  { "type": "array", "items": { "type": "string", "pattern": "^CWE-[0-9]+$" } },
+        "capec":{ "type": "array", "items": { "type": "string", "pattern": "^CAPEC-[0-9]+$" } },
+        "cvss": { "type": "object", "properties": {
+                    "version": { "type": "string" },
+                    "vector":  { "type": "string" },
+                    "score":   { "type": "number", "minimum": 0, "maximum": 10 } } },
+        "epss": { "type": "number", "minimum": 0, "maximum": 1 },
+        "ssvc": { "type": "object" },
+        "atlas":{ "type": "object", "properties": {
+                    "techniques": { "type": "array", "items": { "type": "string", "pattern": "^AML\\.T[0-9]{4}(\\.[0-9]{3})?$" } },
+                    "mitigations_applied": { "type": "array", "items": { "type": "string", "pattern": "^AML\\.M[0-9]{4}$" } },
+                    "note": { "type": "string" } } },
+        "hazard_class": { "type": "array", "items": {
+          "enum": ["crypto-attack-vector", "exploit-code", "malware-sample", "credential-dump",
+                   "poisoned-dataset", "adversarial-benchmark", "side-channel-measurement",
+                   "pre-publication-vuln", "pii", "phi", "financial-records"] } },
+        "advisory": { "type": "object", "properties": {
+                        "csaf_url": { "type": "string" }, "csaf_tlp": { "$ref": "#/$defs/TLP" } } },
+        "scan": { "type": "object" }
+      }
+    },
+
+    "PtFile": {
+      "type": "object",
+      "description": ".ptorrent spec v1.2. Unknown fields are retained (never discarded).",
+      "properties": {
+        "ptorrent_version": { "type": "string" },
+        "type": { "$ref": "#/$defs/JobType" },
+        "name": { "type": "string" },
+        "color": { "type": "string" },
+        "description": { "type": "string" },
+        "bin": { "type": "string" },
+        "txt": { "type": "string" },
+        "requires_bin": { "type": "string" },
+        "primary_tags": { "type": "array", "items": { "type": "string" } },
+        "urls": { "type": "array", "items": {
+          "type": "object", "properties": { "tag": {"type":"string"}, "url": {"type":"string"} },
+          "required": ["url"] } },
+        "source": { "type": "object" },
+        "phonebook": { "type": "object" },
+        "resources": { "type": "object" },
+        "evaluation": { "type": "object" },
+        "data_model": { "type": "object" },
+        "security": {
+          "type": "object",
+          "properties": {
+            "classification": { "enum": ["public", "sensitive", "restricted", "dual-use"] },
+            "level": { "type": "integer", "minimum": 0, "maximum": 3 },
+            "warning": { "type": "string" },
+            "embargo_until": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+            "contact_orcid": { "type": "string" },
+            "acknowledge_required": { "type": "boolean" },
+            "chain_of_custody": { "type": "boolean" },
+            "disclosure_ref": { "type": "string" },
+            "cve_id": { "type": "string" },
+            "labels": { "$ref": "#/$defs/SecurityLabels" }
+          },
+          "allOf": [
+            { "if": { "properties": { "level": { "minimum": 1 } } },
+              "then": { "required": ["labels"] } }
+          ]
+        },
+        "distribution": {
+          "type": "object",
+          "properties": {
+            "seed_listing": { "enum": ["off", "opt-in"], "default": "off" },
+            "trackers": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "crawl": {
+          "type": "object",
+          "properties": {
+            "seeds": { "type": "array", "items": {
+              "type": "object", "properties": { "tag": {"type":"string"}, "url": {"type":"string"} },
+              "required": ["url"] } },
+            "resolution": { "type": "array", "items": { "$ref": "#/$defs/ResolvedVia" } },
+            "scope": { "type": "object", "properties": {
+              "allow_hosts": {"type":"array"}, "allow_paths": {"type":"array"},
+              "deny_paths": {"type":"array"}, "max_depth": {"type":"integer"},
+              "max_pages": {"type":"integer"}, "same_host_only": {"type":"boolean"},
+              "follow": {"enum": ["none", "listed", "links"]} } },
+            "politeness": { "type": "object", "properties": {
+              "ua": {"type":"string"}, "robots_ua": {"type":["string","null"]},
+              "respect_robots": {"type":"boolean"},
+              "on_robots_unreachable": {"enum": ["allow", "deny"]},
+              "default_delay_s": {"type":"number"}, "max_delay_s": {"type":"number"},
+              "max_concurrent_per_host": {"type":"integer"},
+              "global_concurrency": {"type":"integer"}, "jitter": {"type":"boolean"},
+              "obey_retry_after": {"type":"boolean"}, "accept_language": {"type":"string"},
+              "send_from_header": {"type":"boolean"}, "host_ua": {"type":"object"},
+              "backoff": {"type":"object"} } },
+            "http": { "type": "object" },
+            "extract": { "type": "object" }
+          }
+        }
+      },
+      "required": ["type", "name"]
+    },
+
+    "Job": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "$ref": "#/$defs/JobType" },
+        "name": { "type": "string" },
+        "color": { "type": "string" },
+        "status": { "$ref": "#/$defs/JobStatus" },
+        "progress": { "type": "object" },
+        "error": { "type": "string" },
+        "security": {
+          "type": "object",
+          "properties": {
+            "level": { "type": "integer" }, "classification": { "type": "string" },
+            "embargo_until": { "type": "string" }, "contact_orcid": { "type": "string" },
+            "tlp": { "$ref": "#/$defs/TLP" }, "acknowledge_required": { "type": "boolean" }
+          }
+        }
+      },
+      "required": ["id", "type", "name", "status"]
+    },
+
+    "Item": {
+      "type": "object",
+      "properties": {
+        "idx": { "type": "integer" }, "tag": { "type": "string" }, "url": { "type": "string" },
+        "status": { "$ref": "#/$defs/ItemStatus" },
+        "resolved_via": { "$ref": "#/$defs/ResolvedVia" },
+        "robots_state": { "enum": ["", "allowed", "denied", "unreachable_allowed", "unreachable_denied"] },
+        "detail": { "type": "string" }
+      }
+    },
+
+    "Artifact": {
+      "type": "object",
+      "properties": {
+        "file_hash": { "type": "string" }, "file_name": { "type": "string" },
+        "kind": { "enum": ["bin", "peval", "ptorrent", "dump", "corpus", "blob"] },
+        "size": { "type": "integer" }, "retained": { "type": "boolean" },
+        "producer_orcid": { "type": "string" }, "source_url": { "type": "string" },
+        "fetched_at": { "type": "string" }, "parent_hash": { "type": "string" },
+        "job_id": { "type": "string" }, "labels_hash": { "type": "string" },
+        "tlp": { "$ref": "#/$defs/TLP" },
+        "votes": { "$ref": "#/$defs/VoteTally" },
+        "seeders": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "PhonebookEntry": {
+      "type": "object",
+      "properties": {
+        "key": { "type": "string" }, "name": { "type": "string" },
+        "domain_tags": { "type": "array", "items": { "type": "string" } },
+        "dataset_url": { "type": "string" }, "api": { "type": "object" },
+        "dumps": { "type": "array" }, "license": { "type": "string" },
+        "citation": { "type": "string" }, "size_records": { "type": "integer" },
+        "size_gb": { "type": "number" }, "last_verified": { "type": "string" },
+        "verify_status": { "enum": ["LIVE", "STALE", "DEAD", "UNKNOWN"] },
+        "security_level": { "type": "integer" }, "tlp": { "$ref": "#/$defs/TLP" },
+        "contact_orcid": { "type": "string", "description": "present only to a VERIFIED caller" },
+        "seen_count": { "type": "integer" }, "first_seen_by": { "type": "string" },
+        "last_seen_by": { "type": "array", "items": { "type": "string" } },
+        "live_seeds": { "type": "array" },
+        "listing_allowed": { "type": "boolean" },
+        "my_listing": { "enum": ["off", "anon", "identified"] }
+      }
+    },
+
+    "VoteTally": {
+      "type": "object",
+      "properties": {
+        "up": { "type": "integer" }, "down": { "type": "integer" },
+        "down_total": { "type": "integer" }, "addressed": { "type": "integer" },
+        "n": { "type": "integer" }, "pct": { "type": ["number", "null"] },
+        "score": { "type": "number", "description": "Wilson lower bound, for ranking" },
+        "reasons": { "type": "array", "items": {
+          "type": "object", "properties": {
+            "reason": { "type": "string" },
+            "status": { "enum": ["ACTIVE", "ADDRESSED", "DISPUTED"] },
+            "resolution": { "type": ["string", "null"] },
+            "fixed_hash": { "type": ["string", "null"] },
+            "voter": { "type": "string", "description": "ORCID to a VERIFIED viewer, else 'a verified researcher'" },
+            "ts": { "type": "string" } } } }
+      }
+    },
+
+    "AccessRequest": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }, "target": { "type": "string" },
+        "requester_orcid": { "type": "string" }, "owner_orcid": { "type": "string" },
+        "state": { "enum": ["OPEN", "CLARIFY", "GRANTED", "DENIED"] },
+        "thread": { "type": "array", "items": {
+          "type": "object", "properties": {
+            "actor": { "type": "string" }, "ts": { "type": "string" }, "text": { "type": "string" } } } },
+        "created": { "type": "string" }, "resolved": { "type": ["string", "null"] }
+      }
+    },
+
+    "Event": {
+      "type": "object",
+      "properties": {
+        "seq": { "type": "integer" }, "ts": { "type": "string" },
+        "kind": { "type": "string" }, "job_id": { "type": ["string", "null"] },
+        "payload": { "type": "object" }
+      },
+      "required": ["seq", "ts", "kind", "payload"]
+    },
+
+    "CustodyTx": {
+      "type": "object",
+      "properties": {
+        "type": { "$ref": "#/$defs/CustodyTxType" },
+        "timestamp": { "type": "number" }, "actor": { "type": "string" },
+        "object_hash": { "type": "string" }, "parent_hash": { "type": "string" },
+        "prev_hash": { "type": "string" }, "marking": { "$ref": "#/$defs/Marking" },
+        "note": { "type": "string" }, "sig": { "type": "string" },
+        "tx_hash": { "type": "string" }
+      }
+    },
+
+    "Snapshot": {
+      "type": "object",
+      "properties": {
+        "jobs": { "type": "array", "items": { "$ref": "#/$defs/Job" } },
+        "phonebook": { "type": "object", "properties": {
+          "count": { "type": "integer" }, "stale": { "type": "integer" }, "dead": { "type": "integer" } } },
+        "chain": { "type": "object", "properties": {
+          "tip_hash": { "type": "string" }, "height": { "type": "integer" }, "valid": { "type": "boolean" } } },
+        "identity": { "type": "object", "properties": {
+          "state": { "$ref": "#/$defs/IdentityState" }, "orcid": { "type": "string" },
+          "name": { "type": "string" } } },
+        "events_seq": { "type": "integer" }
+      }
+    }
+  },
+
+  "x-methods": {
+    "_comment": "name -> {kind, params, returns}. kind: query = pure/pollable, command = mutating + emits events.",
+
+    "snapshot":         { "kind": "query",   "params": {}, "returns": "#/$defs/Snapshot" },
+    "events":           { "kind": "query",   "params": { "since_seq": "integer", "limit": "integer?" }, "returns": "array<#/$defs/Event>" },
+    "job":              { "kind": "query",   "params": { "job_id": "string" }, "returns": "#/$defs/Job" },
+    "items":            { "kind": "query",   "params": { "job_id": "string", "offset": "integer?", "limit": "integer?" }, "returns": "array<#/$defs/Item>" },
+    "artifact":         { "kind": "query",   "params": { "file_hash": "string" }, "returns": "#/$defs/Artifact" },
+    "phonebook_search": { "kind": "query",   "params": { "q": "string", "domain": "string?", "api": "boolean?", "dump": "boolean?", "max_gb": "number?", "verified_since": "string?", "security_level": "integer?", "sort": "enum(seen,verified,score,size)?" }, "returns": "array<#/$defs/PhonebookEntry>" },
+    "phonebook_get":    { "kind": "query",   "params": { "key": "string" }, "returns": "#/$defs/PhonebookEntry" },
+    "votes_for":        { "kind": "query",   "params": { "target": "string" }, "returns": "#/$defs/VoteTally" },
+    "researcher":       { "kind": "query",   "params": { "orcid": "string" }, "returns": "#/$defs/Researcher (redacted unless caller VERIFIED)" },
+    "requests":         { "kind": "query",   "params": { "direction": "enum(incoming,outgoing)" }, "returns": "array<#/$defs/AccessRequest>" },
+    "preflight":        { "kind": "query",   "params": { "ptorrent": "#/$defs/PtFile" }, "returns": "PreFlightResult" },
+    "config":           { "kind": "query",   "params": {}, "returns": "object" },
+    "chain_export":     { "kind": "query",   "params": { "fmt": "enum(native,case,stix,aff4)" }, "returns": "object" },
+    "chain_verify":     { "kind": "query",   "params": {}, "returns": "{valid,height,tip_hash}" },
+    "wizard_questionnaire": { "kind": "query", "params": {}, "returns": "object" },
+
+    "add":              { "kind": "command", "params": { "ptorrent": "#/$defs/PtFile", "start": "boolean?", "sandbox": "boolean?", "trusted": "boolean?" }, "returns": "{job_id, phonebook_key, quarantine, preflight}" },
+    "start":            { "kind": "command", "params": { "job_id": "string" }, "returns": "#/$defs/Job" },
+    "pause":            { "kind": "command", "params": { "job_id": "string" }, "returns": "#/$defs/Job" },
+    "resume":           { "kind": "command", "params": { "job_id": "string" }, "returns": "#/$defs/Job" },
+    "abort":            { "kind": "command", "params": { "job_id": "string" }, "returns": "#/$defs/Job" },
+    "pause_all":        { "kind": "command", "params": {}, "returns": "null" },
+    "resume_all":       { "kind": "command", "params": {}, "returns": "null" },
+    "seed":             { "kind": "command", "params": { "file_hash": "string", "list_mode": "enum(off,anon,identified)?" }, "returns": "{file_hash, listed, list_mode}" },
+    "unseed":           { "kind": "command", "params": { "file_hash": "string" }, "returns": "{file_hash}" },
+    "vote":             { "kind": "command", "params": { "target": "string", "value": "enum(up,down)", "reason": "string? (required for down)" }, "returns": "{vote_id, tally}" },
+    "vote_address":     { "kind": "command", "params": { "vote_id": "string", "resolution": "string", "fixed_hash": "string?" }, "returns": "{tally, resolution_kind}" },
+    "vote_dispute":     { "kind": "command", "params": { "vote_id": "string", "reason": "string" }, "returns": "{tally}" },
+    "phonebook_add":    { "kind": "command", "params": { "entry": "#/$defs/PhonebookEntry" }, "returns": "{key}" },
+    "phonebook_verify": { "kind": "command", "params": { "key": "string|'all'" }, "returns": "{checked}" },
+    "identity_set":     { "kind": "command", "params": { "orcid": "string" }, "returns": "Identity" },
+    "identity_verify":  { "kind": "command", "params": {}, "returns": "Identity" },
+    "identity_begin":   { "kind": "command", "params": { "redirect_uri": "string" }, "returns": "{authorize_url, state}" },
+    "identity_complete":{ "kind": "command", "params": { "code": "string", "state": "string" }, "returns": "Identity" },
+    "identity_clear":   { "kind": "command", "params": {}, "returns": "Identity" },
+    "config_set":       { "kind": "command", "params": { "patch": "object" }, "returns": "object" },
+    "request_access":   { "kind": "command", "params": { "target": "string", "message": "string", "owner_orcid": "string?" }, "returns": "{request_id}" },
+    "request_clarify":  { "kind": "command", "params": { "request_id": "string", "message": "string" }, "returns": "{request_id, state}" },
+    "request_respond":  { "kind": "command", "params": { "request_id": "string", "message": "string" }, "returns": "{request_id, state}" },
+    "grant_access":     { "kind": "command", "params": { "request_id": "string", "secret": "string" }, "returns": "{deliver_to, secret, target, transitive}" },
+    "deny_access":      { "kind": "command", "params": { "request_id": "string", "reason": "string" }, "returns": "{request_id, state}" },
+    "contact":          { "kind": "command", "params": { "orcid": "string", "message": "string" }, "returns": "{thread_id}" },
+    "ptorrent_build":   { "kind": "command", "params": { "answers": "object" }, "returns": "{ptorrent, warnings}" }
+  },
+
+  "x-errors": {
+    "PT_OK": 0, "E_INVAL": -1, "E_NOMEM": -2, "E_PARSE": -3, "E_IO": -4,
+    "E_NOTFOUND": -5, "E_UNSUPPORTED": -6, "E_TYPE": -7, "E_TRUNCATED": -8,
+    "E_INDEX_MISMATCH": -9,
+    "E_IDENTITY": -20, "E_SELF_VOTE": -21, "E_DUP_VOTE": -22, "E_EMBARGO": -23,
+    "E_ROBOTS": -24, "E_QUARANTINE": -25, "E_ACCESS": -26, "E_MARKING_DOWNGRADE": -27
+  }
+}

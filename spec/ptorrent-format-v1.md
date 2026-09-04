@@ -1,5 +1,9 @@
 # PTorrent Format Specification — v1.0
 
+> **Superseded by [`ptorrent-format-v1.2.md`](ptorrent-format-v1.2.md).** This
+> file remains the reference for the `data_model`, `resources`, `source`, and
+> `phonebook` objects, which v1.2 carries forward unchanged.
+
 **Author:** Cody Michael Allison  
 **Status:** Stable  
 **MIME type:** `application/x-ptorrent`  

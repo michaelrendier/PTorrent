@@ -1,5 +1,12 @@
 # PTorrent File Format Specification v1.0
 
+> **This page describes v1.0 and is retained for historical reference.**
+> The current format is **v1.2** — see
+> [`spec/ptorrent-format-v1.2.md`](../spec/ptorrent-format-v1.2.md) for the
+> `crawl`, `distribution`, and `security.labels` blocks, the api-first
+> resolution ladder, binary/image evaluation reductions, and the custody-chain
+> `marking`. Core module map: [Core-Architecture.md](Core-Architecture.md).
+
 ## Overview
 
 ```
