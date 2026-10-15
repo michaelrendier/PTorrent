@@ -1,0 +1,16 @@
+THIRD-PARTY NOTICES
+
+WordNet
+-------
+This repository contains a file derived from WordNet 3.0 (bin_archive/dirty/monad_boxkite_wordnet.pkl) and code that reads WordNet.
+
+WordNet 3.0 Copyright 2006 by Princeton University. All rights reserved.
+The full license, which must appear on ALL copies of the software, database and documentation, including modifications
+made for internal use or for distribution, is reproduced verbatim in WORDNET_LICENSE.txt next to this file.
+That license says the name of Princeton University or Princeton may not be used in advertising or publicity pertaining to
+distribution of the software and/or database; this project's documents mention WordNet and its authors only as sources
+and citations.
+
+Cite: Miller, G. A. (1995). WordNet: A Lexical Database for English. Communications of the ACM 38(11), 39-41.
+      Fellbaum, C. (ed.) (1998). WordNet: An Electronic Lexical Database. Cambridge, MA: MIT Press.
+
