@@ -37,3 +37,7 @@ Older bins (e.g. monad_wordnet.bin before 2026-05-15) may be C binary format.
 The C binary format is detected by `eval_checkpoint.py`; pickle bins will
 produce "Bad magic number" errors in that tool — load with `load_checkpoint()`
 instead.
+
+## Moved to dirty/ on 2026-10-17
+
+Every granular (domain) bin was moved from `clean/` to `dirty/`: c, foundations, mathematics, meaning, physics, python, sedenion, war (each with its `holcus_` copy) and the phone pulls of foundations, meaning and fermat. Each has a `<name>.POISON.md` beside it (measurements by `VAPMIP/Wernicke/sanitize/sanitize_v0.py`; copies of the notes are in `ContextPlease/claude/monad_bin/poison_notes/`). The English carrier bins stay in `clean/`. New sanitised maths and physics bins are built from the corpus lists in `android/PtolemySeeder/app/src/main/assets/`.
