@@ -36,3 +36,4 @@ secrets/
 Thumbs.db
 *.swp
 *~
+corpus_text/
