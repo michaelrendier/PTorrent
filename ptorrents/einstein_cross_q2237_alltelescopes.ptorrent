@@ -1,0 +1,181 @@
+{
+  "ptorrent_version": "1.2",
+  "type": "dataset",
+  "name": "Einstein Cross (Huchra's Lens, Q2237+0305) — every telescope that resolved it",
+  "color": "purple",
+  "primary_tags": [
+    "Q2237+0305", "EINSTEIN_CROSS", "HUCHRAS_LENS", "QSO_J2240+0321", "LENSING",
+    "QUAD_LENS", "PTYCHOGRAPHY", "L_IO", "POLARIZATION", "MICROLENSING", "MULTIWAVELENGTH"
+  ],
+  "description": "Archive observations of Q2237+0305 (the most-cited Einstein Cross) from telescopes whose resolution separates the four images; fetch only, evaluation is a separate in_situ.ptorrent.",
+
+  "output": "einstein_cross_q2237_manifest.json",
+  "output_format": "json",
+  "checkpoint_every": 25,
+
+  "field_centre": {
+    "ra_deg": 340.125975,
+    "dec_deg": 3.3585083,
+    "radius_arcmin": 0.6,
+    "note": "SIMBAD main id QSO J2240+0321 = QSO B2237+0305 = NAME Einstein Cross = NAME Huchra's Lens. ICRS, resolved 2026-10-17 via simbad.cds.unistra.fr TAP. The four images lie within about 2 arcsec; the 0.6 arcmin radius only absorbs pointing offsets."
+  },
+
+  "selection_rule": {
+    "resolved": "An instrument is listed in `sources` only if its spatial resolution separates the four images (about 2 arcsec across). Unresolved coverage of the same position is recorded in `unresolved_coverage`, never fetched.",
+    "product_class": "Per-exposure calibrated frames (HST calib_level 2: _flt/_flc, not drizzled). Drizzled mosaics resample away the sub-pixel dither offsets that ptychography needs; they are fetched only when a per-exposure frame does not exist.",
+    "archives": "public archives only; no login; every request carries a Mozilla user agent"
+  },
+
+  "sources": [
+    {
+      "name": "hst_mast_q2237",
+      "telescope": "Hubble Space Telescope",
+      "instrument": "ACS/WFC, ACS/HRC, ACS/SBC, WFC3/UVIS, WFC3/IR, WFPC2, WFPC, FOC/96, NICMOS NIC1/NIC2/NIC3, STIS (imaging + spectra)",
+      "waveband": "uv_optical_nir",
+      "role": "image_plane_astrometry_and_dithers",
+      "mode": "tap_adql",
+      "endpoint": "https://mast.stsci.edu/vo-tap/api/v0.1/caom/sync",
+      "query": "SELECT obs_id, instrument_name, target_name, calib_level, dataproduct_type, t_min, t_exptime, em_min, em_max, pol_states, access_url, access_estsize FROM ivoa.obscore WHERE obs_collection='HST' AND calib_level=2 AND 1=CONTAINS(POINT('ICRS',s_ra,s_dec),CIRCLE('ICRS',340.125975,3.3585083,0.01)) AND (target_name LIKE '%2237%' OR target_name LIKE '%EINSTEIN%')",
+      "verified": "2026-10-17 by archive query",
+      "counts": {
+        "calib_level_2_products": 3121,
+        "calib_level_2_gib": 60.8,
+        "calib_level_3_products_not_fetched": 1327,
+        "calib_level_3_gib_not_fetched": 43.4,
+        "by_instrument_level2": {
+          "ACS": {"n": 656, "gib": 18.0},
+          "WFC3": {"n": 1424, "gib": 24.66},
+          "WFPC2": {"n": 387, "gib": 16.45},
+          "NICMOS": {"n": 468, "gib": 1.44},
+          "WFPC": {"n": 90, "gib": 0.22},
+          "FOC": {"n": 48, "gib": 0.04},
+          "STIS": {"n": 48, "gib": 0.0}
+        }
+      },
+      "proposals_seen_in_cone_search": ["1059", "1116", "2502", "2996", "3068", "3087", "3799", "5236", "5937", "7495", "8252", "11225", "11791", "13113", "13801"],
+      "j_expr": "t_exptime / 1000.0",
+      "j_expr_cols": ["t_exptime"],
+      "auth": "none",
+      "citation": "Huchra et al. 1985 AJ 90 691; observations from the Mikulski Archive for Space Telescopes (STScI)"
+    },
+
+    {
+      "name": "chandra_acis_s_q2237",
+      "telescope": "Chandra X-ray Observatory",
+      "instrument": "ACIS-S (no grating)",
+      "waveband": "xray",
+      "role": "xray_image_resolved_and_variability",
+      "mode": "tap_adql",
+      "endpoint": "https://heasarc.gsfc.nasa.gov/xamin/vo/tap/sync",
+      "query": "SELECT obsid, detector, grating, exposure, time, name, proposal, public_date, status FROM chanmaster WHERE 1=CONTAINS(POINT('ICRS',ra,dec),CIRCLE('ICRS',340.125975,3.3585083,0.05)) ORDER BY time",
+      "verified": "2026-10-17 by archive query",
+      "counts": {"obsids": 40, "exposure_ks": 835.5, "first_mjd": 51793.7, "last_mjd": 58496.5, "size_gb": null, "size_note": "chanmaster does not publish product sizes; measure at download"},
+      "j_expr": "exposure / 30000.0",
+      "j_expr_cols": ["exposure"],
+      "auth": "none",
+      "citation": "Dai et al. 2003 ApJ 589 100 (Chandra observations of QSO 2237+0305)"
+    },
+
+    {
+      "name": "alma_band7_q2237",
+      "telescope": "ALMA",
+      "instrument": "ALMA Band 7 (287-301 GHz), dual linear XX/YY",
+      "waveband": "submm",
+      "role": "finest_polarization_candidate_and_dust_continuum",
+      "mode": "tap_adql",
+      "endpoint": "https://almascience.eso.org/tap/sync",
+      "query": "SELECT target_name, proposal_id, band_list, frequency, pol_states, spatial_resolution, t_exptime, obs_release_date, member_ous_uid FROM ivoa.obscore WHERE 1=CONTAINS(POINT('ICRS',s_ra,s_dec),CIRCLE('ICRS',340.125975,3.3585083,0.02))",
+      "verified": "2026-10-17 by archive query",
+      "counts": {"member_ous": 1, "proposal_id": "2021.1.00675.S", "exposure_s": 2993.76, "spatial_resolution_arcsec": 0.207, "pol_states": "/XX/YY/", "size_gb": null, "size_note": "ObsCore reports no size; measure at download"},
+      "auth": "none",
+      "citation": "ADS/JAO.ALMA#2021.1.00675.S"
+    },
+
+    {
+      "name": "eso_vlt_ntt_garching_q2237",
+      "telescope": "ESO VLT UT1-UT4, NTT, MPG/ESO 2.2m",
+      "instrument": "FORS1, FORS2, ISAAC, SINFONI, GIRAFFE, X-shooter, EMMI, GROND",
+      "waveband": "optical_nir",
+      "role": "resolved_spectra_ifu_microlensing",
+      "mode": "tap_adql",
+      "endpoint": "https://archive.eso.org/tap_obs/sync",
+      "query": "SELECT telescope, instrument, dp_tech, dp_id, date_obs, exposure, access_estsize, access_url FROM dbo.raw WHERE ra BETWEEN 340.115 AND 340.137 AND dec BETWEEN 3.350 AND 3.367 AND dp_cat='SCIENCE'",
+      "verified": "2026-10-17 by archive query",
+      "counts": {
+        "science_frames": 494,
+        "approx_gb": 3.1,
+        "by_instrument": {"GROND": 175, "FORS1": 117, "SINFONI": 48, "ISAAC": 70, "GIRAFFE": 26, "XSHOOTER": 48, "FORS2": 8, "EMMI": 2},
+        "note": "GROND (2.2m, about 1 arcsec seeing) is the marginal case; kept because the images are partly separable in good seeing; flag per frame by the recorded seeing (tel_ambi_fwhm_*) before use"
+      },
+      "auth": "none",
+      "citation": "Based on observations collected at the European Southern Observatory; programme IDs are recorded per frame in dbo.raw prog_id"
+    }
+  ],
+
+  "pending": [
+    {
+      "status": "candidate, archive not yet queried",
+      "telescope": "NRAO VLA",
+      "reason": "Falco et al. 1996 (astro-ph/9606048) resolved all four images at 3.6 cm; the NRAO TAP service returned nothing for this position in the 2026-10-17 pass, so existence of archive data is unconfirmed",
+      "polarization": "unknown; the quasar is radio-quiet (about 0.7 mJy) so Stokes Q/U may be a non-detection"
+    },
+    {
+      "status": "candidate, archive not yet queried",
+      "telescope": "OGLE (Warsaw 1.3 m)",
+      "reason": "OGLE light-curve monitoring of the images is in the literature (Wozniak et al. 1999/2000); public photometry, not an archive of frames"
+    },
+    {
+      "status": "candidate from memory, not confirmed by this pass",
+      "telescope": "CFHT, Nordic Optical Telescope, Keck, Gemini, Subaru, Magellan, Calar Alto 3.5 m, Apache Point 3.5 m, Liverpool Telescope, Maidanak",
+      "reason": "ground-based imaging and integral-field work on Q2237+0305 is expected from the lensing literature; each archive (CADC, KOA, GOA, SMOKA, ...) still has to be queried before anything is listed as a source"
+    }
+  ],
+
+  "unresolved_coverage": [
+    {"telescope": "XMM-Newton EPIC", "obsids": ["0110960101", "0781210201", "0823730101"], "reason": "PSF too large to separate the images; recorded, not fetched"},
+    {"telescope": "HST COS", "products": 161, "reason": "2.5 arcsec aperture integrates the whole cross; recorded, not fetched"},
+    {"telescope": "GALEX, SDSS, PS1, TESS, IUE", "reason": "arcsecond-scale PSF or larger; coverage only"}
+  ],
+
+  "data_model": {
+    "type": "tap_catalog",
+    "dimensions": ["ra", "dec", "time", "wavelength"],
+    "units": {"pos": "deg", "exposure": "s", "time": "mjd"},
+    "native_format": "FITS",
+    "wcs": true,
+    "access": {"mode": "tap_adql", "note": "each source carries its own endpoint and query; products are then fetched from the access_url in each row"}
+  },
+
+  "polarization_inventory": {
+    "recorded": "2026-10-17",
+    "finding": "No Stokes Q/U product found at any verified archive. Negatives are recorded as negatives.",
+    "hst": "none: the filter list of the 172 target-named HST observations in the CAOM cone search contains no polarizer element (ACS POL*V, WFPC2 POLQ, NICMOS POL*S, FOC polarizers); CLEAR/F-series only",
+    "eso": "none: no POL/PMOS/IPOL mode among the science frames in dbo.raw",
+    "alma": "finest-grained polarization-capable data found: Band 7, 0.207 arcsec, XX/YY only (cross-hands not advertised), so Stokes I and Q are derivable and U is not",
+    "chandra_xmm": "intensity and spectra only, no polarimetry",
+    "vla": "unknown, see pending"
+  },
+
+  "security": {
+    "classification": "public",
+    "level": 0,
+    "labels": {"tlp": "CLEAR"}
+  },
+
+  "resources": {
+    "storage_gb": 70,
+    "duration_hours": 24,
+    "min_free_storage_gb": 100,
+    "requires_wifi": true,
+    "safe_to_pause": true,
+    "checkpoint_every_urls": 25,
+    "warning": "About 61 GiB of HST per-exposure frames plus ESO (about 3 GB), Chandra and ALMA (sizes unpublished). The estimate is 65-75 GB. Free space on /home was 137 GB on 2026-10-17."
+  },
+
+  "distribution": {"seed_listing": "off"},
+
+  "companion_ptorrent": {
+    "file": "in_situ.ptorrent",
+    "relation": "The in_situ layer evaluates this dataset where it lives; it is a separate file and a separate console tab. Not written yet."
+  }
+}
